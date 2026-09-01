@@ -458,38 +458,7 @@
                             </div>
                         </template>
 
-                        <!-- 5. Contact -->
-                        <template x-if="section.id === 'phone'">
-                            <div class="px-8 pb-10 space-y-8">
-                                <div class="space-y-4">
-                                    <div class="font-bold text-blue-900 border-b pb-2 mb-4 text-center">신랑측</div>
-                                    <template x-for="p in getPhones('groom')">
-                                        <div @click="window.location.href='tel:'+p.phone"
-                                            class="flex justify-between items-center p-3 bg-gray-50 rounded-lg cursor-pointer active:bg-gray-100 transition-colors">
-                                            <div class="flex items-center gap-3">
-                                                <span class="font-medium text-gray-700" x-text="p.label"></span>
-                                                <span class="text-xs text-gray-400" x-text="p.phone"></span>
-                                            </div>
-                                            <div class="text-blue-500 text-lg">📞</div>
-                                        </div>
-                                    </template>
-                                </div>
-                                <div class="space-y-4">
-                                    <div class="font-bold text-pink-900 border-b pb-2 mb-4 text-center">신부측</div>
-                                    <template x-for="p in getPhones('bride')">
-                                        <div @click="window.location.href='tel:'+p.phone"
-                                            class="flex justify-between items-center p-3 bg-gray-50 rounded-lg cursor-pointer active:bg-gray-100 transition-colors">
-                                            <div class="flex items-center gap-3">
-                                                <span class="font-medium text-gray-700" x-text="p.label"></span>
-                                                <span class="text-xs text-gray-400" x-text="p.phone"></span>
-                                            </div>
-                                            <div class="text-pink-500 text-lg">📞</div>
-                                        </div>
-                                    </template>
-                                </div>
-                            </div>
-                        </template>
-
+                        <!-- 5. Contact -->                        
                         <template x-if="section.id === 'phone'">
                         <div class="px-8 pb-10" x-data="{ openPhoneModal: false }">
                             <div class="text-center text-xs text-gray-400 mb-4">CONTACT</div>
