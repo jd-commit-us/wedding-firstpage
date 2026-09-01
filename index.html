@@ -461,8 +461,6 @@
                         <!-- 5. Contact -->                        
                         <template x-if="section.id === 'phone'">
                         <div class="px-8 pb-10" x-data="{ openPhoneModal: false }">
-                            <div class="text-center text-xs text-gray-400 mb-4">CONTACT</div>
-
                             <div class="max-w-xs mx-auto">
                                 <button 
                                     @click="openPhoneModal = true"
@@ -573,9 +571,7 @@
 
                         <!-- 6. Accounts (Layer Modal Type) -->
                         <template x-if="section.id === 'accounts'">
-                            <div class="px-8 pb-10" x-data="{ openModal: null }">
-                                <div class="text-center text-xs text-gray-400 mb-6">마음 전하실 곳</div>
-
+                            <div class="px-8 pb-10" x-data="{ openModal: null }">                                
                                 <!-- 1. 신랑측 / 신부측 계좌 열기 버튼 -->
                                 <div class="space-y-3">
                                     <button 
