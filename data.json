@@ -16,7 +16,7 @@
         "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
         "tmap":  "https://tmap.life/461d4003"
       },
-      "mapImage": "https://jd-commit-us.github.io/wedding-firstpage/resource/images/map/mj_location.jpg",
+      "mapImage": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/map/mj_location.png",
       "lat": 37.4819407,
       "lng": 126.7984955
     },
