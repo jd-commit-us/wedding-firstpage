@@ -458,26 +458,37 @@
                                 </div>
                             </div>
                         </template>
-
-                        <!-- 5. Contact -->                        
+                        
+                        <!-- 5. Contact (Layer Modal Type: Groom / Bride Separated) -->
                         <template x-if="section.id === 'phone'">
-                            <div class="px-8 pb-10" 
-                                x-data="{ openPhoneModal: false }"
-                                x-init="$watch('openPhoneModal', value => document.body.style.overflow = value ? 'hidden' : '')">                                                                
-
-                                <div class="max-w-xs mx-auto">
+                            <div class="px-8 pb-10" x-data="{ openContactModal: null }">                                
+                                <!-- 1. 신랑측 / 신부측 축하 연락처 열기 버튼 -->
+                                <div class="space-y-3">
                                     <button 
                                         type="button"
-                                        @click="openPhoneModal = true"
-                                        class="w-full py-3.5 px-5 bg-white hover:bg-gray-50 active:scale-[0.99] text-gray-700 font-bold text-xs rounded-2xl flex items-center justify-center gap-2 border border-gray-200 shadow-sm transition-all">
-                                        <span>📞</span>
-                                        <span>축하 연락처 보기</span>
+                                        @click="openContactModal = 'groom'"
+                                        class="w-full py-3.5 px-5 bg-blue-50/70 hover:bg-blue-100/70 active:scale-[0.99] text-blue-700 font-bold text-xs rounded-xl flex items-center justify-between border border-blue-100 transition-all shadow-sm">
+                                        <span class="flex items-center gap-1.5">
+                                            <span>📞</span> 신랑측 축하 연락처 보기
+                                        </span>
+                                        <span class="text-blue-400 text-[10px]">열기 →</span>
+                                    </button>
+
+                                    <button 
+                                        type="button"
+                                        @click="openContactModal = 'bride'"
+                                        class="w-full py-3.5 px-5 bg-pink-50/70 hover:bg-pink-100/70 active:scale-[0.99] text-pink-700 font-bold text-xs rounded-xl flex items-center justify-between border border-pink-100 transition-all shadow-sm">
+                                        <span class="flex items-center gap-1.5">
+                                            <span>📞</span> 신부측 축하 연락처 보기
+                                        </span>
+                                        <span class="text-pink-400 text-[10px]">열기 →</span>
                                     </button>
                                 </div>
 
+                                <!-- 2. 연락처 레이어 팝업 (Modal) -->
                                 <template x-teleport="body">
                                     <div 
-                                        x-show="openPhoneModal" 
+                                        x-show="openContactModal !== null" 
                                         x-transition:enter="transition ease-out duration-200"
                                         x-transition:enter-start="opacity-0"
                                         x-transition:enter-end="opacity-100"
@@ -485,91 +496,65 @@
                                         x-transition:leave-start="opacity-100"
                                         x-transition:leave-end="opacity-0"
                                         @touchmove.self.prevent
-                                        @click.self="openPhoneModal = false"
+                                        @click.self="openContactModal = null"
                                         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
                                         style="display: none;">
 
+                                        <!-- 팝업 본문 카드 -->
                                         <div 
-                                            x-show="openPhoneModal"
+                                            x-show="openContactModal !== null"
                                             x-transition:enter="transition ease-out duration-200"
                                             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
                                             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
                                             x-transition:leave="transition ease-in duration-150"
                                             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                                             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-                                            class="w-full max-w-sm bg-white rounded-3xl shadow-2xl p-6 border border-gray-100">
+                                            class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-gray-100 relative">
                                             
+                                            <!-- 팝업 헤더 -->
                                             <div class="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
                                                 <h3 class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
-                                                    <span>📞</span> 축하 연락처 안내
+                                                    <span x-text="openContactModal === 'groom' ? '💙' : '💗'"></span>
+                                                    <span x-text="openContactModal === 'groom' ? '신랑측 축하 연락처' : '신부측 축하 연락처'"></span>
                                                 </h3>
-                                                <button 
-                                                    type="button"
-                                                    @click="openPhoneModal = false" 
-                                                    class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
+                                                <button type="button" @click="openContactModal = null" class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
                                                     ✕
                                                 </button>
                                             </div>
 
-                                            <div class="space-y-6 max-h-[65vh] overflow-y-auto px-0.5">
-                                                
-                                                <div>
-                                                    <div class="text-[11px] font-bold text-blue-600 mb-2.5 flex items-center gap-1">
-                                                        <span>💙</span> 신랑측
-                                                    </div>
-                                                    <div class="space-y-2 bg-blue-50/30 p-2.5 rounded-2xl border border-blue-100/50">
-                                                        <template x-for="p in getPhones('groom')">
-                                                            <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-blue-100/60 shadow-xs">
-                                                                <div>
-                                                                    <span class="font-bold text-xs text-gray-700 block" x-text="p.label"></span>
-                                                                    <span class="text-[11px] text-gray-400 font-mono" x-text="p.phone"></span>
-                                                                </div>
-                                                                <div class="flex items-center gap-1.5">
-                                                                    <a :href="'tel:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-[11px] rounded-lg text-blue-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
-                                                                        <span>📞</span> 전화
-                                                                    </a>
-                                                                    <a :href="'sms:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-gray-50 hover:bg-gray-100 text-[11px] rounded-lg text-gray-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
-                                                                        <span>💬</span> 문자
-                                                                    </a>
-                                                                </div>
+                                            <!-- 연락처 목록 렌더링 -->
+                                            <div class="space-y-3 max-h-72 overflow-y-auto pr-0.5">
+                                                <template x-for="(contact, idx) in (openContactModal === 'groom' ? getAllContacts('groom') : (openContactModal === 'bride' ? getAllContacts('bride') : []))" :key="idx">
+                                                    <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                                                        <div class="space-y-0.5">
+                                                            <div class="flex items-center gap-1.5">
+                                                                <span :class="openContactModal === 'groom' ? 'text-blue-600' : 'text-pink-600'" class="text-[11px] font-bold" x-text="contact.relation"></span>
+                                                                <span class="font-bold text-xs text-gray-800" x-text="contact.name"></span>
                                                             </div>
-                                                        </template>
+                                                            <div class="text-xs text-gray-600 font-mono tracking-tight" x-text="contact.phone"></div>
+                                                        </div>
+                                                        <div class="flex items-center gap-1.5 shrink-0">
+                                                            <!-- 전화 걸기 버튼 -->
+                                                            <a :href="`tel:${contact.phone}`" 
+                                                            class="p-2 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
+                                                            title="전화 걸기">
+                                                                📞
+                                                            </a>
+                                                            <!-- 문자 보내기 버튼 -->
+                                                            <a :href="`sms:${contact.phone}`" 
+                                                            class="p-2 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
+                                                            title="문자 보내기">
+                                                                💬
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div>
-                                                    <div class="text-[11px] font-bold text-pink-600 mb-2.5 flex items-center gap-1">
-                                                        <span>💗</span> 신부측
-                                                    </div>
-                                                    <div class="space-y-2 bg-pink-50/30 p-2.5 rounded-2xl border border-pink-100/50">
-                                                        <template x-for="p in getPhones('bride')">
-                                                            <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-pink-100/60 shadow-xs">
-                                                                <div>
-                                                                    <span class="font-bold text-xs text-gray-700 block" x-text="p.label"></span>
-                                                                    <span class="text-[11px] text-gray-400 font-mono" x-text="p.phone"></span>
-                                                                </div>
-                                                                <div class="flex items-center gap-1.5">
-                                                                    <a :href="'tel:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-pink-50 hover:bg-pink-100 text-[11px] rounded-lg text-pink-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
-                                                                        <span>📞</span> 전화
-                                                                    </a>
-                                                                    <a :href="'sms:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-gray-50 hover:bg-gray-100 text-[11px] rounded-lg text-gray-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
-                                                                        <span>💬</span> 문자
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </template>
-                                                    </div>
-                                                </div>
-
+                                                </template>
                                             </div>
 
+                                            <!-- 닫기 버튼 -->
                                             <button 
                                                 type="button"
-                                                @click="openPhoneModal = false"
+                                                @click="openContactModal = null"
                                                 class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
                                                 닫기
                                             </button>
