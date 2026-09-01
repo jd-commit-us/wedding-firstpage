@@ -733,7 +733,7 @@
                         this.data = await (await fetch(`data.json?v=${timestamp}`)).json();
 
                         // Kakao Init for Share
-                        const kKey = this.data.config.secrets.kakaoApiKey || 'dacffa882aa3284870d06afa02bd5947';
+                        const kKey = this.data.config.secrets.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
                         if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
                             Kakao.init(kKey);
                         }
@@ -1013,7 +1013,7 @@
                 handleTouchStart(e) { if (this._createExplosion) this._createExplosion(e.touches[0].clientX, e.touches[0].clientY); },
 
                 initMap() {
-                    const key = this.data.config.secrets.kakaoApiKey || 'dacffa882aa3284870d06afa02bd5947';
+                    const key = this.data.config.secrets.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
                     const container = document.getElementById('map');
                     if (!container) return;
 
