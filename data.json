@@ -5,16 +5,16 @@
       "name": "소사 MJ 컨벤션",
       "phone": "02-541-5007",
       "address": "경기도 부천시 소사구 경인로 386",
-      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[내부주차 300대 수용 가능]</u></p>",
+      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[5층 그랜드볼룸]</u></p>",
       "mapLinks": {
-        "naver": "https://map.naver.com/p/entry/place/21413303",
-        "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=17416438",
-        "tmap": "https://poi.tmobiweb.com/app/share/position?contents=cGtleT0yOTA2ODA0MDAmcG9pSWQ9MjkwNjgwNCZuYXZTZXE9MCZ0eXBlPTImcG9pTmFtZT0lRUIlQTclODglRUIlQTYlQUMlRUMlOTUlODQlRUMlQTUlQUMlRUMlOEElQTQlRUQlODAlOTglRUMlOTYlQjQmY2VudGVyWD00NTczMzkzJmNlbnRlclk9MTM1MDY4MyZ0aW1lPTIwMjUlRUIlODUlODQrMDklRUMlOUIlOTQrMjYlRUMlOUQlQkMrMDclM0EzNSZ0ZWw9MDItNTQxLTUwMDcmYWRkcj0lRUMlODQlOUMlRUMlOUElQjgrJUVBJUIwJTk1JUVCJTgyJUE4JUVBJUI1JUFDKyVFQiU4RiU4NCVFQyU4MiVCMCVFQiU4QyU4MCVFQiVBMSU5QyszMTg",
-        "google": "https://maps.app.goo.gl/iQ5VbCdJjo3anBcx6"
+        "naver": "https://map.naver.com/p/entry/place/37537597",
+        "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
+        "tmap":  "https://tmap.life/461d4003",
+        "google": "https://maps.app.goo.gl/PJsju5CFUeXmxdZh9"
       },
       "navLinks": {
-        "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=17416438",
-        "tmap": "https://poi.tmobiweb.com/app/share/position?contents=cGtleT0yOTA2ODA0MDAmcG9pSWQ9MjkwNjgwNCZuYXZTZXE9MCZ0eXBlPTImcG9pTmFtZT0lRUIlQTclODglRUIlQTYlQUMlRUMlOTUlODQlRUMlQTUlQUMlRUMlOEElQTQlRUQlODAlOTglRUMlOTYlQjQmY2VudGVyWD00NTczMzkzJmNlbnRlclk9MTM1MDY4MyZ0aW1lPTIwMjUlRUIlODUlODQrMDklRUMlOUIlOTQrMjYlRUMlOUQlQkMrMDclM0EzNSZ0ZWw9MDItNTQxLTUwMDcmYWRkcj0lRUMlODQlOUMlRUMlOUElQjgrJUVBJUIwJTk1JUVCJTgyJUE4JUVBJUI1JUFDKyVFQiU4RiU4NCVFQyU4MiVCMCVFQiU4QyU4MCVFQiVBMSU5QyszMTg"
+        "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
+        "tmap":  "https://tmap.life/461d4003"
       },
       "mapImage": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/map/1768983348773_약도.png",
       "lat": 37.521958,
