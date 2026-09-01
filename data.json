@@ -238,7 +238,7 @@
       "id": "phone",
       "title": "연락처(Contact)",
       "isVisible": true,
-      "isFolded": true,
+      "isFolded": false,
       "order": 5
     },
     {
