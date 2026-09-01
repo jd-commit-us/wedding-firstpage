@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- Dependencies: Lodash & SunEditor -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+        body {
+            background: #171a21;
+            color: #c7d5e0;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Theme */
+        .card {
+            background: #1b2838;
+            border: 1px solid #2a475e;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            background: linear-gradient(90deg, #2a475e, #1b2838);
+            padding: 15px;
+            border-bottom: 3px solid #171a21;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .input {
+            background: #0e141b;
+            border: 1px solid #45556c;
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 13px;
+            width: 100%;
+            transition: 0.2s;
+            border-radius: 2px;
+        }
+
+        .input:focus {
+            border-color: #66c0f4;
+            background: #19222d;
+            outline: none;
+            box-shadow: 0 0 5px rgba(102, 192, 244, 0.4);
+        }
+
+        .label {
+            color: #5bcaff;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-blue {
+            background: linear-gradient(to bottom, #47bfff 5%, #1a44c2 95%);
+            color: #fff;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 2px;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-blue:hover {
+            background: linear-gradient(to bottom, #66c0f4 5%, #1a44c2 95%);
+            transform: translateY(-1px);
+        }
+
+        .btn-gray {
+            background: #3d4450;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 12px;
+            border-radius: 2px;
+        }
+
+        .btn-gray:hover {
+            background: #4b5260;
+        }
+
+        /* SunEditor Custom Styling */
+        .sun-editor {
+            border: 1px solid #2a475e !important;
+            background: #1b2838 !important;
+        }
+
+        .sun-editor .se-toolbar {
+            background-color: #1b2838 !important;
+            outline: 1px solid #2a475e !important;
+        }
+
+        .sun-editor .se-resizing-bar {
+            background-color: #1b2838 !important;
+            border-top: 1px solid #2a475e !important;
+        }
+
+        .sun-editor-editable {
+            background-color: #12151a !important;
+            color: #fff !important;
+        }
+
+        .sun-editor .se-btn-module-border {
+            border: 1px solid #2a475e !important;
+        }
+
+        .sun-editor .se-btn-list.default_value {
+            background-color: #2a475e !important;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #17141f;
+            border-right: 1px solid #2a475e;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            color: #8f98a0;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, #2a475e, transparent);
+            border-left-color: #66c0f4;
+            color: #fff;
+        }
+
+        /* Draggable List */
+        .drag-item {
+            background: #16202d;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid #2a475e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: grab;
+            transition: 0.2s;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+            border-color: #66c0f4;
+            background: #1b2838;
+        }
+
+        .drag-handle {
+            color: #66c0f4;
+            font-size: 18px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #171a21;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3d4450;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5260;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body x-data="admin()" x-init="init()" class="h-screen flex">
+
+    <!-- 로그인 오버레이 -->
+    <div x-show="!auth" class="fixed inset-0 z-50 bg-[#171a21] flex items-center justify-center">
+        <div class="card w-96 p-8 text-center animate__animated animate__fadeIn">
+            <h1 class="text-2xl text-[#66c0f4] font-bold mb-4 tracking-widest">웨딩 관리자</h1>
+            <input type="password" x-model="pass" @keyup.enter="login"
+                class="input text-center text-lg tracking-[0.3em] mb-4" placeholder="비밀번호">
+            <button @click="login" class="btn-blue w-full">콘솔 접속</button>
+        </div>
+    </div>
+
+    <!-- 사이드바 -->
+    <aside x-show="auth" x-cloak class="sidebar shrink-0">
+        <div class="p-5 border-b border-[#2a475e]">
+            <h2 class="text-white font-bold text-lg">결혼식 프로젝트</h2>
+            <div class="text-xs text-[#66c0f4]">빌드 Ver.<span x-text="data.version || '0.9.0'"></span></div>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-2">
+            <template x-for="t in tabs" :key="t.id">
+                <div class="nav-item" :class="tab === t.id ? 'active' : ''" @click="tab = t.id">
+                    <span x-text="t.icon"></span>
+                    <span x-text="t.name"></span>
+                </div>
+            </template>
+            <div class="nav-item border-t border-white/5 mt-2 pt-2" :class="tab === 'preview' ? 'active' : ''"
+                @click="tab = 'preview'">
+                <span>📱</span>
+                <span>사이트 시뮬레이션 (Preview)</span>
+            </div>
+        </nav>
+        <div class="p-4 border-t border-[#2a475e] space-y-2">
+            <button @click="saveLocal" class="btn-gray w-full text-[10px]">임시 저장 (로컬)</button>
+            <button @click="publishGithub()" class="btn-blue w-full font-bold">서버에 적용 (배포)</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main x-show="auth" x-cloak class="flex-1 overflow-y-auto bg-[#1b2838] relative">
+        <div class="max-w-4xl mx-auto p-12 space-y-8 pb-32">
+
+            <!-- HEADER -->
+            <div class="flex justify-between items-end border-b border-[#3d4450] pb-4">
+                <div>
+                    <h1 class="text-3xl text-white font-light" x-text="tabs.find(t=>t.id===tab).name"></h1>
+                    <p class="text-xs text-gray-500 mt-1">모바일 초대장의 데이터를 설정합니다.</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-[#66c0f4]">현재 IP: <span x-text="ip"></span></div>
+                </div>
+            </div>
+
+            <!-- TAB: SECTIONS (Drag & Drop) -->
+            <div x-show="tab === 'sections'" class="space-y-4">
+                <p class="text-sm text-gray-400">Drag to reorder sections. Uncheck 'Visible' to hide from menu. Check
+                    'Folded' to collapse by default.</p>
+
+                <div class="space-y-2">
+                    <template x-for="(s, idx) in sortedSections" :key="s.id">
+                        <div class="drag-item group" draggable="true" @dragstart="dragStart($event, idx)"
+                            @dragover.prevent @drop="drop($event, idx)">
+                            <div class="drag-handle cursor-move opacity-50 group-hover:opacity-100">☰</div>
+                            <div class="flex-1 font-bold text-white"><span x-text="idx+1"></span>. <span
+                                    x-text="s.title"></span></div>
+                            <div class="flex gap-4 text-xs">
+                                <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox"
+                                        x-model="s.isVisible"> 노출</label>
+                                <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox"
+                                        x-model="s.isFolded"> 기본 접기(Folded)</label>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- TAB: IDENTITY -->
+            <div x-show="tab === 'identity'" class="grid grid-cols-2 gap-8">
+                <!-- Groom -->
+                <div class="space-y-4">
+                    <h3 class="text-blue-400 font-bold border-b border-[#3d4450] pb-2">신랑</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><label class="label">이름</label><input x-model="data.groom.name" class="input"></div>
+                        <div><label class="label">관계</label>
+                            <select x-model="data.groom.rank" class="input">
+                                <option>장남</option>
+                                <option>차남</option>
+                                <option>삼남</option>
+                                <option>사남</option>
+                                <option>외동</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div><label class="label">연락처</label><input x-model="data.groom.phone" class="input"></div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><label class="label">은행</label><input x-model="data.groom.bank" class="input"></div>
+                        <div><label class="label">계좌번호</label><input x-model="data.groom.account" class="input"></div>
+                    </div>
+
+                    <div class="p-4 bg-[#12151a] border border-[#2a475e] rounded space-y-3">
+                        <label class="label text-gray-400">부모님 정보</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <p class="text-[10px] text-blue-400 font-bold">아버지</p>
+                                <input x-model="data.groom.parents.father" placeholder="성함" class="input">
+                                <input x-model="data.groom.parents.fPhone" placeholder="연락처" class="input">
+                                <input x-model="data.groom.parents.fBank" placeholder="은행" class="input">
+                                <input x-model="data.groom.parents.fAccount" placeholder="계좌번호" class="input">
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-[10px] text-blue-400 font-bold">어머니</p>
+                                <input x-model="data.groom.parents.mother" placeholder="성함" class="input">
+                                <input x-model="data.groom.parents.mPhone" placeholder="연락처" class="input">
+                                <input x-model="data.groom.parents.mBank" placeholder="은행" class="input">
+                                <input x-model="data.groom.parents.mAccount" placeholder="계좌번호" class="input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bride -->
+                <div class="space-y-4">
+                    <h3 class="text-pink-400 font-bold border-b border-[#3d4450] pb-2">신부</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><label class="label">이름</label><input x-model="data.bride.name" class="input"></div>
+                        <div><label class="label">관계</label>
+                            <select x-model="data.bride.rank" class="input">
+                                <option>장녀</option>
+                                <option>차녀</option>
+                                <option>삼녀</option>
+                                <option>사녀</option>
+                                <option>외동</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div><label class="label">연락처</label><input x-model="data.bride.phone" class="input"></div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><label class="label">은행</label><input x-model="data.bride.bank" class="input"></div>
+                        <div><label class="label">계좌번호</label><input x-model="data.bride.account" class="input"></div>
+                    </div>
+
+                    <div class="p-4 bg-[#12151a] border border-[#2a475e] rounded space-y-3">
+                        <label class="label text-gray-400">부모님 정보</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <p class="text-[10px] text-pink-400 font-bold">아버지</p>
+                                <input x-model="data.bride.parents.father" placeholder="성함" class="input">
+                                <input x-model="data.bride.parents.fPhone" placeholder="연락처" class="input">
+                                <input x-model="data.bride.parents.fBank" placeholder="은행" class="input">
+                                <input x-model="data.bride.parents.fAccount" placeholder="계좌번호" class="input">
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-[10px] text-pink-400 font-bold">어머니</p>
+                                <input x-model="data.bride.parents.mother" placeholder="성함" class="input">
+                                <input x-model="data.bride.parents.mPhone" placeholder="연락처" class="input">
+                                <input x-model="data.bride.parents.mBank" placeholder="은행" class="input">
+                                <input x-model="data.bride.parents.mAccount" placeholder="계좌번호" class="input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: CONTENT (Advanced Rich Text) -->
+            <div x-show="tab === 'content'" class="space-y-8">
+                <div class="space-y-2">
+                    <label class="label text-[#66c0f4]">메인 상단 문구 (Hero Overlay)</label>
+                    <div id="editor-mainOverlay"></div>
+                </div>
+                <div class="space-y-2">
+                    <label class="label text-[#66c0f4]">인사말 본문 (Main Message)</label>
+                    <div id="editor-mainMessage"></div>
+                    <p class="text-xs text-gray-500">정렬, 폰트 색상, 이미지 등을 자유롭게 편집하세요.</p>
+                </div>
+                <div class="space-y-2">
+                    <label class="label text-[#66c0f4]">오시는 길 안내 (Venue Guide)</label>
+                    <div id="editor-venueGuide"></div>
+                </div>
+            </div>
+
+            <!-- TAB: PREVIEW (Simulation) -->
+            <div x-show="tab === 'preview'" class="space-y-8 animate__animated animate__fadeIn">
+                <div class="flex flex-col items-center">
+                    <div
+                        class="w-full max-w-[375px] bg-white text-gray-800 rounded-[3rem] shadow-[0_0_60px_rgba(0,0,0,0.5)] border-[8px] border-[#2a475e] overflow-hidden relative">
+                        <!-- Top Speaker Notch Simulation -->
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#2a475e] rounded-b-2xl z-20">
+                        </div>
+
+                        <div class="h-[667px] overflow-y-auto scrollbar-hide bg-[#fffcfc] sun-editor-common text-center"
+                            id="simulation-container">
+                            <!-- Hero Simulation -->
+                            <div class="relative w-full overflow-hidden bg-[#fffcfc]">
+                                <img :src="data.images.main" @click="lightbox = data.images.main"
+                                    class="w-full h-auto object-cover block shadow-inner min-h-[200px]">
+                                <div
+                                    class="absolute inset-0 flex flex-col items-center justify-center p-8 bg-black/5 pointer-events-none">
+                                    <div class="eng-font text-white text-3xl mb-2 drop-shadow-lg sun-editor-common"
+                                        style="text-align: center" x-html="data.text.mainOverlay"></div>
+                                    <div class="w-12 h-[1px] bg-white/40"></div>
+                                </div>
+                            </div>
+
+                            <!-- Message Simulation -->
+                            <div class="p-8 text-center space-y-6">
+                                <div class="text-sm leading-relaxed lux-font text-gray-600 sun-editor-common"
+                                    :style="`font-size: ${data.theme.style.fontSize}; line-height: ${data.theme.style.lineHeight}; letter-spacing: ${data.theme.style.letterSpacing}; text-align: ${data.theme.style.textAlign}`"
+                                    x-html="data.text.mainMessage"></div>
+
+                                <div class="w-full flex justify-center py-6">
+                                    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
+                                        <!-- Groom -->
+                                        <div class="flex flex-col items-center">
+                                            <div class="text-[10px] text-gray-400 mb-2 lux-font">
+                                                <span x-text="data.groom.parents.father"></span>·<span
+                                                    x-text="data.groom.parents.mother"></span><span class="">의</span>
+                                                <span x-text="data.groom.rank"></span>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <span class="text-sm text-blue-600 font-bold lux-font mb-1">신랑</span>
+                                                <h1 class="text-xl tracking-widest font-light lux-font"
+                                                    x-text="data.groom.name"></h1>
+                                            </div>
+                                        </div>
+                                        <div class="lux-font text-pink-200 self-end pb-1">&</div>
+                                        <!-- Bride -->
+                                        <div class="flex flex-col items-center">
+                                            <div class="text-[10px] text-gray-400 mb-2 lux-font">
+                                                <span x-text="data.bride.parents.father"></span>·<span
+                                                    x-text="data.bride.parents.mother"></span><span class="">의</span>
+                                                <span x-text="data.bride.rank"></span>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <span class="text-sm text-pink-500 font-bold lux-font mb-1">신부</span>
+                                                <h1 class="text-xl tracking-widest font-light lux-font"
+                                                    x-text="data.bride.name"></h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Venue Simulation -->
+                            <div class="p-8 border-t border-gray-50 text-left">
+                                <div class="text-center mb-4">
+                                    <div class="font-bold text-sm text-gray-700" x-text="data.config.venue.name"></div>
+                                    <div class="text-[10px] text-gray-400" x-text="data.config.venue.address"></div>
+                                </div>
+                                <div id="map-simulation" class="w-full h-40 bg-gray-100 rounded mb-4"
+                                    x-init="$nextTick(() => initSimulationMap())"></div>
+                                <h3 class="lux-font text-sm font-bold text-gray-700 mb-4 text-center">오시는 길</h3>
+                                <div class="p-8 bg-[#fff9f9] rounded-2xl text-xs leading-relaxed text-gray-600 sun-editor-common border border-pink-50/50 shadow-sm"
+                                    x-html="data.config.venue.guideText"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-xs text-gray-500 italic">※ 실제 모바일 화면을 시뮬레이션한 예시입니다.</p>
+                </div>
+            </div>
+            <!-- TAB: VISUALS (Uploads) -->
+            <div x-show="tab === 'visuals'" class="space-y-8">
+                <!-- Main Image -->
+                <div class="p-4 bg-[#12151a] rounded border border-[#2a475e]">
+                    <label class="steam-label">메인 대표 이미지</label>
+                    <div class="flex gap-4 items-center">
+                        <div class="w-24 h-24 bg-cover bg-center rounded border border-gray-600"
+                            :style="`background-image: url(${data.images.main})`"></div>
+                        <div class="flex-1 space-y-2">
+                            <input type="text" x-model="data.images.main" class="steam-input" placeholder="이미지 URL">
+                            <button class="btn-gray" @click="triggerUpload('main')">📁 파일 업로드</button>
+                            <input type="file" id="file-main" class="hidden" @change="handleFile($event, 'main')">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YouTube Video -->
+                <div class="p-4 bg-[#12151a] rounded border border-[#2a475e]">
+                    <label class="steam-label">YouTube 동영상 (ID 또는 URL)</label>
+                    <div class="flex gap-2">
+                        <input type="text" x-model="data.media.youtube"
+                            @input="data.media.youtube = extractYoutubeId($event.target.value)" class="steam-input"
+                            placeholder="유튜브 링크 또는 ID를 입력하세요">
+                    </div>
+                    <p class="text-[10px] text-gray-500 mt-2">※ 링크를 붙여넣으면 자동으로 영상 ID가 추출됩니다.</p>
+                </div>
+
+                <!-- Gallery -->
+                <div class="space-y-4">
+                    <div class="flex justify-between">
+                        <label class="steam-label">갤러리 (최대 30개)</label>
+                        <button class="text-xs text-[#66c0f4]" @click="data.images.gallery.push('')">+ 슬롯 추가</button>
+                    </div>
+                    <div class="grid grid-cols-5 gap-2">
+                        <template x-for="(img, idx) in data.images.gallery" :key="idx">
+                            <div class="relative group aspect-square">
+                                <div class="w-full h-full bg-cover bg-center rounded border border-gray-600"
+                                    :style="`background-image: url(${getAdminImageUrl(img)})`"></div>
+                                <div
+                                    class="absolute inset-0 bg-black/80 hidden group-hover:flex flex-col items-center justify-center p-1 gap-1">
+                                    <div class="text-[8px] text-gray-400 truncate w-full px-1"
+                                        x-text="typeof img === 'object' ? 'Thumbnail Object' : img"></div>
+                                    <button class="text-red-400 text-xs"
+                                        @click="data.images.gallery.splice(idx, 1)">삭제</button>
+                                </div>
+                            </div>
+                        </template>
+                        <div @click="triggerSimpleUpload('gallery')"
+                            class="border-2 border-dashed border-gray-600 rounded flex items-center justify-center cursor-pointer hover:border-[#66c0f4] text-gray-500 text-xs">
+                            + 업로드
+                        </div>
+                        <input type="file" id="file-gallery" class="hidden" @change="handleFile($event, 'gallery')">
+                    </div>
+                </div>
+
+                <!-- BGM -->
+                <div class="p-4 bg-[#12151a] rounded border border-[#2a475e] space-y-4">
+                    <label class="steam-label">배경음악 (MP3)</label>
+                    <div class="grid grid-cols-1 gap-2">
+                        <template x-for="(song, idx) in data.media.bgm" :key="idx">
+                            <div class="flex gap-2">
+                                <input x-model="data.media.bgm[idx]" class="steam-input">
+                                <button @click="data.media.bgm.splice(idx, 1)"
+                                    class="text-red-400 hover:bg-red-900/20 px-2 rounded">✕</button>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn-gray flex-1" @click="data.media.bgm.push('')">+ URL 추가</button>
+                        <button class="btn-blue flex-1" @click="triggerSimpleUpload('bgm')">📁 파일 업로드</button>
+                        <input type="file" id="file-bgm" class="hidden" @change="handleFile($event, 'bgm')">
+                    </div>
+                </div>
+
+                <input type="color" x-model="data.theme.color" class="h-10 w-full bg-transparent">
+            </div>
+
+            <!-- Typography Sync -->
+            <div class="p-6 bg-[#12151a] rounded border border-[#66c0f4]/30 space-y-6">
+                <h3 class="text-sm font-bold text-[#66c0f4] flex items-center gap-2">
+                    <span>🖋️</span> 타이포그래피 (본문 스타일)
+                </h3>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="label">글꼴 크기 (<span x-text="data.theme.style.fontSize"></span>)</label>
+                        <input type="range" min="10" max="24" step="1" x-model="data.theme.style.fontSize"
+                            @input="data.theme.style.fontSize = $event.target.value + 'px'"
+                            class="w-full accent-[#66c0f4]">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="label">줄 간격 (<span x-text="data.theme.style.lineHeight"></span>)</label>
+                        <input type="range" min="1.0" max="2.5" step="0.1" x-model="data.theme.style.lineHeight"
+                            class="w-full accent-[#66c0f4]">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="label">글자 자간 (<span x-text="data.theme.style.letterSpacing"></span>)</label>
+                        <input type="range" min="-2" max="5" step="0.5" x-model="data.theme.style.letterSpacing"
+                            @input="data.theme.style.letterSpacing = $event.target.value + 'px'"
+                            class="w-full accent-[#66c0f4]">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="label">정렬 방식</label>
+                        <select x-model="data.theme.style.textAlign" class="input">
+                            <option value="left">왼쪽 정렬</option>
+                            <option value="center">가운데 정렬</option>
+                            <option value="right">오른쪽 정렬</option>
+                            <option value="justify">양쪽 정렬</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: LOGISTICS -->
+        <div x-show="tab === 'logistics'" class="space-y-8">
+            <div class="grid grid-cols-2 gap-8">
+                <div class="space-y-2">
+                    <label class="steam-label">예식 일시</label>
+                    <input type="datetime-local" x-model="data.config.weddingDate" class="steam-input">
+                </div>
+                <div class="space-y-2">
+                    <label class="steam-label">예식장 이름</label>
+                    <input x-model="data.config.venue.name" class="steam-input">
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <label class="steam-label">예식장 주소</label>
+                    <div class="flex gap-2">
+                        <input x-model="data.config.venue.address" class="steam-input" readonly>
+                        <button class="btn-gray whitespace-nowrap" @click="searchAddr">🔍 주소 검색</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gray-400 mb-1 uppercase">위도 (Lat)</label>
+                        <input type="number" x-model.number="data.config.venue.lat" step="0.000001"
+                            class="steam-input w-full" placeholder="37.xxxxxx">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gray-400 mb-1 uppercase">경도 (Lng)</label>
+                        <input type="number" x-model.number="data.config.venue.lng" step="0.000001"
+                            class="steam-input w-full" placeholder="127.xxxxxx">
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-500 italic">※ 주소 검색이 정확하지 않을 경우 위도/경도를 직접 입력할 수 있습니다.</p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-[#3d4450]">
+                <div class="flex justify-between items-center">
+                    <label class="steam-label">지도 다운로드용 이미지</label>
+                    <button class="btn-gray text-[10px]" @click="triggerUpload('mapImg')">📁 업로드</button>
+                </div>
+                <input type="file" id="file-mapImg" class="hidden" @change="handleFile($event, 'mapImg')">
+                <input x-model="data.config.venue.mapImage" placeholder="지도 이미지 URL (업로드 시 자동 입력)" class="steam-input">
+            </div>
+
+            <div class="p-4 bg-[#12151a] rounded space-y-4">
+                <label class="steam-label">지도/길찾기 링크</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <input x-model="data.config.venue.mapLinks.naver" placeholder="네이버 지도 URL" class="steam-input">
+                    <input x-model="data.config.venue.mapLinks.kakao" placeholder="카카오 맵 URL" class="steam-input">
+                    <input x-model="data.config.venue.mapLinks.tmap" placeholder="티맵 URL" class="steam-input">
+                    <input x-model="data.config.venue.mapLinks.google" placeholder="구글 지도 URL" class="steam-input">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DATA MANAGEMENT -->
+        <div x-show="tab === 'data_mgmt'" class="space-y-6">
+            <div class="flex gap-4 mb-4">
+                <button @click="loadExternalData" class="btn-blue text-xs">🔄 데이터 새로고침</button>
+            </div>
+
+            <!-- Guestbook -->
+            <div class="card p-6 rounded-lg">
+                <h3 class="text-[#66c0f4] font-bold mb-4 flex items-center gap-2">📝 방명록 메시지 (<span
+                        x-text="bbs.length"></span>)</h3>
+                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                    <template x-for="(b, idx) in bbs" :key="idx">
+                        <div
+                            class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
+                            <div class="flex-1">
+                                <div class="text-sm font-bold text-white" x-text="b.name"></div>
+                                <div class="text-xs text-gray-400 mt-1" x-text="b.message"></div>
+                                <div class="text-[9px] text-gray-600 mt-1" x-text="b.date"></div>
+                            </div>
+                            <button @click="deleteItem('bbs', idx)"
+                                class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- RSVP -->
+            <div class="card p-6 rounded-lg">
+                <h3 class="text-pink-400 font-bold mb-4 flex items-center gap-2">📋 참석자 명단 (<span
+                        x-text="joins.length"></span>)</h3>
+                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                    <template x-for="(j, idx) in joins" :key="idx">
+                        <div
+                            class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
+                            <div class="flex-1">
+                                <div class="text-sm font-bold text-white"><span x-text="j.name"></span> (<span
+                                        x-text="j.side === 'groom' ? '신랑측' : '신부측'"></span>)</div>
+                                <div class="text-xs text-gray-400 mt-1">인원: <span x-text="j.count"></span>명 / 식사:
+                                    <span x-text="j.meal ? '예' : '아니오'"></span>
+                                </div>
+                            </div>
+                            <button @click="deleteItem('joins', idx)"
+                                class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: SETTINGS & SECRETS -->
+        <div x-show="tab === 'settings'" class="space-y-6">
+            <div class="p-4 border border-red-900 bg-red-900/10 rounded">
+                <div class="flex justify-between items-center mb-2">
+                    <label class="steam-label text-red-400">GITHUB 토큰 (필수)</label>
+                    <button @click="showTokenGuide = true" class="text-[10px] text-blue-400 underline">토큰 발급 방법
+                        보기</button>
+                </div>
+                <input type="password" x-model="data.config.secrets.githubToken"
+                    @input="localStorage.setItem('ghToken', $event.target.value)" class="steam-input"
+                    placeholder="ghp_...">
+                <p class="text-[10px] text-gray-500 mt-2">※ 파일을 수정하거나 업로드하려면 이 토큰이 반드시 필요합니다.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+                <div><label class="steam-label">카카오 API 키 (JavaScript)</label><input
+                        x-model="data.config.secrets.kakaoApiKey" class="steam-input"></div>
+                <div><label class="steam-label">관리자 비밀번호</label><input x-model="data.config.secrets.adminPassword"
+                        class="steam-input" placeholder="비밀번호 변경">
+                </div>
+            </div>
+
+            <!-- OG Images -->
+            <div class="space-y-4 pt-4 border-t border-[#3d4450]">
+                <label class="steam-label">공유용 메타 데이터 (OG Image)</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <input x-model="data.images.og.kakao" placeholder="카카오톡 공유 이미지" class="steam-input">
+                    <input x-model="data.images.og.facebook" placeholder="페이스북 공유 이미지" class="steam-input">
+                    <input x-model="data.images.og.insta" placeholder="인스타그램 공유 이미지" class="steam-input">
+                    <input x-model="data.images.og.x" placeholder="X(트위터) 공유 이미지" class="steam-input">
+                </div>
+            </div>
+
+            <!-- Kakao Implementation Guide -->
+            <div class="p-6 bg-blue-900/10 border border-blue-900/50 rounded-lg space-y-4">
+                <h3 class="text-blue-400 font-bold flex items-center gap-2">📍 Kakao API 설정 가이드</h3>
+                <div class="text-xs text-gray-400 space-y-3 leading-relaxed">
+                    <div class="p-3 bg-black/40 rounded">
+                        <p class="text-white font-bold mb-1">1. 카카오 개발자 콘솔 접속</p>
+                        <p><a href="https://developers.kakao.com/console/app" target="_blank"
+                                class="text-blue-400 underline">카카오 디벨로퍼스</a>에서 애플리케이션을 생성하세요.</p>
+                    </div>
+                    <div class="p-3 bg-black/40 rounded">
+                        <p class="text-white font-bold mb-1">2. 플랫폼 등록 (중요)</p>
+                        <p><b>[내 애플리케이션] > [플랫폼] > [Web]</b>에서 아래 도메인을 등록해야 기능이 동작합니다:</p>
+                        <code class="block mt-1 text-[#66c0f4]">https://highhighcouple.github.io</code>
+                    </div>
+                    <div class="p-3 bg-black/40 rounded">
+                        <p class="text-white font-bold mb-1">3. 키 입력</p>
+                        <p><b>[앱 키]</b> 메뉴에서 <b class="text-white">JavaScript 키</b>를 복사하여 위 '카카오 API 키' 란에 입력하세요.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update Log -->
+            <div class="space-y-4 pt-6 border-t border-[#3d4450]">
+                <div class="flex justify-between items-center">
+                    <label class="steam-label text-gray-400">업데이트 기록 (Update Log)</label>
+                    <button
+                        @click="data.updates.push({version: '', date: new Date().toISOString().split('T')[0], notes: ''})"
+                        class="text-[10px] text-[#66c0f4]">+ 기록 추가</button>
+                </div>
+                <div class="space-y-2">
+                    <template x-for="(upd, idx) in data.updates" :key="idx">
+                        <div class="flex gap-2 items-start">
+                            <input x-model="upd.version" placeholder="Ver" class="input w-20">
+                            <input x-model="upd.date" type="date" class="input w-36">
+                            <input x-model="upd.notes" placeholder="변경 내용" class="input flex-1">
+                            <button @click="data.updates.splice(idx, 1)" class="text-red-400 p-2">✕</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: MINI GAME -->
+        <div x-show="tab === 'mini_game'" class="space-y-4">
+            <div class="card p-6 rounded-lg text-center bg-[#0e141b] border border-[#2a475e]">
+                <h3 class="text-xl font-bold text-[#66c0f4] mb-4">Wedding Path Game Test</h3>
+                <p class="text-sm text-gray-400 mb-6 font-mono">
+                    <span class="text-white">Groom (Left):</span> W, A, S, D &nbsp;|&nbsp;
+                    <span class="text-white">Bride (Right):</span> Arrows
+                </p>
+                <div id="game-container"
+                    class="relative mx-auto border-4 border-[#2a475e] shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                    style="width: 800px; height: 400px; background: black;">
+                    <canvas id="gameCanvas" width="800" height="400"></canvas>
+                </div>
+                <div class="mt-6 flex justify-center gap-4">
+                    <button class="btn-blue px-8 py-2 text-lg font-bold"
+                        onclick="if(!window.gameInstance) window.gameInstance = new HighHighGame('gameCanvas'); window.gameInstance.start();">
+                        🎮 GAME START
+                    </button>
+                    <button class="btn-gray px-6 py-2" onclick="if(window.gameInstance) window.gameInstance.reset();">
+                        Restart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </main>
+
+    <script src="minigame.js"></script>
+    <script>
+        function admin() {
+            return {
+                auth: false, pass: '', tab: 'sections', ip: 'Loading...',
+                dragSrc: null, showTokenGuide: false,
+                tabs: [
+                    { id: 'sections', name: '페이지 구성 (Sections)', icon: '☰' },
+                    { id: 'identity', name: '초대 인적사항 (Names)', icon: '👤' },
+                    { id: 'content', name: '초대장 문구 (Text)', icon: '📝' },
+                    { id: 'visuals', name: '디자인 설정 (Visuals)', icon: '🎨' },
+                    { id: 'logistics', name: '오시는 길 (Location)', icon: '📍' },
+                    { id: 'data_mgmt', name: '방명록 및 참석여부 (Data)', icon: '📂' },
+                    { id: 'settings', name: '고급 설정 (Settings)', icon: '⚙️' },
+                    { id: 'mini_game', name: '미니게임 테스트 (Game)', icon: '🎮' },
+                ],
+                bbs: [], joins: [],
+                effects: [
+                    { val: 'petals', icon: '🌸', label: '벚꽃' }, { val: 'snow', icon: '❄️', label: '눈' },
+                    { val: 'leaves', icon: '🍂', label: '단풍' }, { val: 'stars', icon: '✨', label: '별빛' },
+                    { val: 'rain', icon: '💧', label: '빗방울' }, { val: 'dandelion', icon: '🌼', label: '민들레' },
+                    { val: 'butterfly', icon: '🦋', label: '나비' }, { val: 'dragonfly', icon: '🌥️', label: '잠자리' },
+                    { val: 'dove', icon: '🕊️', label: '비둘기' }
+                ],
+                data: {
+                    config: { venue: { mapLinks: {}, navLinks: {} }, secrets: {} },
+                    groom: { parents: {} }, bride: { parents: {} },
+                    images: { gallery: [], og: {} },
+                    text: {}, media: { bgm: [] },
+                    theme: {},
+                    sections: []
+                },
+                defaultSections: [
+                    { id: 'names', title: '청첩장 상단(Names)', isVisible: true, isFolded: false, order: 1 },
+                    { id: 'calendar', title: '결혼식 날(Calendar)', isVisible: true, isFolded: false, order: 2 },
+                    { id: 'youtube', title: '영상(Video)', isVisible: true, isFolded: false, order: 3 },
+                    { id: 'gallery', title: '사진 앨범(Gallery)', isVisible: true, isFolded: false, order: 4 },
+                    { id: 'phone', title: '연락처(Contact)', isVisible: true, isFolded: true, order: 5 },
+                    { id: 'accounts', title: '마음 전하실 곳(Accounts)', isVisible: true, isFolded: true, order: 6 },
+                    { id: 'location', title: '오시는 길(Location)', isVisible: true, isFolded: false, order: 7 },
+                    { id: 'guestbook', title: '방명록(Guestbook)', isVisible: true, isFolded: false, order: 8 },
+                    { id: 'rsvp', title: '참석여부(RSVP)', isVisible: true, isFolded: false, order: 9 },
+                    { id: 'share', title: '공유(Share)', isVisible: true, isFolded: false, order: 10 },
+                    { id: 'minigame', title: '미니게임(Wedding Path)', isVisible: true, isFolded: false, order: 11 }
+                ],
+
+                async init() {
+                    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => this.ip = d.ip);
+                    const saved = localStorage.getItem('wedding_v2_data');
+                    if (saved) this.data = JSON.parse(saved);
+                    else {
+                        try {
+                            const r = await fetch('data.json');
+                            if (r.ok) {
+                                this.data = await r.json();
+                                // Clean up navigation if exists
+                                this.data.sections = this.data.sections.filter(s => s.id !== 'navigation' && s.id !== 'navlinks' && s.id !== 'maplinks');
+                                // Ensure location section title is correct
+                                const loc = this.data.sections.find(s => s.id === 'location');
+                                if (loc) loc.title = '오시는 길(Location)';
+                            }
+                        } catch (e) { }
+                    }
+                    if (!this.data.sections || !this.data.sections.length) this.data.sections = this.defaultSections;
+                    else {
+                        // Merge missing default sections
+                        this.defaultSections.forEach(def => {
+                            if (!this.data.sections.find(s => s.id === def.id)) {
+                                this.data.sections.push(def);
+                            }
+                        });
+                    }
+                    if (!this.data.media) this.data.media = { bgm: [], youtube: '' };
+                    if (!this.data.media.bgm) this.data.media.bgm = [];
+                    if (!this.data.media.youtube) this.data.media.youtube = '';
+
+                    // Token Sync Logic
+                    const localToken = localStorage.getItem('ghToken');
+                    const dataToken = this.data.config.secrets.githubToken;
+
+                    if (dataToken) {
+                        // Priority 1: Token in data.json
+                        localStorage.setItem('ghToken', dataToken);
+                    } else if (localToken) {
+                        // Priority 2: Token in localStorage
+                        this.data.config.secrets.githubToken = localToken;
+                    }
+
+                    this.loadExternalData();
+
+                    // Initialize SunEditor
+                    this.$nextTick(() => {
+                        this.initSunEditor();
+                    });
+
+                    // Map Simulator Watcher
+                    this.$watch('data.config.venue.address', () => {
+                        this.initSimulationMap();
+                    });
+                    this.$watch('data.config.venue.lat', () => {
+                        this.initSimulationMap();
+                    });
+                    this.$watch('data.config.venue.lng', () => {
+                        this.initSimulationMap();
+                    });
+                },
+
+                initSunEditor() {
+                    const buttonList = [
+                        ['undo', 'redo'],
+                        ['font', 'fontSize', 'formatBlock'],
+                        ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                        ['fontColor', 'hiliteColor'],
+                        ['removeFormat'],
+                        ['outdent', 'indent'],
+                        ['align', 'horizontalRule', 'list', 'lineHeight'],
+                        ['link', 'image', 'video'],
+                        ['fullScreen', 'showBlocks', 'codeView'],
+                        ['preview', 'print']
+                    ];
+
+                    const editors = [
+                        { id: 'editor-mainOverlay', key: 'data.text.mainOverlay' },
+                        { id: 'editor-mainMessage', key: 'data.text.mainMessage' },
+                        { id: 'editor-venueGuide', key: 'data.config.venue.guideText' }
+                    ];
+
+                    editors.forEach(ed => {
+                        const container = document.getElementById(ed.id);
+                        if (!container) return;
+
+                        // Clear existing content to prevent double menu
+                        container.innerHTML = '';
+
+                        const editor = SUNEDITOR.create(ed.id, {
+                            lang: SUNEDITOR_LANG['ko'],
+                            buttonList: buttonList,
+                            width: '100%',
+                            height: ed.id === 'editor-venueGuide' ? '300px' : 'auto',
+                            minHeight: '200px',
+                            stickyToolbar: 0,
+                            font: ['Nanum Myeongjo', 'Gowun Batang', 'Noto Sans KR', 'Arial', 'tahoma', 'Courier New,courier'],
+                            fontSize: [8, 10, 12, 14, 16, 18, 20, 24, 28, 36],
+                            placeholder: '내용을 입력해주세요...'
+                        });
+
+                        // Set Initial Content
+                        const initial = _.get(this, ed.key) || '';
+                        editor.setContents(initial);
+
+                        // Sync to Alpine
+                        editor.onChange = (content) => {
+                            _.set(this, ed.key, content);
+                        };
+
+                        // Store editor instance for manual sync
+                        if (!this._editors) this._editors = {};
+                        this._editors[ed.key] = editor;
+                    });
+                },
+
+                syncEditors() {
+                    if (!this._editors) return;
+                    Object.keys(this._editors).forEach(key => {
+                        const content = this._editors[key].getContents();
+                        _.set(this, key, content);
+                    });
+                },
+
+                async loadExternalData() {
+                    try {
+                        const timestamp = Date.now();
+                        const r1 = await fetch('bbs.json?v=' + timestamp); if (r1.ok) this.bbs = await r1.json();
+                        const r2 = await fetch('join.json?v=' + timestamp); if (r2.ok) this.joins = await r2.json();
+
+                        // Load Main Data
+                        const r3 = await fetch('data.json?v=' + timestamp);
+                        if (r3.ok) {
+                            const cloudData = await r3.json();
+                            // Merge or Replace? Replace is safer for "Sync from Server"
+                            this.data = cloudData;
+
+                            // Re-init editors with new data
+                            this.$nextTick(() => {
+                                if (this._editors) {
+                                    Object.keys(this._editors).forEach(key => {
+                                        const val = _.get(this, key) || '';
+                                        this._editors[key].setContents(val);
+                                    });
+                                }
+                            });
+                            alert('서버에서 데이터를 불러왔습니다.');
+                        }
+                    } catch (e) { console.error(e); }
+                },
+
+                async deleteItem(type, idx) {
+                    if (!confirm('정말 삭제하시겠습니까? (서버에 즉시 반영됩니다)')) return;
+
+                    const token = this.data.config.secrets.githubToken;
+                    if (!token) return alert('GitHub 토큰이 필요합니다.');
+
+                    const list = type === 'bbs' ? [...this.bbs] : [...this.joins];
+                    list.splice(idx, 1);
+                    const filename = type === 'bbs' ? 'bbs.json' : 'join.json';
+
+                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(list, null, 2))));
+                    try {
+                        const r = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                            headers: { 'Authorization': `token ${token}` }
+                        });
+                        const d = await r.json();
+                        const sha = d.sha;
+
+                        const res = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                            method: 'PUT',
+                            headers: { 'Authorization': `token ${token}` },
+                            body: JSON.stringify({ message: `Delete entry from ${filename}`, content, sha })
+                        });
+                        if (res.ok) {
+                            if (type === 'bbs') this.bbs = list; else this.joins = list;
+                            alert('삭제되었습니다.');
+                        }
+                    } catch (e) { alert('삭제 실패'); }
+                },
+
+                login() {
+                    if (this.pass === 'admin1234!' || (this.data.config.secrets && this.pass === this.data.config.secrets.adminPassword)) {
+                        this.auth = true;
+                        if (this.data.config.secrets.githubToken) localStorage.setItem('ghToken', this.data.config.secrets.githubToken);
+                    }
+                    else alert('비밀번호가 틀렸습니다.');
+                },
+
+                get sortedSections() {
+                    return this.data.sections.sort((a, b) => a.order - b.order);
+                },
+
+                // Drag & Drop
+                dragStart(e, idx) { this.dragSrc = idx; e.dataTransfer.effectAllowed = 'move'; },
+                drop(e, idx) {
+                    if (this.dragSrc !== idx) {
+                        const list = this.sortedSections;
+                        const item = list[this.dragSrc];
+                        list.splice(this.dragSrc, 1);
+                        list.splice(idx, 0, item);
+                        // Re-assign order
+                        list.forEach((s, i) => s.order = i);
+                        this.data.sections = list;
+                    }
+                },
+
+                // File Upload Logic
+                triggerUpload(target) { document.getElementById('file-' + target).click(); },
+                triggerSimpleUpload(target) { document.getElementById('file-' + target).click(); },
+
+                async handleFile(e, target) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    if (!this.data.config.secrets.githubToken) return alert('GitHub Token required for upload');
+
+                    // For gallery images, generate thumbnail
+                    if (target === 'gallery' && file.type.startsWith('image/')) {
+                        await this.uploadGalleryWithThumbnail(file);
+                        return;
+                    }
+
+                    // For other files, use standard upload
+                    const reader = new FileReader();
+                    reader.onload = async (evt) => {
+                        const content = evt.target.result.split(',')[1]; // base64
+                        let folder = 'local/images/gallery';
+                        if (target === 'main') folder = 'local/images/bg';
+                        if (target === 'bgm') folder = 'local/bgm';
+                        if (target === 'mapImg') folder = 'local/images/map';
+
+                        const path = `${folder}/${Date.now()}_${file.name}`;
+
+                        // PUT to GitHub
+                        try {
+                            const res = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${path}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Authorization': `token ${this.data.config.secrets.githubToken}`
+                                },
+                                body: JSON.stringify({ message: `upload ${target} file`, content: content })
+                            });
+                            if (res.ok) {
+                                const json = await res.json();
+                                const url = json.content.download_url; // Raw URL
+
+                                if (target === 'main') this.data.images.main = url;
+                                else if (target === 'gallery') this.data.images.gallery.push(url);
+                                else if (target === 'bgm') this.data.media.bgm.push(url);
+                                else if (target === 'mapImg') this.data.config.venue.mapImage = url;
+
+                                alert('Upload successful!');
+                                await this.saveData();
+                            } else {
+                                alert('Upload failed');
+                            }
+                        } catch (err) {
+                            alert('Upload error: ' + err.message);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                },
+
+                async uploadGalleryWithThumbnail(file) {
+                    const timestamp = Date.now();
+                    const baseName = file.name.replace(/\.[^/.]+$/, '');
+                    const ext = file.name.split('.').pop();
+
+                    // Create thumbnail using Canvas
+                    const createThumbnail = (img, maxWidth = 200, quality = 0.6) => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        const ratio = maxWidth / img.width;
+                        canvas.width = maxWidth;
+                        canvas.height = img.height * ratio;
+
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        return canvas.toDataURL('image/jpeg', quality).split(',')[1];
+                    };
+
+                    // Load image
+                    const img = new Image();
+                    const reader = new FileReader();
+
+                    reader.onload = async (e) => {
+                        img.onload = async () => {
+                            try {
+                                // Generate thumbnail
+                                const thumbContent = createThumbnail(img);
+
+                                // Get original content
+                                const originalContent = e.target.result.split(',')[1];
+
+                                // Upload thumbnail
+                                const thumbPath = `local/images/gallery/${timestamp}_thumb_${baseName}.jpg`;
+                                const thumbRes = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${thumbPath}`, {
+                                    method: 'PUT',
+                                    headers: { 'Authorization': `token ${this.data.config.secrets.githubToken}` },
+                                    body: JSON.stringify({ message: 'upload thumbnail', content: thumbContent })
+                                });
+
+                                // Upload original
+                                const origPath = `local/images/gallery/${timestamp}_${file.name}`;
+                                const origRes = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${origPath}`, {
+                                    method: 'PUT',
+                                    headers: { 'Authorization': `token ${this.data.config.secrets.githubToken}` },
+                                    body: JSON.stringify({ message: 'upload original', content: originalContent })
+                                });
+
+                                if (thumbRes.ok && origRes.ok) {
+                                    const thumbJson = await thumbRes.json();
+                                    const origJson = await origRes.json();
+
+                                    // Add to gallery as object
+                                    this.data.images.gallery.push({
+                                        thumbnail: thumbJson.content.download_url,
+                                        original: origJson.content.download_url
+                                    });
+
+                                    alert('Gallery image uploaded with thumbnail!');
+                                    await this.publishGithub(true);
+                                } else {
+                                    alert('Upload failed');
+                                }
+                            } catch (err) {
+                                alert('Thumbnail generation error: ' + err.message);
+                            }
+                        };
+                        img.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(file);
+                },
+
+                searchAddr() {
+                    const self = this;
+                    new daum.Postcode({
+                        oncomplete: function (data) {
+                            self.data.config.venue.address = data.address;
+                            alert('주소가 입력되었습니다: ' + data.address);
+                        }
+                    }).open();
+                },
+
+                publishGithub(silent = false) {
+                    this.syncEditors(); // ENSURE RICH TEXT SYNC
+
+                    const token = this.data.config.secrets.githubToken;
+                    if (!token) {
+                        if (!silent) {
+                            this.tab = 'settings';
+                            alert('GitHub 토큰이 설정되지 않았습니까? 고급 설정 탭에서 토큰을 먼저 입력해주세요.');
+                        }
+                        return;
+                    }
+
+                    if (!silent && !confirm('초대장 데이터를 실시간 서버에 배포하시겠습니까?')) return;
+
+                    // SANITIZE DATA: Remove secrets before publishing to avoid "Secret detected" errors
+                    const cleanData = JSON.parse(JSON.stringify(this.data));
+                    if (cleanData.config.secrets) {
+                        cleanData.config.secrets.githubToken = "";
+                        // kakaoApiKey is public for frontend use, keep it to allow map to work
+                    }
+
+                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(cleanData, null, 2))));
+
+                    // 1. Get current SHA to prevent conflicts
+                    fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/data.json`, {
+                        headers: { 'Authorization': `token ${token}` }
+                    })
+                        .then(r => {
+                            if (!r.ok) throw new Error('파일 정보를 불러오는데 실패했습니다.');
+                            return r.json();
+                        })
+                        .then(d => {
+                            const sha = d.sha;
+                            // 2. PUT updated data
+                            return fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/data.json`, {
+                                method: 'PUT',
+                                headers: { 'Authorization': `token ${token}` },
+                                body: JSON.stringify({ message: '초대장 데이터 업데이트 (Admin)', content, sha })
+                            });
+                        })
+                        .then(r => {
+                            if (r.ok) {
+                                if (!silent) alert('✅ 배포되었습니다!\n\n수정한 내용이 수 분 내에 실제 사이트에 반영됩니다.');
+                                else console.log('Auto-apply: Successful');
+                            } else {
+                                return r.json().then(err => {
+                                    throw new Error(err.message || '배포 중 오류 발생');
+                                });
+                            }
+                        })
+                        .catch(e => {
+                            if (!silent) alert('❌ 배포 실패되었습니다.\n\n에러: ' + e.message);
+                            else console.error('Auto-apply failed:', e);
+                        });
+
+                    localStorage.setItem('wedding_v2_data', JSON.stringify(this.data));
+                },
+                saveLocal() {
+                    this.syncEditors(); // ENSURE RICH TEXT SYNC
+                    localStorage.setItem('wedding_v2_data', JSON.stringify(this.data));
+                    alert('로컬에 임시 저장되었습니다.');
+                },
+                initSimulationMap() {
+                    const key = this.data.config.secrets.kakaoApiKey || 'dacffa882aa3284870d06afa02bd5947';
+                    const container = document.getElementById('map-simulation');
+                    if (!container) return;
+
+                    const drawMap = (lat, lng) => {
+                        const coords = new kakao.maps.LatLng(lat, lng);
+                        const options = { center: coords, level: 3 };
+                        const map = new kakao.maps.Map(container, options);
+                        new kakao.maps.Marker({ position: coords, map: map });
+                        setTimeout(() => map.relayout(), 500);
+                        setTimeout(() => map.setCenter(coords), 600);
+                    };
+
+                    const startEngine = () => {
+                        const venue = this.data.config.venue;
+                        if (venue.lat && venue.lng) {
+                            return drawMap(venue.lat, venue.lng);
+                        }
+
+                        const geocoder = new kakao.maps.services.Geocoder();
+                        if (!venue.address) return;
+                        geocoder.addressSearch(venue.address, (result, status) => {
+                            if (status === kakao.maps.services.Status.OK) {
+                                drawMap(result[0].y, result[0].x);
+                            } else {
+                                drawMap(37.521503, 127.037492);
+                            }
+                        });
+                    };
+
+                    if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.services) {
+                        startEngine();
+                    } else {
+                        if (window.kakaoMapLoading) return;
+                        window.kakaoMapLoading = true;
+
+                        const script = document.createElement('script');
+                        script.type = 'text/javascript';
+                        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${key}&libraries=services&autoload=false`;
+                        script.onload = () => {
+                            kakao.maps.load(() => {
+                                window.kakaoMapLoading = false;
+                                startEngine();
+                            });
+                        };
+                        document.head.appendChild(script);
+                    }
+                },
+
+                extractYoutubeId(url) {
+                    if (!url) return '';
+                    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    const match = url.match(regExp);
+                    return (match && match[2].length === 11) ? match[2] : url;
+                },
+
+                getAdminImageUrl(img) {
+                    if (!img) return 'about:blank';
+                    if (typeof img === 'object') return img.thumbnail || img.original || 'about:blank';
+                    return img;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

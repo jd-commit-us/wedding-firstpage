@@ -1,0 +1,7 @@
+{
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "name": "프리미엄 모바일 청첩장",
+  "description": "최고급 인터렉티브 모바일 청첩장"
+}

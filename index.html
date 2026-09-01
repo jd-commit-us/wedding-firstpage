@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title
+        x-text="data.groom?.name && data.bride?.name ? '§' + data.groom.name + '§ ♥ §' + data.bride.name + '§의 모바일 청첩장' : '모바일 청첩장'">
+    </title>
+
+    <!-- Open Graph / Facebook / KakaoTalk -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://highhighcouple.github.io/Wedding_Invitation/">
+    <meta property="og:title" content="조현우 ♥ 류하영의 모바일 청첩장">
+    <meta property="og:description" content="2026년 5월 2일 토요일 PM 13시 | 강남 마리아쥬 스퀘어 | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/og/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="조현우 ♥ 류하영 결혼식">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://highhighcouple.github.io/Wedding_Invitation/">
+    <meta name="twitter:title" content="조현우 ♥ 류하영의 모바일 청첩장">
+    <meta name="twitter:description" content="2026년 5월 2일 토요일 PM 13시 | 강남 마리아쥬 스퀘어 | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/og/thumbnail.png">
+
+    <!-- Additional Meta Tags -->
+    <meta name="description" content="2026년 5월 2일 토요일 PM 13시 | 강남 마리아쥬 스퀘어 | 조현우와 류하영의 결혼식에 초대합니다">
+    <meta name="keywords" content="결혼식, 청첩장, 모바일청첩장, 조현우, 류하영, 마리아쥬스퀘어">
+    <meta name="author" content="조현우, 류하영">
+    <meta name="theme-color" content="#f2aebc">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Kakao SDKs will be loaded dynamically in init() if keys are present -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
+        integrity="sha384-l6I7YpLAnpS8mXdfzD4pUnVqB3kS+Yn0yW4I3oR6K7CizK6G/h6y3J3LzW9p+G2J"
+        crossorigin="anonymous"></script>
+
+    <!-- SunEditor CSS for Rich Text Rendering -->
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent: #f2aebc;
+            --text: #333;
+        }
+
+        .sun-editor-common {
+            /* Remove global override to let inner styles through */
+        }
+
+        .eng-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .lux-font {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+
+        /* Intro */
+        #intro-layer {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            transition: opacity 1s;
+        }
+
+        .scroll-icon {
+            border: 2px solid white;
+            width: 30px;
+            height: 50px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-icon::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            animation: scrollDown 1.5s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                top: 8px;
+                opacity: 1;
+            }
+
+            100% {
+                top: 25px;
+                opacity: 0;
+            }
+        }
+
+        /* Effects */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 50;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .max-w-lg {
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .section-wrap {
+                box-shadow: none;
+                border-bottom: 1px solid #f9f9f9;
+            }
+        }
+
+        /* Layout */
+        .section-wrap {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 1s cubic-bezier(0.2, 1, 0.3, 1);
+            margin-bottom: 2px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-wrap.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-body {
+            transition: max-height 0.8s ease-in-out;
+            overflow: hidden;
+            max-height: 3000px;
+        }
+
+        .content-body.folded {
+            max-height: 0;
+        }
+
+        /* Gallery Grid */
+        .gal-grid-item {
+            aspect-ratio: 1;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .gal-grid-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .gal-main {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background-size: contain;
+            background-color: #000;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: opacity 0.8s ease-in-out, background-image 0.8s ease-in-out;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gal-main::after {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body x-data="app()" x-init="init()" class="relative text-center"
+    :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '1.8'}; letter-spacing: ${data.theme?.style?.letterSpacing || '0px'}`"
+    @mousemove="handleMouseMove($event)" @mousedown="handleMouseDown($event)" @touchstart="handleTouchStart($event)">
+
+    <!-- Intro Layer -->
+    <div id="intro-layer" x-show="showIntro" @click="closeIntro" @wheel.prevent="closeIntro"
+        @touchmove.prevent="closeIntro">
+        <div class="text-3xl eng-font mb-4 animate-pulse">Our Wedding</div>
+        <div class="scroll-icon mb-4"></div>
+        <div class="text-xs tracking-widest opacity-80">SCROLL DOWN</div>
+    </div>
+
+    <!-- Floating Nav -->
+    <div class="fixed top-4 left-4 z-[90] flex flex-col gap-2 transition-all duration-300"
+        :class="showIntro?'opacity-0':'opacity-100'">
+        <!-- BGM -->
+        <button x-show="data.media && data.media.bgm && data.media.bgm.length > 0" @click="toggleBgm"
+            class="w-10 h-10 rounded-full bg-white/60 backdrop-blur shadow border border-gray-100 flex items-center justify-center animate-[spin_4s_linear_infinite]"
+            :style="bgmPlaying ? '' : 'animation: none'">
+            💿
+        </button>
+    </div>
+    <!-- Floating Nav (TTS/Language UI 주석 처리) -->
+    <!--
+    <div class="fixed top-4 right-4 z-[90] flex gap-2 transition-all duration-300"
+        :class="showIntro?'opacity-0':'opacity-100'">
+        <select x-model="lang" class="bg-white/80 backdrop-blur border rounded-full px-3 py-1 text-xs outline-none">
+            <option value="ko">KR</option>
+            <option value="en">EN</option>
+            <option value="jp">JP</option>
+            <option value="cn">CN</option>
+        </select>
+        <button @click="speakAll"
+            class="w-8 h-8 rounded-full bg-pink-100/80 backdrop-blur flex items-center justify-center text-sm shadow">
+            👄
+        </button>
+    </div>
+    -->
+
+    <!-- Effect Canvas -->
+    <canvas id="effect"></canvas>
+
+    <!-- Main Content -->
+    <main class="pb-32 w-full">
+        <!-- Hero Section (Fixed ID: names) handled dynamically via sort -->
+        <template x-for="section in sortedSections" :key="section.id">
+            <template x-if="section.isVisible">
+                <div class="section-wrap relative" :id="section.id"
+                    :class="section.id === 'names' ? 'pt-0 w-full mb-0 shadow-none' : 'max-w-lg mx-auto'">
+
+                    <!-- Toggle/Static Header (Exclude Names) -->
+                    <div x-show="section.id !== 'names'"
+                        @click="if(section._canFold) section._isFolded = !section._isFolded"
+                        class="p-6 flex justify-between items-center bg-white z-10 relative"
+                        :class="section._canFold ? 'cursor-pointer' : ''">
+                        <h2 class="text-lg lux-font font-bold text-gray-700 tracking-wide"
+                            x-text="t(section.id) === section.id ? section.title : t(section.id)"></h2>
+                        <span x-show="section._canFold" class="text-gray-300 text-xs"
+                            x-text="section._isFolded ? '▼' : '▲'"></span>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="content-body" :class="section._isFolded ? 'folded' : ''">
+
+                        <!-- 1. Names/Hero -->
+                        <template x-if="section.id === 'names'">
+                            <div class="text-center pb-12 bg-white">
+                                <div class="relative w-full overflow-hidden bg-[#fffcfc] h-[75vh]">
+                                    <img :src="data.images.main" class="w-full h-full object-cover block shadow-inner">
+                                    <div
+                                        class="absolute inset-0 flex flex-col items-center justify-center p-12 bg-black/5 pointer-events-none">
+                                        <div class="eng-font text-white text-5xl md:text-7xl mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sun-editor-common"
+                                            style="text-align: center" x-html="data.text.mainOverlay"></div>
+                                        <div class="w-16 h-[1px] bg-white/50"></div>
+                                    </div>
+                                </div>
+
+                                <div class="max-w-md mx-auto space-y-8 mt-12 mb-12">
+                                    <div class="text-sm md:text-base leading-relaxed lux-font sun-editor-common px-8"
+                                        :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '1.8'}; letter-spacing: ${data.theme?.style?.letterSpacing || '0px'}; text-align: ${data.theme?.style?.textAlign || 'center'}`"
+                                        x-html="data.text.mainMessage"></div>
+                                </div>
+
+                                <!-- Names Section UI Restoration & Improvement -->
+                                <div class="max-w-lg mx-auto px-8 pt-10 pb-12 bg-white flex justify-center">
+                                    <div
+                                        class="grid grid-cols-[auto_auto_auto] items-end gap-x-4 sm:gap-x-12 text-center">
+                                        <!-- Groom Column -->
+                                        <div class="flex flex-col items-center min-w-[100px]">
+                                            <div class="text-[12px] text-gray-500 mb-4 lux-font whitespace-nowrap">
+                                                <span x-text="data.groom.parents.father"></span>·<span
+                                                    x-text="data.groom.parents.mother"></span><span class="">의</span>
+                                                <span x-text="data.groom.rank"></span>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <span class="text-lg text-blue-600 font-bold mb-1 lux-font">신랑</span>
+                                                <h1 class="text-3xl tracking-[0.1em] font-light lux-font"
+                                                    x-text="data.groom.name"></h1>
+                                            </div>
+                                        </div>
+
+                                        <!-- Divider -->
+                                        <div class="lux-font text-2xl text-pink-200 pb-2 flex items-center h-full">&
+                                        </div>
+
+                                        <!-- Bride Column -->
+                                        <div class="flex flex-col items-center min-w-[100px]">
+                                            <div class="text-[12px] text-gray-500 mb-4 lux-font whitespace-nowrap">
+                                                <span x-text="data.bride.parents.father"></span>·<span
+                                                    x-text="data.bride.parents.mother"></span><span class="">의</span>
+                                                <span x-text="data.bride.rank"></span>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <span class="text-lg text-pink-500 font-bold mb-1 lux-font">신부</span>
+                                                <h1 class="text-3xl tracking-[0.1em] font-light lux-font"
+                                                    x-text="data.bride.name"></h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 2. Calendar -->
+                        <template x-if="section.id === 'calendar'">
+                            <div class="px-8 pb-12 text-center">
+                                <h3 class="lux-font text-xl text-gray-700 mb-6" x-text="calTitle"></h3>
+                                <div
+                                    class="bg-white p-4 rounded-xl border border-gray-100 grid grid-cols-7 gap-1 text-center shadow-sm mb-10">
+                                    <template x-for="day in ['일','월','화','수','목','금','토']">
+                                        <div class="text-[10px] font-bold text-gray-400 pb-2" x-text="day"></div>
+                                    </template>
+                                    <template x-for="d in calDays">
+                                        <div class="h-10 flex items-center justify-center text-sm"
+                                            :class="d.isTarget ? 'bg-pink-400 text-white rounded-full font-bold shadow-md' : (d.isSun ? 'text-red-400' : 'text-gray-600')"
+                                            x-text="d.day || ''"></div>
+                                    </template>
+                                </div>
+                                <div class="mt-4 p-6 bg-pink-50/30 rounded-2xl border border-pink-100/50">
+                                    <div class="text-[16px] font-bold text-gray-700 tracking-tight" x-text="dDay"></div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 3. Video -->
+                        <template x-if="section.id === 'youtube' && data.media.youtube">
+                            <div class="px-8 pb-10">
+                                <div class="relative w-full aspect-video bg-black rounded shadow-lg overflow-hidden group cursor-pointer"
+                                    @click="showVideo=true">
+                                    <img :src="`https://i.ytimg.com/vi/${data.media.youtube.trim()}/hqdefault.jpg`"
+                                        class="w-full h-full object-cover transition duration-300">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div
+                                            class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center text-xl pl-1">
+                                            ▶</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 4. Gallery -->
+                        <template x-if="section.id === 'gallery'">
+                            <div class="px-4 pb-10">
+                                <!-- Main Gallery Image (Original, Object-Contain) -->
+                                <div class="gal-main mb-2 rounded shadow-xl relative overflow-hidden bg-black"
+                                    @click="openLightbox(getGalleryImage(galIdx, 'original'))">
+                                    <img :src="getGalleryImage(galIdx, 'original')"
+                                        class="w-full h-full object-contain transition-opacity duration-600 ease-in-out"
+                                        :class="galleryMainLoaded ? 'opacity-100' : 'opacity-0'"
+                                        @load="galleryMainLoaded = true">
+                                </div>
+                                <!-- Thumbnail Grid (Thumbnails, 5x6 max 30 images) -->
+                                <div class="grid grid-cols-5 gap-1">
+                                    <template x-for="(img, idx) in data.images.gallery.slice(0,30)" :key="idx">
+                                        <div class="gal-grid-item"
+                                            :style="`background-image: url(${getGalleryImage(idx, 'thumbnail')})`"
+                                            :class="galIdx===idx ? 'ring-2 ring-pink-300 shadow-[0_0_15px_rgba(249,168,212,0.8)] z-10' : ''"
+                                            @click="selectGalleryImage(idx)"></div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 5. Contact -->
+                        <template x-if="section.id === 'phone'">
+                            <div class="px-8 pb-10 space-y-8">
+                                <div class="space-y-4">
+                                    <div class="font-bold text-blue-900 border-b pb-2 mb-4 text-center">신랑측</div>
+                                    <template x-for="p in getPhones('groom')">
+                                        <div @click="window.location.href='tel:'+p.phone"
+                                            class="flex justify-between items-center p-3 bg-gray-50 rounded-lg cursor-pointer active:bg-gray-100 transition-colors">
+                                            <div class="flex items-center gap-3">
+                                                <span class="font-medium text-gray-700" x-text="p.label"></span>
+                                                <span class="text-xs text-gray-400" x-text="p.phone"></span>
+                                            </div>
+                                            <div class="text-blue-500 text-lg">📞</div>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="font-bold text-pink-900 border-b pb-2 mb-4 text-center">신부측</div>
+                                    <template x-for="p in getPhones('bride')">
+                                        <div @click="window.location.href='tel:'+p.phone"
+                                            class="flex justify-between items-center p-3 bg-gray-50 rounded-lg cursor-pointer active:bg-gray-100 transition-colors">
+                                            <div class="flex items-center gap-3">
+                                                <span class="font-medium text-gray-700" x-text="p.label"></span>
+                                                <span class="text-xs text-gray-400" x-text="p.phone"></span>
+                                            </div>
+                                            <div class="text-pink-500 text-lg">📞</div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 6. Accounts -->
+                        <template x-if="section.id === 'accounts'">
+                            <div class="px-8 pb-10 space-y-6">
+                                <div class="text-center text-xs text-gray-400 mb-6">계좌번호</div>
+
+                                <div class="space-y-4">
+                                    <div class="text-[11px] font-bold text-blue-600 mb-2">&lt;신랑측&gt;</div>
+                                    <template x-for="acc in getAllAccounts('groom')">
+                                        <div @click="copyAccount(acc)"
+                                            class="flex justify-between items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
+                                            <div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="font-bold text-sm text-gray-700"
+                                                        x-text="acc.name"></span>
+                                                    <span class="text-[10px] text-gray-400"
+                                                        x-text="`(${acc.bank})`"></span>
+                                                </div>
+                                                <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
+                                            </div>
+                                            <button
+                                                class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
+                                        </div>
+                                    </template>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="text-[11px] font-bold text-pink-600 mb-2">&lt;신부측&gt;</div>
+                                    <template x-for="acc in getAllAccounts('bride')">
+                                        <div @click="copyAccount(acc)"
+                                            class="flex justify-between items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
+                                            <div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="font-bold text-sm text-gray-700"
+                                                        x-text="acc.name"></span>
+                                                    <span class="text-[10px] text-gray-400"
+                                                        x-text="`(${acc.bank})`"></span>
+                                                </div>
+                                                <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
+                                            </div>
+                                            <button
+                                                class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 7. Location -->
+                        <template x-if="section.id === 'location'">
+                            <div class="px-6 pb-10">
+                                <div class="text-center mb-6">
+                                    <div class="font-bold text-lg" x-text="data.config.venue.name"></div>
+                                    <div class="text-sm text-gray-500 mt-1" x-text="data.config.venue.address"></div>
+                                </div>
+                                <div id="map" class="w-full h-64 bg-gray-100 rounded mb-4"
+                                    x-init="$nextTick(() => initMap())"></div>
+                                <div class="text-left text-sm md:text-base leading-relaxed bg-[#fff9f9] p-6 md:p-10 rounded-2xl shadow-sm border border-pink-50 sun-editor-common mb-8"
+                                    x-html="data.config.venue.guideText"></div>
+
+                                <!-- Map Apps -->
+                                <div class="grid grid-cols-4 gap-4 mb-8">
+                                    <a :href="data.config.venue.mapLinks.kakao" target="_blank"
+                                        class="flex flex-col items-center gap-1">
+                                        <div
+                                            class="w-12 h-12 bg-yellow-400 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                                            K</div>
+                                        <span class="text-[10px] text-gray-500">카카오맵</span>
+                                    </a>
+                                    <a :href="data.config.venue.mapLinks.naver" target="_blank"
+                                        class="flex flex-col items-center gap-1">
+                                        <div
+                                            class="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center text-lg text-white shadow-sm font-bold">
+                                            N</div>
+                                        <span class="text-[10px] text-gray-500">네이버지도</span>
+                                    </a>
+                                    <a :href="data.config.venue.mapLinks.tmap" target="_blank"
+                                        class="flex flex-col items-center gap-1">
+                                        <div
+                                            class="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center text-lg text-white shadow-sm font-bold">
+                                            T</div>
+                                        <span class="text-[10px] text-gray-500">티맵</span>
+                                    </a>
+                                    <a :href="data.config.venue.mapLinks.google" target="_blank"
+                                        class="flex flex-col items-center gap-1">
+                                        <div
+                                            class="w-12 h-12 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-lg shadow-sm font-bold">
+                                            G</div>
+                                        <span class="text-[10px] text-gray-500">구글맵</span>
+                                    </a>
+                                </div>
+
+                                <!-- Detail Map Image -->
+                                <template x-if="data.config.venue.mapImage">
+                                    <div class="mt-4 pt-6 border-t">
+                                        <h3 class="text-sm font-bold text-gray-700 mb-4">지도 다운로드</h3>
+                                        <a :href="data.config.venue.mapImage" download class="block">
+                                            <img :src="data.config.venue.mapImage"
+                                                class="w-full rounded-lg shadow-md mb-2">
+                                            <button
+                                                class="w-full py-3 bg-gray-100 text-xs font-bold text-gray-600 rounded-lg hover:bg-gray-200">
+                                                📥 지도를 이미지로 저장하기
+                                            </button>
+                                        </a>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- 8. Guestbook (New Implementation) -->
+                        <template x-if="section.id === 'guestbook'">
+                            <div class="px-8 pb-10">
+                                <div class="space-y-4 mb-6">
+                                    <template x-for="post in bbs" :key="post.date">
+                                        <div class="p-4 bg-gray-50 rounded text-sm relative">
+                                            <div class="font-bold mb-1" x-text="post.name"></div>
+                                            <div class="text-gray-600 mb-2 whitespace-pre-line" x-text="post.message">
+                                            </div>
+                                            <div class="text-[10px] text-gray-400"
+                                                x-text="new Date(post.date).toLocaleString()"></div>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="p-4 border rounded space-y-3">
+                                    <input x-model="newPost.name" placeholder="성함"
+                                        class="w-full border p-2 text-sm rounded">
+                                    <textarea x-model="newPost.message" placeholder="축하 메시지를 남겨주세요"
+                                        class="w-full border p-2 text-sm rounded" rows="3"></textarea>
+                                    <button @click="saveBbs"
+                                        class="w-full bg-pink-100 py-2 text-sm font-bold rounded hover:bg-pink-200">메시지
+                                        남기기</button>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 9. RSVP (New Implementation) -->
+                        <template x-if="section.id === 'rsvp'">
+                            <div class="px-8 pb-10">
+                                <div class="p-6 bg-pink-50 rounded-lg space-y-4">
+                                    <div
+                                        class="text-center font-bold text-pink-700 mb-2 underline decoration-pink-200 underline-offset-4">
+                                        참석 여부 전달</div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button @click="newJoin.side='groom'"
+                                            class="py-2 text-xs border rounded transition-all"
+                                            :class="newJoin.side==='groom'?'bg-blue-500 text-white border-blue-600 shadow-sm':'bg-white text-gray-400 border-gray-100'">신랑측</button>
+                                        <button @click="newJoin.side='bride'"
+                                            class="py-2 text-xs border rounded transition-all"
+                                            :class="newJoin.side==='bride'?'bg-pink-500 text-white border-pink-600 shadow-sm':'bg-white text-gray-400 border-gray-100'">신부측</button>
+                                    </div>
+                                    <input x-model="newJoin.name" placeholder="성함"
+                                        class="w-full bg-white border-gray-100 border p-3 text-sm rounded-lg focus:ring-2 focus:ring-pink-200 outline-none">
+                                    <div class="flex gap-2">
+                                        <input type="number" x-model="newJoin.count" placeholder="동반 인원 (본인 포함)"
+                                            class="flex-1 bg-white border border-gray-100 p-3 text-sm rounded-lg outline-none">
+                                        <label
+                                            class="flex items-center gap-2 text-xs text-gray-500 whitespace-nowrap bg-white px-3 border border-gray-100 rounded-lg">
+                                            <input type="checkbox" x-model="newJoin.meal" class="accent-pink-500"> 식사 여부
+                                        </label>
+                                    </div>
+                                    <button @click="saveJoin"
+                                        class="w-full bg-gray-800 text-white py-3 text-sm font-bold rounded-lg shadow-lg active:scale-[0.98] transition-transform">참석
+                                        정보 보내기</button>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 10. Mini Game (Wedding Path) -->
+                        <template x-if="section.id === 'minigame'">
+                            <div class="px-4 pb-10 text-center bg-[#111] text-white py-12">
+                                <h2 class="text-2xl font-bold mb-6 font-[Nanum Myeongjo] text-pink-300">Wedding Path
+                                </h2>
+                                <p class="text-xs text-gray-400 mb-4">PC: WASD / Arrows | Mobile: Touch to Start</p>
+                                <div class="relative w-full max-w-[800px] mx-auto aspect-[2/1] border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl"
+                                    x-init="$nextTick(() => { window.publicGame = new HighHighGame('publicGameCanvas'); })">
+                                    <canvas id="publicGameCanvas" width="800" height="400"
+                                        class="w-full h-full object-contain"></canvas>
+                                </div>
+                                <p class="text-[10px] text-gray-500 mt-4">검은색 영역을 피해 가운데에서 만나세요!</p>
+                            </div>
+                        </template>
+
+                        <!-- 10. Share -->
+                        <template x-if="section.id === 'share'">
+                            <div class="px-8 pb-10 flex flex-col items-center gap-6">
+                                <div class="flex flex-wrap justify-center gap-6 w-full">
+                                    <button @click="shareKakao" class="flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-12 h-12 bg-[#FEE500] rounded-full flex items-center justify-center text-xl shadow-sm">
+                                            💬</div>
+                                        <span class="text-[10px] text-gray-500">카카오톡</span>
+                                    </button>
+                                    <button @click="shareSns('facebook')" class="flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center text-white text-xl shadow-sm font-bold">
+                                            f</div>
+                                        <span class="text-[10px] text-gray-500">페이스북</span>
+                                    </button>
+                                    <button @click="shareSns('x')" class="flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-lg shadow-sm">
+                                            𝕏</div>
+                                        <span class="text-[10px] text-gray-500">X</span>
+                                    </button>
+                                    <button @click="shareSns('line')" class="flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-12 h-12 bg-[#00B900] rounded-full flex items-center justify-center text-white text-xl shadow-sm font-bold">
+                                            L</div>
+                                        <span class="text-[10px] text-gray-500">라인</span>
+                                    </button>
+                                    <button @click="shareSns('telegram')" class="flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-12 h-12 bg-[#0088CC] rounded-full flex items-center justify-center text-white text-xl shadow-sm">
+                                            ✈</div>
+                                        <span class="text-[10px] text-gray-500">텔레그램</span>
+                                    </button>
+                                    <button @click="copyLink" class="flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-xl shadow-sm">
+                                            🔗</div>
+                                        <span class="text-[10px] text-gray-500">링크 복사</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+            </template>
+        </template>
+    </main>
+
+    <footer
+        class="py-12 text-center text-[11px] text-gray-500 font-medium tracking-widest bg-white border-t border-gray-100">
+        Copyright (c) 조현우 All Right Reserved
+    </footer>
+
+    <!-- Image Modal -->
+    <div x-show="showGal" x-transition class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+        <button @click="showGal = false"
+            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-gray-300 transition-colors">✕</button>
+        <img :src="galSrc" class="max-w-full max-h-[85vh] rounded shadow-2xl">
+    </div>
+
+    <!-- Video Modal -->
+    <div x-show="showVid" x-transition class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+        <button @click="showVid = false"
+            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-gray-300 transition-colors">✕</button>
+        <div class="w-full max-w-2xl aspect-video bg-black rounded overflow-hidden">
+            <template x-if="data.media.vidUrl">
+                <iframe class="w-full h-full" :src="data.media.vidUrl.replace('watch?v=', 'embed/')" frameborder="0"
+                    allowfullscreen></iframe>
+            </template>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div x-show="showVideo" class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" x-cloak
+        @click="showVideo=false">
+        <div class="w-full max-w-2xl aspect-video bg-black" @click.stop>
+            <iframe class="w-full h-full"
+                :src="showVideo ? `https://www.youtube.com/embed/${data.media.youtube}?autoplay=1` : ''"
+                allow="autoplay" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <div x-show="lightbox" class="fixed inset-0 z-[100] bg-black flex items-center justify-center p-0" x-cloak
+        @click="lightbox=null">
+        <button @click="lightbox = null"
+            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-gray-300 transition-colors z-50">✕</button>
+        <img :src="lightbox" class="w-full h-full object-contain" @click.stop>
+    </div>
+
+    <!-- Scripts -->
+    <script src="minigame.js"></script>
+    <script>
+        function app() {
+            return {
+                lang: 'ko', showIntro: true, showVideo: false, lightbox: null,
+                showGal: false, galSrc: '', showVid: false,
+                data: {}, sortedSections: [],
+                calDays: [], calTitle: '', dDay: '',
+                bgmPlaying: false, audio: null,
+                galIdx: 0,
+                galleryMainLoaded: false,
+                galleryTimer: null,
+                nextImagePreloader: null,
+                bbs: [], newPost: { name: '', message: '' },
+                join: [], newJoin: { side: 'groom', name: '', count: 0, meal: true },
+                copyNotified: false,
+
+                dict: {
+                    ko: {
+                        names: '초대합니다',
+                        calendar: '결혼식 날',
+                        youtube: '영상',
+                        gallery: '사진 앨범',
+                        phone: '연락처',
+                        accounts: '마음 전하실 곳',
+                        location: '오시는 길',
+                        guestbook: '방명록',
+                        rsvp: '참석 여부 전달',
+                        share: '공유'
+                    },
+                    en: { names: 'Names', calendar: 'Calendar', of: 'of' }
+                },
+
+                async init() {
+                    // Check Session for Intro
+                    if (sessionStorage.getItem('visited')) this.showIntro = false;
+
+                    // Fetch Data with Cache Busting
+                    const timestamp = new Date().getTime();
+                    try {
+                        this.data = await (await fetch(`data.json?v=${timestamp}`)).json();
+
+                        // Kakao Init for Share
+                        const kKey = this.data.config.secrets.kakaoApiKey || 'dacffa882aa3284870d06afa02bd5947';
+                        if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+                            Kakao.init(kKey);
+                        }
+
+                        // Process Sections with Internal State
+                        if (this.data.sections) {
+                            this.data.sections.forEach(sec => {
+                                sec._canFold = !!sec.isFolded;
+                                sec._isFolded = !!sec.isFolded;
+                            });
+                            this.sortedSections = [...this.data.sections].sort((a, b) => a.order - b.order);
+
+                            // Dynamic Title
+                            document.title = `§${this.data.groom.name}§ ♥ §${this.data.bride.name}§의 청첩장`;
+                        }
+
+                        // Fixed Default States
+                        const rsvpIdx = this.data.sections.findIndex(s => s.id === 'rsvp');
+                        if (rsvpIdx !== -1) {
+                            this.data.sections[rsvpIdx]._canFold = true;
+                            this.data.sections[rsvpIdx]._isFolded = true;
+                        }
+
+                        this.initCal();
+                        this.initEffects();
+
+                        // Load BBS & Join
+                        try { this.bbs = await (await fetch('bbs.json')).json(); } catch (e) { }
+                        try { this.join = await (await fetch('join.json')).json(); } catch (e) { }
+
+                        // Gallery Loop (Random start, 6s interval, preload next)
+                        if (this.data.images.gallery.length > 0) {
+                            // Random start
+                            this.galIdx = Math.floor(Math.random() * this.data.images.gallery.length);
+                            this.preloadNextGalleryImage();
+
+                            this.galleryMainLoaded = true;
+                            this.startGalleryLoop();
+                        }
+
+                        // Observer
+                        setTimeout(() => this.initObserver(), 500);
+
+                    } catch (e) {
+                        console.error('Data loading error:', e);
+                    }
+                },
+
+                closeIntro() {
+                    this.showIntro = false;
+                    sessionStorage.setItem('visited', 'true');
+                    this.initObserver(); // Re-trigger
+                },
+
+                toggleBgm() {
+                    if (!this.data.media.bgm.length) return;
+                    if (!this.audio) {
+                        this.audio = new Audio(this.data.media.bgm[0]);
+                        this.audio.loop = true; // Simple loop 1st track for now. Logic for playlist can be added.
+                    }
+                    if (this.bgmPlaying) this.audio.pause();
+                    else this.audio.play();
+                    this.bgmPlaying = !this.bgmPlaying;
+                },
+
+                t(key) { return (this.dict[this.lang] && this.dict[this.lang][key]) || key; },
+
+                processSections() {
+                    if (this.data.sections) this.sortedSections = this.data.sections.sort((a, b) => a.order - b.order);
+                },
+
+                initCal() {
+                    const dateVal = this.data.config?.weddingDate;
+                    if (!dateVal) return;
+                    const d = new Date(dateVal);
+                    this.calTitle = `${d.getFullYear()}. ${d.getMonth() + 1}`;
+
+                    const y = d.getFullYear(), m = d.getMonth();
+                    const firstDay = new Date(y, m, 1).getDay();
+                    const lastDate = new Date(y, m + 1, 0).getDate();
+
+                    let arr = [];
+                    for (let i = 0; i < firstDay; i++) arr.push({ day: 0 });
+                    for (let i = 1; i <= lastDate; i++) {
+                        const cur = new Date(y, m, i);
+                        arr.push({ day: i, w: cur.getDay(), isTarget: i === d.getDate(), isSun: cur.getDay() === 0 });
+                    }
+                    this.calDays = arr;
+
+                    // D-Day
+                    this.updateTimer();
+                    setInterval(() => this.updateTimer(), 1000);
+                },
+
+                updateTimer() {
+                    if (!this.data.config.weddingDate) return;
+
+                    // KST (UTC+9) Calculation
+                    const now = new Date();
+                    const localeNow = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (9 * 3600000));
+
+                    const target = new Date(this.data.config.weddingDate);
+                    const localeTarget = new Date(target.getTime() + (target.getTimezoneOffset() * 60000) + (9 * 3600000));
+
+                    const diff = localeTarget - localeNow;
+                    const absDiff = Math.abs(diff);
+
+                    const s = Math.floor(absDiff / 1000) % 60;
+                    const m = Math.floor(absDiff / 1000 / 60) % 60;
+                    const h = Math.floor(absDiff / 1000 / 60 / 60) % 24;
+                    const d = Math.floor(absDiff / 1000 / 60 / 60 / 24);
+
+                    const timeStr = `${h}시간 ${m}분 ${s}초`;
+                    const daysStr = d > 0 ? `${d}일 ` : '';
+                    const prefix = diff > 0 ? 'D-' : 'D+';
+                    const suffix = diff > 0 ? '남음' : '지남';
+
+                    this.dDay = `${prefix}${daysStr}${timeStr} ${suffix}`;
+                },
+
+                initEffects() {
+                    const canvas = document.getElementById('effect');
+                    const ctx = canvas.getContext('2d');
+
+                    const resize = () => {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                    };
+                    window.addEventListener('resize', resize);
+                    resize();
+
+                    const type = this.data.theme.effect || 'petals';
+                    this.particles = [];
+
+                    class Particle {
+                        constructor(config = {}) {
+                            this.isExplosion = config.isExplosion || false;
+                            this.x = config.x !== undefined ? config.x : Math.random() * canvas.width;
+                            this.y = config.y !== undefined ? config.y : -20;
+                            this.size = Math.random() * (this.isExplosion ? 4 : 10) + 6;
+                            this.speedX = this.isExplosion ? (Math.random() - 0.5) * 12 : (Math.random() - 0.5) * 0.4;
+                            this.speedY = this.isExplosion ? (Math.random() - 0.5) * 12 : Math.random() * 0.7 + 0.4; // Slower
+                            this.angle = Math.random() * 360;
+                            this.spin = Math.random() * 1.5 - 0.75;
+                            this.sway = Math.random() * 2 * Math.PI;
+                            this.swaySpeed = 0.015 + Math.random() * 0.015;
+                            this.life = 1.0;
+                            this.opacity = 0.75 + Math.random() * 0.2;
+                        }
+                        update() {
+                            this.x += this.speedX + Math.sin(this.sway) * 0.6;
+                            this.y += this.speedY;
+                            this.angle += this.spin;
+                            this.sway += this.swaySpeed;
+                            if (this.isExplosion) {
+                                this.life -= 0.02;
+                                this.opacity = Math.max(0, this.life);
+                            } else if (this.y > canvas.height + 20) {
+                                this.y = -20;
+                                this.x = Math.random() * canvas.width;
+                            }
+                        }
+                        draw() {
+                            ctx.save();
+                            ctx.translate(this.x, this.y);
+                            ctx.rotate(this.angle * Math.PI / 180);
+                            ctx.globalAlpha = this.opacity;
+                            ctx.fillStyle = this.getColor();
+
+                            if (this.isExplosion || type === 'snow') {
+                                ctx.beginPath();
+                                ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                                ctx.fill();
+                            } else {
+                                // Real Petal Shape
+                                ctx.beginPath();
+                                ctx.moveTo(0, -this.size / 2);
+                                ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size / 1.5, this.size / 4, 0, this.size / 2);
+                                ctx.bezierCurveTo(this.size / 1.5, this.size / 4, this.size / 2, -this.size / 2, 0, -this.size / 2);
+                                ctx.fill();
+                                // Heart-like notch at top
+                                ctx.fillStyle = 'rgba(0,0,0,0.05)';
+                                ctx.beginPath();
+                                ctx.moveTo(0, -this.size / 2);
+                                ctx.arc(0, -this.size / 2, this.size / 6, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                            ctx.restore();
+                        }
+                        getColor() {
+                            if (this.isExplosion) return '#fff700';
+                            if (type === 'snow') return '#fff';
+                            return '#f8ccd4'; // Soft pink
+                        }
+                    }
+
+                    class Butterfly {
+                        constructor(x, y) {
+                            this.x = x; this.y = y;
+                            this.size = Math.random() * 15 + 25;
+                            this.life = 1.0;
+                            this.flap = Math.random() * Math.PI;
+                            this.speedX = (Math.random() - 0.5) * 3;
+                            this.speedY = -Math.random() * 1.5 - 0.5;
+                            this.hue = Math.random() * 360;
+                        }
+                        update() {
+                            this.life -= 0.008; // Slower fade
+                            this.x += this.speedX;
+                            this.y += this.speedY;
+                            this.flap += 0.12; // Slower flap
+                            this.hue = (this.hue + 5) % 360;
+                        }
+                        draw() {
+                            ctx.save();
+                            ctx.translate(this.x, this.y);
+                            ctx.globalAlpha = this.life * 0.9;
+
+                            const flapScale = Math.sin(this.flap);
+                            const w = (this.size / 2) * Math.abs(flapScale);
+
+                            ctx.fillStyle = `hsl(${this.hue}, 90%, 75%)`;
+
+                            // Elegant Wings Shapes
+                            // Left Wings
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.bezierCurveTo(-w, -this.size / 2, -w, 0, 0, 0); // Upper Left
+                            ctx.fill();
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.bezierCurveTo(-w * 0.8, this.size / 3, -w * 0.5, this.size / 2, 0, 0); // Lower Left
+                            ctx.fill();
+                            // Right Wings
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.bezierCurveTo(w, -this.size / 2, w, 0, 0, 0); // Upper Right
+                            ctx.fill();
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.bezierCurveTo(w * 0.8, this.size / 3, w * 0.5, this.size / 2, 0, 0); // Lower Right
+                            ctx.fill();
+
+                            // Body
+                            ctx.fillStyle = "rgba(0,0,0,0.1)";
+                            ctx.beginPath();
+                            ctx.ellipse(0, 0, 1, this.size / 4, 0, 0, Math.PI * 2);
+                            ctx.fill();
+
+                            ctx.restore();
+                        }
+                    }
+
+                    for (let i = 0; i < 30; i++) this.particles.push(new Particle());
+                    this.butterflies = [];
+
+                    const loop = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        this.particles = this.particles.filter(p => !p.isExplosion || p.life > 0);
+                        this.particles.forEach(p => { p.update(); p.draw(); });
+                        this.butterflies = this.butterflies.filter(b => b.life > 0);
+                        this.butterflies.forEach(b => { b.update(); b.draw(); });
+                        requestAnimationFrame(loop);
+                    };
+                    loop();
+
+                    this._createTrail = (x, y) => {
+                        if (this.butterflies.length < 15) this.butterflies.push(new Butterfly(x, y));
+                    };
+                    this._createExplosion = (x, y) => {
+                        for (let i = 0; i < 20; i++) this.particles.push(new Particle({ isExplosion: true, x, y }));
+                    };
+                },
+
+                handleMouseMove(e) { if (this._createTrail) this._createTrail(e.clientX, e.clientY); },
+                handleMouseDown(e) { if (this._createExplosion) this._createExplosion(e.clientX, e.clientY); },
+                handleTouchStart(e) { if (this._createExplosion) this._createExplosion(e.touches[0].clientX, e.touches[0].clientY); },
+
+                initMap() {
+                    const key = this.data.config.secrets.kakaoApiKey || 'dacffa882aa3284870d06afa02bd5947';
+                    const container = document.getElementById('map');
+                    if (!container) return;
+
+                    const drawMap = (lat, lng) => {
+                        const coords = new kakao.maps.LatLng(lat, lng);
+                        const options = { center: coords, level: 3 };
+                        const map = new kakao.maps.Map(container, options);
+                        new kakao.maps.Marker({ position: coords, map: map });
+                        setTimeout(() => map.relayout(), 500);
+                        setTimeout(() => map.setCenter(coords), 600);
+                    };
+
+                    const startEngine = () => {
+                        const venue = this.data.config.venue;
+                        // Use manual coordinates if available
+                        if (venue.lat && venue.lng) {
+                            return drawMap(venue.lat, venue.lng);
+                        }
+
+                        // Fallback to Geocoder
+                        const geocoder = new kakao.maps.services.Geocoder();
+                        geocoder.addressSearch(venue.address, (result, status) => {
+                            if (status === kakao.maps.services.Status.OK) {
+                                drawMap(result[0].y, result[0].x);
+                            } else {
+                                // Hard fallback to Mariage Square if search fails
+                                drawMap(37.521503, 127.037492);
+                            }
+                        });
+                    };
+
+                    // Singleton Loader Pattern
+                    if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.services) {
+                        startEngine();
+                    } else {
+                        if (window.kakaoMapLoading) return;
+                        window.kakaoMapLoading = true;
+
+                        const script = document.createElement('script');
+                        script.type = 'text/javascript';
+                        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${key}&libraries=services&autoload=false`;
+                        script.onload = () => {
+                            kakao.maps.load(() => {
+                                window.kakaoMapLoading = false;
+                                startEngine();
+                            });
+                        };
+                        document.head.appendChild(script);
+                    }
+                },
+
+                initObserver() {
+                    const obs = new IntersectionObserver(entries => {
+                        entries.forEach(e => {
+                            if (e.isIntersecting) e.target.classList.add('active');
+                        });
+                    }, { threshold: 0.1 });
+                    document.querySelectorAll('.section-wrap').forEach(el => obs.observe(el));
+                },
+
+                getPhones(side) {
+                    const p = this.data[side];
+                    const pp = p.parents;
+                    let list = [{ label: p.name, phone: p.phone }];
+                    if (pp.father) list.push({ label: pp.father, phone: pp.fPhone });
+                    if (pp.mother) list.push({ label: pp.mother, phone: pp.mPhone });
+                    return list;
+                },
+
+                // Gallery Helper: Support both old (string) and new (object) formats
+                getGalleryImage(idx, type = 'thumbnail') {
+                    if (!this.data.images || !this.data.images.gallery) return '';
+                    const img = this.data.images.gallery[idx];
+                    if (!img) return '';
+
+                    // New format: {thumbnail: '...', original: '...'}
+                    if (typeof img === 'object' && img.thumbnail && img.original) {
+                        return type === 'original' ? img.original : img.thumbnail;
+                    }
+
+                    // Old format: just a string URL (backward compatible)
+                    return img;
+                },
+
+                openLightbox(src) {
+                    if (src) this.lightbox = src;
+                },
+
+                // Gallery: Select image from thumbnail grid
+                selectGalleryImage(idx) {
+                    this.stopGalleryLoop();
+
+                    // Instant switch logic
+                    this.galleryMainLoaded = false;
+                    this.galIdx = idx; // Switch index
+
+                    // Wait for Vue/Alpine to process update then fade in via @load or timeout
+                    // Note: If image is cached, @load might fire very fast.
+                    // We restart the loop after a delay so user can view the selected image.
+                    this.preloadNextGalleryImage();
+
+                    this.startGalleryLoop();
+                },
+
+                startGalleryLoop() {
+                    this.stopGalleryLoop();
+                    this.galleryTimer = setInterval(() => {
+                        if (this.data.images.gallery.length) {
+                            this.galleryMainLoaded = false;
+                            setTimeout(() => {
+                                this.galIdx = (this.galIdx + 1) % this.data.images.gallery.length;
+                                this.preloadNextGalleryImage();
+                            }, 600); // Wait for fade out
+                        }
+                    }, 6000);
+                },
+
+                stopGalleryLoop() {
+                    if (this.galleryTimer) {
+                        clearInterval(this.galleryTimer);
+                        this.galleryTimer = null;
+                    }
+                },
+
+                // Gallery: Preload next image for smooth transitions
+                preloadNextGalleryImage() {
+                    if (!this.data.images || !this.data.images.gallery || this.data.images.gallery.length === 0) return;
+
+                    const nextIdx = (this.galIdx + 1) % this.data.images.gallery.length;
+                    const nextImgUrl = this.getGalleryImage(nextIdx, 'original');
+
+                    if (nextImgUrl) {
+                        this.nextImagePreloader = new Image();
+                        this.nextImagePreloader.src = nextImgUrl;
+                    }
+                },
+
+
+
+                copy(txt) {
+                    navigator.clipboard.writeText(txt).then(() => {
+                        // Global copy feedback can be added here if needed,
+                        // but most specific copy functions now have their own alerts.
+                    });
+                },
+
+                async saveBbs() {
+                    if (!this.newPost.name || !this.newPost.message) return alert('성함과 메시지를 입력해주세요.');
+                    const post = { ...this.newPost, date: new Date().toISOString() };
+                    const newList = [post, ...this.bbs];
+                    if (await this.pushToGithub('bbs.json', newList)) {
+                        this.bbs = newList;
+                        this.newPost = { name: '', message: '' };
+                        alert('메시지가 등록되었습니다!');
+                    }
+                },
+
+                async saveJoin() {
+                    if (!this.newJoin.name) return alert('성함을 입력해주세요.');
+                    const entry = { ...this.newJoin, date: new Date().toISOString() };
+                    const currentList = this.join || [];
+                    const newList = [...currentList, entry];
+                    if (await this.pushToGithub('join.json', newList)) {
+                        this.join = newList;
+                        this.newJoin = { side: 'groom', name: '', count: 1, meal: true };
+                        alert('참석 정보가 전달되었습니다.');
+                    }
+                },
+
+                async pushToGithub(filename, data) {
+                    const token = localStorage.getItem('ghToken') || this.data.config.secrets.githubToken;
+                    if (!token) {
+                        alert('데이터 저장을 위해 GitHub 토큰이 필요합니다. 관리자 모드에서 로그인을 먼저 해주세요.');
+                        return false;
+                    }
+
+                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                    try {
+                        const r = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                            headers: { 'Authorization': `token ${token}` }
+                        });
+                        const d = await r.json();
+                        const sha = d.sha;
+
+                        const res = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                            method: 'PUT',
+                            headers: { 'Authorization': `token ${token}` },
+                            body: JSON.stringify({ message: `update ${filename}`, content, sha })
+                        });
+                        return res.ok;
+                    } catch (e) {
+                        alert('통신 오류가 발생했습니다. 토큰 만료 여부를 확인해 주세요.');
+                        return false;
+                    }
+                },
+
+                getAllAccounts(side) {
+                    const person = this.data[side];
+                    if (!person) return [];
+                    let res = [];
+                    // Parents
+                    if (person.parents.father && person.parents.fAccount) {
+                        res.push({ name: person.parents.father, bank: person.parents.fBank || '은행', num: person.parents.fAccount });
+                    }
+                    if (person.parents.mother && person.parents.mAccount) {
+                        res.push({ name: person.parents.mother, bank: person.parents.mBank || '은행', num: person.parents.mAccount });
+                    }
+                    // Self
+                    if (person.account) {
+                        res.push({ name: person.name, bank: person.bank || '은행', num: person.account });
+                    }
+                    return res;
+                },
+
+                copyAccount(acc) {
+                    const txt = `${acc.bank} ${acc.num}`;
+                    this.copy(txt);
+                    alert(`${acc.name} ${txt} 이 클립보드에 복사되었습니다.`);
+                },
+
+                shareKakao() {
+                    if (typeof Kakao !== 'undefined' && Kakao.isInitialized()) {
+                        try {
+                            Kakao.Share.sendDefault({
+                                objectType: 'feed',
+                                content: {
+                                    title: `§${this.data.groom.name}§ ♥ §${this.data.bride.name}§의 결혼식에 초대합니다`,
+                                    description: this.data.config.venue.name + ' ' + this.data.config.weddingDate,
+                                    imageUrl: this.data.images.main || 'https://highhighcouple.github.io/Wedding_Invitation/og_image.png',
+                                    link: { mobileWebUrl: window.location.href, webUrl: window.location.href },
+                                },
+                                buttons: [{ title: '모바일 청첩장 보기', link: { mobileWebUrl: window.location.href, webUrl: window.location.href } }],
+                            });
+                        } catch (e) {
+                            this.copyLink();
+                        }
+                    } else {
+                        this.copyLink();
+                    }
+                },
+
+                shareSns(type) {
+                    const url = window.location.href;
+                    const encodedUrl = encodeURIComponent(url);
+                    const title = `§${this.data.groom.name}§ ♥ §${this.data.bride.name}§의 결혼식에 초대합니다`;
+                    const encodedTitle = encodeURIComponent(title);
+
+                    let appUrl = '';
+                    let webUrl = '';
+
+                    switch (type) {
+                        case 'facebook':
+                            appUrl = `fb://facewebmodal/f?href=${encodedUrl}`;
+                            webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+                            break;
+                        case 'x':
+                            appUrl = `twitter://post?message=${encodedTitle}%20${encodedUrl}`;
+                            webUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+                            break;
+                        case 'line':
+                            appUrl = `line://msg/text/${encodedTitle}%20${encodedUrl}`;
+                            webUrl = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}`;
+                            break;
+                        case 'telegram':
+                            appUrl = `tg://msg_url?url=${encodedUrl}&text=${encodedTitle}`;
+                            webUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
+                            break;
+                    }
+
+                    if (appUrl) {
+                        const start = Date.now();
+                        window.location.href = appUrl;
+
+                        setTimeout(() => {
+                            if (Date.now() - start < 2000) {
+                                window.open(webUrl, '_blank');
+                            }
+                        }, 1500);
+                    } else if (webUrl) {
+                        window.open(webUrl, '_blank');
+                    }
+                },
+
+                copyLink() {
+                    this.copy(window.location.href);
+                    if (!this.copyNotified) {
+                        alert('클립 보드에 주소가 저장되었습니다.');
+                        this.copyNotified = true;
+                    }
+                },
+
+                speakAll() {
+                    if ('speechSynthesis' in window) {
+                        const txt = document.body.innerText; // Simple grab
+                        const ut = new SpeechSynthesisUtterance(txt);
+                        ut.lang = this.lang;
+                        window.speechSynthesis.speak(ut);
+                    } else alert('TTS not supported');
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+{
+  "config": {
+    "weddingDate": "2026-05-02T13:00:00",
+    "venue": {
+      "name": "마리아쥬 스퀘어",
+      "phone": "02-541-5007",
+      "address": "서울특별시 강남구 도산대로 318 SB타워 G층",
+      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[내부주차 300대 수용 가능]</u></span></p><p style=\"text-align: center\"><u>▶</u><span style=\"font-family: Nanum Myeongjo\"><u>당일 교통혼잡이 예상되는 경우,</u></span></p><p style=\"text-align: center\"><span style=\"color: rgb(241, 95, 95);font-family: Nanum Myeongjo\"><u>지하철</u></span><span style=\"font-family: Nanum Myeongjo\"><u> + </u></span><span style=\"color: rgb(0, 51, 153);font-family: Nanum Myeongjo\"><span style=\"font-family: Nanum Myeongjo\"><u>셔틀버스</u></span></span><span style=\"font-family: Nanum Myeongjo\"><u> 이용을</u></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>적극 권장드립니다.</u></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><strong>셔틀운행</strong></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">7호선, 분당선 강남구청역 3번출구 셔틀버스 이용</span></p><p><span style=\"font-family: Nanum Myeongjo\">└예식 있을 시 수시 운행</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><strong>지하철</strong></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">7호선, 분당선 강남구청역 하차</span></p><p><span style=\"font-family: Nanum Myeongjo\">강남구청역 3-1번 출구</span></p><p>└<span style=\"font-family: Nanum Myeongjo\">[도보] 출구 좌측 학동사거리 방향 600M 도보 이동 후</span></p><p><span style=\"font-family: Nanum Myeongjo\">학동사거리에서 좌회전 200M</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">분당선 압구정로데오역</span></p><p><span style=\"font-family: Nanum Myeongjo\"> 하차압구정로데오역 5번 출구</span></p><p><span style=\"font-family: Nanum Myeongjo\">└[도보] 400M 도보 이동 후</span></p><p><span style=\"font-family: Nanum Myeongjo\">학동사거리 횡단보도 건너우측 200M</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><strong>버스</strong></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\"><span style=\"font-family: Nanum Myeongjo\">정류장_</span>도산공원사거리.호림아트센터</span></p><p><span style=\"font-family: Nanum Myeongjo\">[정류장 번호-23125]</span></p><p><span style=\"font-family: Nanum Myeongjo\">└간선버스_145, 440</span></p><p><span style=\"font-family: Nanum Myeongjo\">└지선버스_3011, 4212</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">정류장_영동119안전센터</span></p><p><span style=\"font-family: Nanum Myeongjo\">[정류장 번호-23126]</span></p><p><span style=\"font-family: Nanum Myeongjo\">└지선버스_3011, 4212</span></p>",
+      "mapLinks": {
+        "naver": "https://map.naver.com/p/entry/place/21413303",
+        "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=17416438",
+        "tmap": "https://poi.tmobiweb.com/app/share/position?contents=cGtleT0yOTA2ODA0MDAmcG9pSWQ9MjkwNjgwNCZuYXZTZXE9MCZ0eXBlPTImcG9pTmFtZT0lRUIlQTclODglRUIlQTYlQUMlRUMlOTUlODQlRUMlQTUlQUMlRUMlOEElQTQlRUQlODAlOTglRUMlOTYlQjQmY2VudGVyWD00NTczMzkzJmNlbnRlclk9MTM1MDY4MyZ0aW1lPTIwMjUlRUIlODUlODQrMDklRUMlOUIlOTQrMjYlRUMlOUQlQkMrMDclM0EzNSZ0ZWw9MDItNTQxLTUwMDcmYWRkcj0lRUMlODQlOUMlRUMlOUElQjgrJUVBJUIwJTk1JUVCJTgyJUE4JUVBJUI1JUFDKyVFQiU4RiU4NCVFQyU4MiVCMCVFQiU4QyU4MCVFQiVBMSU5QyszMTg",
+        "google": "https://maps.app.goo.gl/iQ5VbCdJjo3anBcx6"
+      },
+      "navLinks": {
+        "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=17416438",
+        "tmap": "https://poi.tmobiweb.com/app/share/position?contents=cGtleT0yOTA2ODA0MDAmcG9pSWQ9MjkwNjgwNCZuYXZTZXE9MCZ0eXBlPTImcG9pTmFtZT0lRUIlQTclODglRUIlQTYlQUMlRUMlOTUlODQlRUMlQTUlQUMlRUMlOEElQTQlRUQlODAlOTglRUMlOTYlQjQmY2VudGVyWD00NTczMzkzJmNlbnRlclk9MTM1MDY4MyZ0aW1lPTIwMjUlRUIlODUlODQrMDklRUMlOUIlOTQrMjYlRUMlOUQlQkMrMDclM0EzNSZ0ZWw9MDItNTQxLTUwMDcmYWRkcj0lRUMlODQlOUMlRUMlOUElQjgrJUVBJUIwJTk1JUVCJTgyJUE4JUVBJUI1JUFDKyVFQiU4RiU4NCVFQyU4MiVCMCVFQiU4QyU4MCVFQiVBMSU5QyszMTg"
+      },
+      "mapImage": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/map/1768983348773_약도.png",
+      "lat": 37.521958,
+      "lng": 127.036586
+    },
+    "secrets": {
+      "kakaoApiKey": "dacffa882aa3284870d06afa02bd5947",
+      "githubToken": ""
+    }
+  },
+  "groom": {
+    "name": "조현우",
+    "rank": "장남",
+    "phone": "010-****-****",
+    "bank": "기업",
+    "account": "****",
+    "parents": {
+      "father": "조**",
+      "mother": "***",
+      "fPhone": "010-****-****",
+      "mPhone": "010-****-****",
+      "fBank": "우리",
+      "fAccount": "****",
+      "mBank": "신한",
+      "mAccount": "****"
+    }
+  },
+  "bride": {
+    "name": "류하영",
+    "rank": "장녀",
+    "phone": "010-****-****",
+    "bank": "국민",
+    "account": "****",
+    "parents": {
+      "father": "류**",
+      "mother": "***",
+      "fPhone": "010-****-****",
+      "mPhone": "010-****-****",
+      "fBank": "농협",
+      "fAccount": "****",
+      "mBank": "신한",
+      "mAccount": "****"
+    }
+  },
+  "images": {
+    "main": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/bg/1768983395225_03.png",
+    "gallery": [
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981867787_thumb_221A0963.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981867787_221A0963.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981880930_thumb_221A1051.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981880930_221A1051.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981893154_thumb_221A1115.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981893154_221A1115.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981939304_thumb_221A1148.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981939304_221A1148.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981951345_thumb_221A1153.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981951345_221A1153.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982039113_thumb_221A1181.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982039113_221A1181.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982057126_thumb_221A1247.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982057126_221A1247.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982068905_thumb_221A1267.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982068905_221A1267.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982081857_thumb_221A1319.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982081857_221A1319.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982119906_thumb_KakaoTalk_20260309_000129413.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982119906_KakaoTalk_20260309_000129413.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982140437_thumb_221A1359.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982140437_221A1359.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982154364_thumb_221A1372.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982154364_221A1372.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982170370_thumb_221A1401.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982170370_221A1401.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982186951_thumb_221A1422.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982186951_221A1422.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982198344_thumb_221A1443.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982198344_221A1443.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982214023_thumb_221A1478.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982214023_221A1478.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982607439_thumb_image-1771768751971.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982607439_image-1771768751971.png"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982889205_thumb_221A1582.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982889205_221A1582.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982901291_thumb_221A1602.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982901291_221A1602.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982912686_thumb_221A1617.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982912686_221A1617.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982923610_thumb_221A1672.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982923610_221A1672.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982936349_thumb_221A1699.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982936349_221A1699.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982957987_thumb_221A1717.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982957987_221A1717.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982968196_thumb_221A1750.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982968196_221A1750.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982980312_thumb_221A1783.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982980312_221A1783.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982997011_thumb_221A1811.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982997011_221A1811.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983011590_thumb_221A1853.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983011590_221A1853.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983023423_thumb_221A1920.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983023423_221A1920.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983034895_thumb_221A1928.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983034895_221A1928.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983045879_thumb_221A1947.jpg",
+        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983045879_221A1947.jpg"
+      }
+    ],
+    "og": {
+      "kakao": "",
+      "facebook": "",
+      "insta": "",
+      "x": "",
+      "blog": ""
+    }
+  },
+  "text": {
+    "mainOverlay": "<p><br></p><p><br></p><p>Wedding Invitation</p>",
+    "mainMessage": "<p style=\"text-align: center\">류하영 그리고 조현우</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">2026년 05월 02일 토요일 PM 13시 00분</p><p style=\"text-align: center\">강남 마리아쥬 스퀘어</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">영원히 함께할</p><p style=\"text-align: center\">사랑의 맹세</p><p style=\"text-align: center\">같이 축복해주세요</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\"><u>하객분들을 위해 준비한</u></p><p style=\"text-align: center\"><span style=\"color: rgb(103, 0, 0)\"><u>무제한 카페</u></span><u>와 </u><span style=\"color: rgb(107, 153, 0)\"><u>야외정원</u></span><u>이있으니</u></p><p style=\"text-align: center\"><u>30분 일찍 오셔서 즐거운 시간을</u></p><p style=\"text-align: center\"><u>보내주시길 바랍니다</u></p><p style=\"text-align: center\"><u><br></u></p><p style=\"text-align: center\"><span style=\"color: rgb(153, 0, 133)\"><u>[12시 30분 개장]</u></span></p>"
+  },
+  "media": {
+    "youtube": "XvSkuFcqEhI",
+    "bgm": []
+  },
+  "theme": {
+    "effect": "petals",
+    "color": "#f2aebc"
+  },
+  "sections": [
+    {
+      "id": "names",
+      "title": "청첩장 상단(Names)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 1
+    },
+    {
+      "id": "calendar",
+      "title": "결혼식 날(Calendar)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 2
+    },
+    {
+      "id": "youtube",
+      "title": "영상(Video)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 3
+    },
+    {
+      "id": "gallery",
+      "title": "사진 앨범(Gallery)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 4
+    },
+    {
+      "id": "phone",
+      "title": "연락처(Contact)",
+      "isVisible": true,
+      "isFolded": true,
+      "order": 5
+    },
+    {
+      "id": "accounts",
+      "title": "마음 전하실 곳(Accounts)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 6
+    },
+    {
+      "id": "location",
+      "title": "오시는 길(Location)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 7
+    },
+    {
+      "id": "guestbook",
+      "title": "방명록(Guestbook)",
+      "isVisible": false,
+      "isFolded": false,
+      "order": 8
+    },
+    {
+      "id": "rsvp",
+      "title": "참석여부(RSVP)",
+      "isVisible": false,
+      "isFolded": false,
+      "order": 9
+    },
+    {
+      "id": "share",
+      "title": "공유(Share)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 10
+    }
+  ],
+  "guestbook": [],
+  "rsvp": []
+}
