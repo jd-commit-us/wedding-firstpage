@@ -417,83 +417,95 @@
                             </div>
                         </template>
 
-                        <!-- 6. Accounts -->
+                        <!-- 6. Accounts (Layer Modal Type) -->
                         <template x-if="section.id === 'accounts'">
-                            <div class="px-8 pb-10 space-y-4" x-data="{ groomOpen: false, brideOpen: false }">
-                                <div class="text-center text-xs text-gray-400 mb-6">계좌번호</div>
+                            <div class="px-8 pb-10" x-data="{ openModal: null }">
+                                <div class="text-center text-xs text-gray-400 mb-6">마음 전하실 곳</div>
 
-                                <!-- 1. 신랑측 아코디언 -->
-                                <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
-                                    <!-- 클릭 버튼 헤더 -->
+                                <!-- 1. 신랑측 / 신부측 계좌 열기 버튼 -->
+                                <div class="space-y-3">
                                     <button 
-                                        @click="groomOpen = !groomOpen"
-                                        class="w-full px-5 py-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition-colors text-left">
-                                        <span class="text-xs font-bold text-blue-600 flex items-center gap-1.5">
+                                        @click="openModal = 'groom'"
+                                        class="w-full py-3.5 px-5 bg-blue-50/70 hover:bg-blue-100/70 text-blue-700 font-bold text-xs rounded-xl flex items-center justify-between border border-blue-100 transition-colors shadow-sm">
+                                        <span class="flex items-center gap-1.5">
                                             <span>💙</span> 신랑측 계좌번호 보기
                                         </span>
-                                        <!-- 화살표 아이콘 회전 -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" 
-                                            class="w-4 h-4 text-gray-400 transform transition-transform duration-200" 
-                                            :class="{ 'rotate-180': groomOpen }" 
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
+                                        <span class="text-blue-400 text-[10px]">열기 →</span>
                                     </button>
 
-                                    <!-- 펼쳐지는 계좌 목록 -->
-                                    <div x-show="groomOpen" x-collapse class="p-4 space-y-3 bg-white border-t border-gray-100">
-                                        <template x-for="acc in getAllAccounts('groom')">
-                                            <div @click="copyAccount(acc)"
-                                                class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
-                                                <div>
-                                                    <div class="flex items-center gap-2">
-                                                        <span class="font-bold text-sm text-gray-700" x-text="acc.name"></span>
-                                                        <span class="text-[10px] text-gray-400" x-text="`(${acc.bank})`"></span>
-                                                    </div>
-                                                    <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
-                                                </div>
-                                                <button class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
-                                            </div>
-                                        </template>
-                                    </div>
-                                </div>
-
-                                <!-- 2. 신부측 아코디언 -->
-                                <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
-                                    <!-- 클릭 버튼 헤더 -->
                                     <button 
-                                        @click="brideOpen = !brideOpen"
-                                        class="w-full px-5 py-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition-colors text-left">
-                                        <span class="text-xs font-bold text-pink-600 flex items-center gap-1.5">
+                                        @click="openModal = 'bride'"
+                                        class="w-full py-3.5 px-5 bg-pink-50/70 hover:bg-pink-100/70 text-pink-700 font-bold text-xs rounded-xl flex items-center justify-between border border-pink-100 transition-colors shadow-sm">
+                                        <span class="flex items-center gap-1.5">
                                             <span>💗</span> 신부측 계좌번호 보기
                                         </span>
-                                        <!-- 화살표 아이콘 회전 -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" 
-                                            class="w-4 h-4 text-gray-400 transform transition-transform duration-200" 
-                                            :class="{ 'rotate-180': brideOpen }" 
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
+                                        <span class="text-pink-400 text-[10px]">열기 →</span>
                                     </button>
-
-                                    <!-- 펼쳐지는 계좌 목록 -->
-                                    <div x-show="brideOpen" x-collapse class="p-4 space-y-3 bg-white border-t border-gray-100">
-                                        <template x-for="acc in getAllAccounts('bride')">
-                                            <div @click="copyAccount(acc)"
-                                                class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
-                                                <div>
-                                                    <div class="flex items-center gap-2">
-                                                        <span class="font-bold text-sm text-gray-700" x-text="acc.name"></span>
-                                                        <span class="text-[10px] text-gray-400" x-text="`(${acc.bank})`"></span>
-                                                    </div>
-                                                    <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
-                                                </div>
-                                                <button class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
-                                            </div>
-                                        </template>
-                                    </div>
                                 </div>
 
+                                <!-- 2. 계좌 정보 레이어 팝업 (Modal) -->
+                                <template x-teleport="body">
+                                    <div 
+                                        x-show="openModal !== null" 
+                                        x-transition:enter="transition ease-out duration-200"
+                                        x-transition:enter-start="opacity-0"
+                                        x-transition:enter-end="opacity-100"
+                                        x-transition:leave="transition ease-in duration-150"
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0"
+                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                                        @click.self="openModal = null"
+                                        style="display: none;">
+
+                                        <!-- 팝업 본문 카드 -->
+                                        <div 
+                                            x-show="openModal !== null"
+                                            x-transition:enter="transition ease-out duration-200"
+                                            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                                            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                                            x-transition:leave="transition ease-in duration-150"
+                                            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                                            x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+                                            class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
+                                            
+                                            <!-- 팝업 헤더 -->
+                                            <div class="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
+                                                <h3 class="text-sm font-bold text-gray-800" 
+                                                    x-text="openModal === 'groom' ? '신랑측 계좌번호' : '신부측 계좌번호'"></h3>
+                                                <button @click="openModal = null" class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
+                                                    ✕
+                                                </button>
+                                            </div>
+
+                                            <!-- 계좌 목록 렌더링 -->
+                                            <div class="space-y-3 max-h-72 overflow-y-auto">
+                                                <template x-for="acc in (openModal ? getAllAccounts(openModal) : [])">
+                                                    <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                                                        <div>
+                                                            <div class="flex items-center gap-1.5">
+                                                                <span class="font-bold text-xs text-gray-800" x-text="acc.name"></span>
+                                                                <span class="text-[11px] text-gray-500" x-text="`(${acc.bank})`"></span>
+                                                            </div>
+                                                            <div class="text-xs text-gray-600 mt-1 font-mono tracking-tight" x-text="acc.num"></div>
+                                                        </div>
+                                                        <button 
+                                                            @click="copyAccount(acc)"
+                                                            class="px-3 py-1.5 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 text-[11px] rounded-lg shadow-sm font-semibold text-gray-700 transition">
+                                                            복사
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </div>
+
+                                            <!-- 닫기 버튼 -->
+                                            <button 
+                                                @click="openModal = null"
+                                                class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
+                                                닫기
+                                            </button>
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
                         </template>
 
