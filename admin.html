@@ -1179,11 +1179,11 @@
                     }).open();
                 },
 
-                // 🌟 서버 배포 시 계좌번호 자동 암호화 처리 적용
+                // 🌟 완벽한 동기식(async/await) 암호화 배포 로직
                 async publishGithub(silent = false) {
-                    this.syncEditors(); // ENSURE RICH TEXT SYNC
+                    this.syncEditors();
 
-                    const token = this.data.config.secrets.githubToken;
+                    const token = this.data.config.secrets?.githubToken || localStorage.getItem('ghToken');
                     if (!token) {
                         if (!silent) {
                             this.tab = 'settings';
@@ -1194,64 +1194,87 @@
 
                     if (!silent && !confirm('초대장 데이터를 실시간 서버에 배포하시겠습니까?')) return;
 
-                    // 1. 배포용 데이터 깊은 복사
-                    const cleanData = JSON.parse(JSON.stringify(this.data));
-                    if (cleanData.config.secrets) {
-                        cleanData.config.secrets.githubToken = "";
-                    }
-
-                    // 2. 🔒 계좌번호 6개 AES-256 암호화 변환
-                    if (typeof WeddingCrypto !== 'undefined') {
-                        if (cleanData.groom) {
-                            if (cleanData.groom.account) cleanData.groom.account = await WeddingCrypto.encrypt(cleanData.groom.account);
-                            if (cleanData.groom.parents) {
-                                if (cleanData.groom.parents.fAccount) cleanData.groom.parents.fAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.fAccount);
-                                if (cleanData.groom.parents.mAccount) cleanData.groom.parents.mAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.mAccount);
-                            }
+                    try {
+                        // 1. 데이터 깊은 복사
+                        const cleanData = JSON.parse(JSON.stringify(this.data));
+                        if (cleanData.config?.secrets) {
+                            cleanData.config.secrets.githubToken = "";
                         }
-                        if (cleanData.bride) {
-                            if (cleanData.bride.account) cleanData.bride.account = await WeddingCrypto.encrypt(cleanData.bride.account);
-                            if (cleanData.bride.parents) {
-                                if (cleanData.bride.parents.fAccount) cleanData.bride.parents.fAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.fAccount);
-                                if (cleanData.bride.parents.mAccount) cleanData.bride.parents.mAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.mAccount);
+
+                        // 2. 🔒 계좌번호 6개 순차적 확실한 암호화 처리 (await 보장)
+                        if (typeof WeddingCrypto !== 'undefined') {
+                            // [신랑측 계좌 암호화]
+                            if (cleanData.groom) {
+                                if (cleanData.groom.account) {
+                                    cleanData.groom.account = await WeddingCrypto.encrypt(cleanData.groom.account);
+                                }
+                                if (cleanData.groom.parents) {
+                                    if (cleanData.groom.parents.fAccount) {
+                                        cleanData.groom.parents.fAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.fAccount);
+                                    }
+                                    if (cleanData.groom.parents.mAccount) {
+                                        cleanData.groom.parents.mAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.mAccount);
+                                    }
+                                }
                             }
+                            // [신부측 계좌 암호화]
+                            if (cleanData.bride) {
+                                if (cleanData.bride.account) {
+                                    cleanData.bride.account = await WeddingCrypto.encrypt(cleanData.bride.account);
+                                }
+                                if (cleanData.bride.parents) {
+                                    if (cleanData.bride.parents.fAccount) {
+                                        cleanData.bride.parents.fAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.fAccount);
+                                    }
+                                    if (cleanData.bride.parents.mAccount) {
+                                        cleanData.bride.parents.mAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.mAccount);
+                                    }
+                                }
+                            }
+                        } else {
+                            throw new Error("WeddingCrypto 모듈이 로드되지 않았습니다. js/crypto-util.js 파일을 확인하세요.");
                         }
-                    }
 
-                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(cleanData, null, 2))));
+                        // 3. 암호화 완료된 데이터를 Base64로 인코딩
+                        const jsonString = JSON.stringify(cleanData, null, 2);
+                        const content = btoa(unescape(encodeURIComponent(jsonString)));
 
-                    // 3. Get SHA & PUT to GitHub
-                    fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
-                        headers: { 'Authorization': `token ${token}` }
-                    })
-                        .then(r => {
-                            if (!r.ok) throw new Error('파일 정보를 불러오는데 실패했습니다.');
-                            return r.json();
-                        })
-                        .then(d => {
-                            const sha = d.sha;
-                            return fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
-                                method: 'PUT',
-                                headers: { 'Authorization': `token ${token}` },
-                                body: JSON.stringify({ message: '초대장 데이터 업데이트 (계좌 암호화 적용)', content, sha })
-                            });
-                        })
-                        .then(r => {
-                            if (r.ok) {
-                                if (!silent) alert('✅ 배포되었습니다!\n\n계좌번호가 안전하게 암호화되어 서버에 저장되었습니다.');
-                                else console.log('Auto-apply: Successful');
-                            } else {
-                                return r.json().then(err => {
-                                    throw new Error(err.message || '배포 중 오류 발생');
-                                });
-                            }
-                        })
-                        .catch(e => {
-                            if (!silent) alert('❌ 배포 실패되었습니다.\n\n에러: ' + e.message);
-                            else console.error('Auto-apply failed:', e);
+                        // 4. 최신 SHA 조회
+                        const getShaRes = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
+                            headers: { 'Authorization': `token ${token}` }
+                        });
+                        if (!getShaRes.ok) throw new Error('data.json SHA 조회 실패');
+                        const shaData = await getShaRes.json();
+
+                        // 5. GitHub에 커밋 푸시
+                        const putRes = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
+                            method: 'PUT',
+                            headers: { 
+                                'Authorization': `token ${token}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ 
+                                message: '초대장 데이터 업데이트 (계좌 암호화 적용)', 
+                                content: content, 
+                                sha: shaData.sha 
+                            })
                         });
 
-                    localStorage.setItem('wedding_v2_data', JSON.stringify(this.data));
+                        if (!putRes.ok) {
+                            const errJson = await putRes.json();
+                            throw new Error(errJson.message || 'GitHub 커밋 실패');
+                        }
+
+                        if (!silent) {
+                            alert('✅ 배포 완료!\n\n계좌번호가 암호문으로 정상 변환되어 저장되었습니다.');
+                        }
+
+                    } catch (err) {
+                        console.error(err);
+                        if (!silent) {
+                            alert('❌ 배포 실패: ' + err.message);
+                        }
+                    }
                 },
 
                 saveLocal() {
