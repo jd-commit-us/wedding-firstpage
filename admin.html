@@ -1205,7 +1205,7 @@
                     }).open();
                 },
 
-                // 🌟 완벽한 동기식(async/await) 암호화 배포 로직
+                // 🌟 완벽한 동기식(async/await) 암호화 배포 로직 (개인정보 전체 암호화)
                 async publishGithub(silent = false) {
                     this.syncEditors();
 
@@ -1227,33 +1227,26 @@
                             cleanData.config.secrets.githubToken = "";
                         }
 
-                        // 2. 🔒 계좌번호 6개 순차적 확실한 암호화 처리 (await 보장)
+                        // 2. 🔒 개인정보 전체(이름, 전화번호, 부모님 성함, 계좌번호) 일괄 암호화 처리
                         if (typeof WeddingCrypto !== 'undefined') {
-                            // [신랑측 계좌 암호화]
-                            if (cleanData.groom) {
-                                if (cleanData.groom.account) {
-                                    cleanData.groom.account = await WeddingCrypto.encrypt(cleanData.groom.account);
-                                }
-                                if (cleanData.groom.parents) {
-                                    if (cleanData.groom.parents.fAccount) {
-                                        cleanData.groom.parents.fAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.fAccount);
+                            const fields = ['name', 'name2', 'phone', 'account'];
+                            const parentFields = ['father', 'mother', 'fPhone', 'mPhone', 'fAccount', 'mAccount'];
+
+                            for (const side of ['groom', 'bride']) {
+                                if (cleanData[side]) {
+                                    // 본인 정보 암호화
+                                    for (const f of fields) {
+                                        if (cleanData[side][f]) {
+                                            cleanData[side][f] = await WeddingCrypto.encrypt(cleanData[side][f]);
+                                        }
                                     }
-                                    if (cleanData.groom.parents.mAccount) {
-                                        cleanData.groom.parents.mAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.mAccount);
-                                    }
-                                }
-                            }
-                            // [신부측 계좌 암호화]
-                            if (cleanData.bride) {
-                                if (cleanData.bride.account) {
-                                    cleanData.bride.account = await WeddingCrypto.encrypt(cleanData.bride.account);
-                                }
-                                if (cleanData.bride.parents) {
-                                    if (cleanData.bride.parents.fAccount) {
-                                        cleanData.bride.parents.fAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.fAccount);
-                                    }
-                                    if (cleanData.bride.parents.mAccount) {
-                                        cleanData.bride.parents.mAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.mAccount);
+                                    // 부모님 정보 암호화
+                                    if (cleanData[side].parents) {
+                                        for (const pf of parentFields) {
+                                            if (cleanData[side].parents[pf]) {
+                                                cleanData[side].parents[pf] = await WeddingCrypto.encrypt(cleanData[side].parents[pf]);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -1280,7 +1273,7 @@
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({ 
-                                message: '초대장 데이터 업데이트 (계좌 암호화 적용)', 
+                                message: '초대장 데이터 업데이트 (개인정보 암호화 적용)', 
                                 content: content, 
                                 sha: shaData.sha 
                             })
@@ -1292,7 +1285,7 @@
                         }
 
                         if (!silent) {
-                            alert('✅ 배포 완료!\n\n계좌번호가 암호문으로 정상 변환되어 저장되었습니다.');
+                            alert('✅ 배포 완료!\n\n이름, 연락처, 계좌번호가 암호문으로 정상 변환되어 저장되었습니다.');
                         }
 
                     } catch (err) {
