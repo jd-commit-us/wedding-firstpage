@@ -580,89 +580,144 @@
                         </template>
 
                         <!-- 6. Accounts (Layer Modal Type) -->
+                        <!-- 계좌번호 팝업 모달 -->
                         <template x-if="section.id === 'accounts'">
-                            <div class="px-8 pb-10" x-data="{ openModal: null }">                                
-                                <!-- 1. 신랑측 / 신부측 계좌 열기 버튼 -->
-                                <div class="space-y-3">
-                                    <button 
-                                        @click="openModal = 'groom'"
-                                        class="w-full py-3.5 px-5 bg-blue-50/70 hover:bg-blue-100/70 text-blue-700 font-bold text-xs rounded-xl flex items-center justify-between border border-blue-100 transition-colors shadow-sm">
-                                        <span class="flex items-center gap-1.5">
-                                            <span>💙</span> 신랑측 계좌번호 보기
-                                        </span>
-                                        <span class="text-blue-400 text-[10px]">열기 →</span>
-                                    </button>
+                            <div class="px-8 pb-10" 
+                                x-data="{ 
+                                    openAccountModal: false,
+                                    activeTab: 'groom',
+                                    copyToast: false,
+                                    toastMsg: '',
+                                    copyToClipboard(text, holder) {
+                                        if (navigator.clipboard && window.isSecureContext) {
+                                            navigator.clipboard.writeText(text).then(() => {
+                                                this.showToast(`${holder}님의 계좌번호가 복사되었습니다.`);
+                                            });
+                                        } else {
+                                            const textArea = document.createElement('textarea');
+                                            textArea.value = text;
+                                            textArea.style.position = 'fixed';
+                                            textArea.style.left = '-999999px';
+                                            document.body.appendChild(textArea);
+                                            textArea.focus();
+                                            textArea.select();
+                                            try {
+                                                document.execCommand('copy');
+                                                this.showToast(`${holder}님의 계좌번호가 복사되었습니다.`);
+                                            } catch (err) {
+                                                alert('계좌번호 복사에 실패했습니다.');
+                                            }
+                                            textArea.remove();
+                                        }
+                                    },
+                                    showToast(msg) {
+                                        this.toastMsg = msg;
+                                        this.copyToast = true;
+                                        setTimeout(() => { this.copyToast = false; }, 2000);
+                                    }
+                                }"
+                                x-init="$watch('openAccountModal', value => document.body.style.overflow = value ? 'hidden' : '')">
 
+                                <div class="text-center text-xs text-gray-400 mb-4">ACCOUNT</div>
+
+                                <div class="max-w-xs mx-auto">
                                     <button 
-                                        @click="openModal = 'bride'"
-                                        class="w-full py-3.5 px-5 bg-pink-50/70 hover:bg-pink-100/70 text-pink-700 font-bold text-xs rounded-xl flex items-center justify-between border border-pink-100 transition-colors shadow-sm">
-                                        <span class="flex items-center gap-1.5">
-                                            <span>💗</span> 신부측 계좌번호 보기
-                                        </span>
-                                        <span class="text-pink-400 text-[10px]">열기 →</span>
+                                        type="button"
+                                        @click="openAccountModal = true"
+                                        class="w-full py-3.5 px-5 bg-white hover:bg-gray-50 active:scale-[0.99] text-gray-700 font-bold text-xs rounded-2xl flex items-center justify-center gap-2 border border-gray-200 shadow-sm transition-all">
+                                        <span>🎁</span>
+                                        <span>마음 전하실 곳 (계좌번호)</span>
                                     </button>
                                 </div>
 
-                                <!-- 2. 계좌 정보 레이어 팝업 (Modal) -->
                                 <template x-teleport="body">
                                     <div 
-                                        x-show="openModal !== null" 
+                                        x-show="openAccountModal" 
                                         x-transition:enter="transition ease-out duration-200"
                                         x-transition:enter-start="opacity-0"
                                         x-transition:enter-end="opacity-100"
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100"
                                         x-transition:leave-end="opacity-0"
+                                        @touchmove.self.prevent
+                                        @click.self="openAccountModal = false"
                                         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-                                        @click.self="openModal = null"
                                         style="display: none;">
 
-                                        <!-- 팝업 본문 카드 -->
                                         <div 
-                                            x-show="openModal !== null"
-                                            x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
-                                            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                                            x-transition:leave="transition ease-in duration-150"
-                                            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                                            x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-                                            class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
+                                            x-show="openAccountModal"
+                                            class="w-full max-w-sm bg-white rounded-3xl shadow-2xl p-6 border border-gray-100 relative">
                                             
-                                            <!-- 팝업 헤더 -->
-                                            <div class="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
-                                                <h3 class="text-sm font-bold text-gray-800" 
-                                                    x-text="openModal === 'groom' ? '신랑측 계좌번호' : '신부측 계좌번호'"></h3>
-                                                <button @click="openModal = null" class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
-                                                    ✕
+                                            <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
+                                                <h3 class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
+                                                    <span>🎁</span> 마음 전하실 곳 안내
+                                                </h3>
+                                                <button type="button" @click="openAccountModal = false" class="text-gray-400 hover:text-gray-600 p-1">✕</button>
+                                            </div>
+
+                                            <!-- 신랑 / 신부 탭 -->
+                                            <div class="grid grid-cols-2 gap-2 mb-4 bg-gray-100/70 p-1 rounded-xl text-xs font-semibold">
+                                                <button 
+                                                    type="button"
+                                                    @click="activeTab = 'groom'"
+                                                    :class="activeTab === 'groom' ? 'bg-white text-blue-600 shadow-xs' : 'text-gray-500 hover:text-gray-700'"
+                                                    class="py-2 rounded-lg transition-all text-center">
+                                                    신랑측 계좌
+                                                </button>
+                                                <button 
+                                                    type="button"
+                                                    @click="activeTab = 'bride'"
+                                                    :class="activeTab === 'bride' ? 'bg-white text-pink-600 shadow-xs' : 'text-gray-500 hover:text-gray-700'"
+                                                    class="py-2 rounded-lg transition-all text-center">
+                                                    신부측 계좌
                                                 </button>
                                             </div>
 
-                                            <!-- 계좌 목록 렌더링 -->
-                                            <div class="space-y-3 max-h-72 overflow-y-auto">
-                                                <template x-for="acc in (openModal ? getAllAccounts(openModal) : [])">
-                                                    <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl border border-gray-100">
-                                                        <div>
-                                                            <div class="flex items-center gap-1.5">
-                                                                <span class="font-bold text-xs text-gray-800" x-text="acc.name"></span>
-                                                                <span class="text-[11px] text-gray-500" x-text="`(${acc.bank})`"></span>
+                                            <!-- 계좌 리스트 -->
+                                            <div class="space-y-3 max-h-[55vh] overflow-y-auto px-0.5">
+                                                <template x-for="acc in getAllAccounts(activeTab)" :key="acc.holder + acc.relation">
+                                                    <div class="p-3.5 bg-gray-50/70 rounded-2xl border border-gray-100 flex flex-col gap-2">
+                                                        <div class="flex justify-between items-center">
+                                                            <div class="text-xs font-bold text-gray-800">
+                                                                <span :class="activeTab === 'groom' ? 'text-blue-600' : 'text-pink-600'" class="font-semibold mr-1" x-text="acc.relation"></span>
+                                                                <span x-text="acc.holder"></span>
                                                             </div>
-                                                            <div class="text-xs text-gray-600 mt-1 font-mono tracking-tight" x-text="acc.num"></div>
+                                                            <span class="text-[11px] text-gray-500 font-medium" x-text="acc.bank"></span>
                                                         </div>
-                                                        <button 
-                                                            @click="copyAccount(acc)"
-                                                            class="px-3 py-1.5 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 text-[11px] rounded-lg shadow-sm font-semibold text-gray-700 transition">
-                                                            복사
-                                                        </button>
+                                                        <div class="flex justify-between items-center bg-white p-2.5 rounded-xl border border-gray-100">
+                                                            <span class="text-xs font-mono font-medium text-gray-700 tracking-tight" x-text="acc.account"></span>
+                                                            <div class="flex items-center gap-1.5">
+                                                                <button 
+                                                                    type="button"
+                                                                    @click="copyToClipboard(acc.account, acc.holder)"
+                                                                    class="px-2.5 py-1 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 text-gray-600 text-[11px] font-semibold rounded-lg border border-gray-200 transition-colors">
+                                                                    복사
+                                                                </button>
+                                                                <template x-if="acc.kakaopayLink">
+                                                                    <a :href="acc.kakaopayLink" target="_blank"
+                                                                    class="px-2.5 py-1 bg-[#FEE500] hover:bg-[#FDD835] text-[#3c1e1e] text-[11px] font-bold rounded-lg shadow-xs transition-colors">
+                                                                        송금
+                                                                    </a>
+                                                                </template>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </template>
                                             </div>
 
-                                            <!-- 닫기 버튼 -->
-                                            <button 
-                                                @click="openModal = null"
-                                                class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
+                                            <button type="button" @click="openAccountModal = false" class="w-full mt-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-xl transition">
                                                 닫기
                                             </button>
+
+                                            <!-- 토스트 -->
+                                            <div 
+                                                x-show="copyToast"
+                                                x-transition
+                                                class="absolute bottom-16 left-1/2 -translate-x-1/2 bg-gray-900/90 text-white text-[11px] font-semibold px-4 py-2 rounded-full shadow-lg pointer-events-none whitespace-nowrap"
+                                                style="display: none;"
+                                                x-text="toastMsg">
+                                            </div>
+
                                         </div>
                                     </div>
                                 </template>
@@ -1517,6 +1572,98 @@
                         ut.lang = this.lang;
                         window.speechSynthesis.speak(ut);
                     } else alert('TTS not supported');
+                },
+
+                // 👇 여기에 넣으시면 됩니다.
+                async init() {
+                    try {
+                    const res = await fetch('./data.json?v=' + Date.now());
+                    if (res.ok) {
+                        this.data = await res.json();
+                        // 🔒 계좌번호 복호화 실행
+                        await this.decryptAccounts();
+                    }
+                    } catch (e) {
+                    console.error("데이터 로드 실패:", e);
+                    }
+                },
+
+                // index.html의 app() 컨트롤러 내부
+                getAllAccounts(type) {
+                    const person = this.data[type];
+                    if (!person) return [];
+
+                    const list = [];
+                    
+                    // 1. 본인 계좌
+                    if (person.account) {
+                        list.push({
+                            relation: type === 'groom' ? '신랑' : '신부',
+                            holder: person.name,
+                            bank: person.bank,
+                            account: person.account,
+                            kakaopayLink: person.kakaopayLink || ''
+                        });
+                    }
+
+                    // 2. 아버지 계좌
+                    if (person.parents && person.parents.fAccount) {
+                        list.push({
+                            relation: '아버지',
+                            holder: person.parents.father,
+                            bank: person.parents.fBank,
+                            account: person.parents.fAccount,
+                            kakaopayLink: person.parents.fKakaopayLink || ''
+                        });
+                    }
+
+                    // 3. 어머니 계좌
+                    if (person.parents && person.parents.mAccount) {
+                        list.push({
+                            relation: '어머니',
+                            holder: person.parents.mother,
+                            bank: person.parents.mBank,
+                            account: person.parents.mAccount,
+                            kakaopayLink: person.parents.mKakaopayLink || ''
+                        });
+                    }
+
+                    return list;
+                },
+
+                // 🌟 data.json 로드 시 계좌 일괄 복호화 함수
+                async decryptAccounts() {
+                    if (typeof WeddingCrypto === 'undefined') return;
+
+                    // 신랑측 복호화
+                    if (this.data.groom) {
+                        if (this.data.groom.account) {
+                            this.data.groom.account = await WeddingCrypto.decrypt(this.data.groom.account);
+                        }
+                        if (this.data.groom.parents) {
+                            if (this.data.groom.parents.fAccount) {
+                                this.data.groom.parents.fAccount = await WeddingCrypto.decrypt(this.data.groom.parents.fAccount);
+                            }
+                            if (this.data.groom.parents.mAccount) {
+                                this.data.groom.parents.mAccount = await WeddingCrypto.decrypt(this.data.groom.parents.mAccount);
+                            }
+                        }
+                    }
+
+                    // 신부측 복호화
+                    if (this.data.bride) {
+                        if (this.data.bride.account) {
+                            this.data.bride.account = await WeddingCrypto.decrypt(this.data.bride.account);
+                        }
+                        if (this.data.bride.parents) {
+                            if (this.data.bride.parents.fAccount) {
+                                this.data.bride.parents.fAccount = await WeddingCrypto.decrypt(this.data.bride.parents.fAccount);
+                            }
+                            if (this.data.bride.parents.mAccount) {
+                                this.data.bride.parents.mAccount = await WeddingCrypto.decrypt(this.data.bride.parents.mAccount);
+                            }
+                        }
+                    }
                 }
             }
         }
