@@ -419,48 +419,81 @@
 
                         <!-- 6. Accounts -->
                         <template x-if="section.id === 'accounts'">
-                            <div class="px-8 pb-10 space-y-6">
+                            <div class="px-8 pb-10 space-y-4" x-data="{ groomOpen: false, brideOpen: false }">
                                 <div class="text-center text-xs text-gray-400 mb-6">계좌번호</div>
 
-                                <div class="space-y-4">
-                                    <div class="text-[11px] font-bold text-blue-600 mb-2">&lt;신랑측&gt;</div>
-                                    <template x-for="acc in getAllAccounts('groom')">
-                                        <div @click="copyAccount(acc)"
-                                            class="flex justify-between items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
-                                            <div>
-                                                <div class="flex items-center gap-2">
-                                                    <span class="font-bold text-sm text-gray-700"
-                                                        x-text="acc.name"></span>
-                                                    <span class="text-[10px] text-gray-400"
-                                                        x-text="`(${acc.bank})`"></span>
+                                <!-- 1. 신랑측 아코디언 -->
+                                <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                                    <!-- 클릭 버튼 헤더 -->
+                                    <button 
+                                        @click="groomOpen = !groomOpen"
+                                        class="w-full px-5 py-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition-colors text-left">
+                                        <span class="text-xs font-bold text-blue-600 flex items-center gap-1.5">
+                                            <span>💙</span> 신랑측 계좌번호 보기
+                                        </span>
+                                        <!-- 화살표 아이콘 회전 -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" 
+                                            class="w-4 h-4 text-gray-400 transform transition-transform duration-200" 
+                                            :class="{ 'rotate-180': groomOpen }" 
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    <!-- 펼쳐지는 계좌 목록 -->
+                                    <div x-show="groomOpen" x-collapse class="p-4 space-y-3 bg-white border-t border-gray-100">
+                                        <template x-for="acc in getAllAccounts('groom')">
+                                            <div @click="copyAccount(acc)"
+                                                class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
+                                                <div>
+                                                    <div class="flex items-center gap-2">
+                                                        <span class="font-bold text-sm text-gray-700" x-text="acc.name"></span>
+                                                        <span class="text-[10px] text-gray-400" x-text="`(${acc.bank})`"></span>
+                                                    </div>
+                                                    <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
                                                 </div>
-                                                <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
+                                                <button class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
                                             </div>
-                                            <button
-                                                class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
-                                        </div>
-                                    </template>
+                                        </template>
+                                    </div>
                                 </div>
 
-                                <div class="space-y-4">
-                                    <div class="text-[11px] font-bold text-pink-600 mb-2">&lt;신부측&gt;</div>
-                                    <template x-for="acc in getAllAccounts('bride')">
-                                        <div @click="copyAccount(acc)"
-                                            class="flex justify-between items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
-                                            <div>
-                                                <div class="flex items-center gap-2">
-                                                    <span class="font-bold text-sm text-gray-700"
-                                                        x-text="acc.name"></span>
-                                                    <span class="text-[10px] text-gray-400"
-                                                        x-text="`(${acc.bank})`"></span>
+                                <!-- 2. 신부측 아코디언 -->
+                                <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                                    <!-- 클릭 버튼 헤더 -->
+                                    <button 
+                                        @click="brideOpen = !brideOpen"
+                                        class="w-full px-5 py-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition-colors text-left">
+                                        <span class="text-xs font-bold text-pink-600 flex items-center gap-1.5">
+                                            <span>💗</span> 신부측 계좌번호 보기
+                                        </span>
+                                        <!-- 화살표 아이콘 회전 -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" 
+                                            class="w-4 h-4 text-gray-400 transform transition-transform duration-200" 
+                                            :class="{ 'rotate-180': brideOpen }" 
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    <!-- 펼쳐지는 계좌 목록 -->
+                                    <div x-show="brideOpen" x-collapse class="p-4 space-y-3 bg-white border-t border-gray-100">
+                                        <template x-for="acc in getAllAccounts('bride')">
+                                            <div @click="copyAccount(acc)"
+                                                class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
+                                                <div>
+                                                    <div class="flex items-center gap-2">
+                                                        <span class="font-bold text-sm text-gray-700" x-text="acc.name"></span>
+                                                        <span class="text-[10px] text-gray-400" x-text="`(${acc.bank})`"></span>
+                                                    </div>
+                                                    <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
                                                 </div>
-                                                <div class="text-xs text-gray-500 mt-1" x-text="acc.num"></div>
+                                                <button class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
                                             </div>
-                                            <button
-                                                class="px-3 py-1.5 bg-white border border-gray-200 text-[10px] rounded-lg shadow-sm font-bold text-gray-600">복사</button>
-                                        </div>
-                                    </template>
+                                        </template>
+                                    </div>
                                 </div>
+
                             </div>
                         </template>
 
@@ -650,7 +683,7 @@
 
     <footer
         class="py-12 text-center text-[11px] text-gray-500 font-medium tracking-widest bg-white border-t border-gray-100">
-        Copyright (c) 조현우 All Right Reserved
+        Copyright (c) 이재석 All Right Reserved
     </footer>
 
     <!-- Image Modal -->
