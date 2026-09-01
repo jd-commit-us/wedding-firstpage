@@ -1625,6 +1625,42 @@
                         alert('계좌번호 복사에 실패했습니다.');
                     }
                     textArea.remove();
+                },
+
+                // index.html의 app() 내부
+                getAllContacts(type) {
+                    if (!this.data || !this.data[type]) return [];
+                    const person = this.data[type];
+                    const list = [];
+
+                    // 1. 본인 연락처
+                    if (person.phone) {
+                        list.push({
+                            relation: type === 'groom' ? '신랑' : '신부',
+                            name: person.name || (type === 'groom' ? '신랑' : '신부'),
+                            phone: person.phone
+                        });
+                    }
+
+                    // 2. 아버지 연락처
+                    if (person.parents && person.parents.fPhone) {
+                        list.push({
+                            relation: '아버지',
+                            name: person.parents.father || '아버지',
+                            phone: person.parents.fPhone
+                        });
+                    }
+
+                    // 3. 어머니 연락처
+                    if (person.parents && person.parents.mPhone) {
+                        list.push({
+                            relation: '어머니',
+                            name: person.parents.mother || '어머니',
+                            phone: person.parents.mPhone
+                        });
+                    }
+
+                    return list;
                 }
             }
         }
