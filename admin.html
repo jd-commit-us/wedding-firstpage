@@ -988,13 +988,13 @@
 
                     const content = btoa(unescape(encodeURIComponent(JSON.stringify(list, null, 2))));
                     try {
-                        const r = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                        const r = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${filename}`, {
                             headers: { 'Authorization': `token ${token}` }
                         });
                         const d = await r.json();
                         const sha = d.sha;
 
-                        const res = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                        const res = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${filename}`, {
                             method: 'PUT',
                             headers: { 'Authorization': `token ${token}` },
                             body: JSON.stringify({ message: `Delete entry from ${filename}`, content, sha })
@@ -1060,7 +1060,7 @@
 
                         // PUT to GitHub
                         try {
-                            const res = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${path}`, {
+                            const res = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${path}`, {
                                 method: 'PUT',
                                 headers: {
                                     'Authorization': `token ${this.data.config.secrets.githubToken}`
@@ -1121,7 +1121,7 @@
 
                                 // Upload thumbnail
                                 const thumbPath = `local/images/gallery/${timestamp}_thumb_${baseName}.jpg`;
-                                const thumbRes = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${thumbPath}`, {
+                                const thumbRes = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${thumbPath}`, {
                                     method: 'PUT',
                                     headers: { 'Authorization': `token ${this.data.config.secrets.githubToken}` },
                                     body: JSON.stringify({ message: 'upload thumbnail', content: thumbContent })
@@ -1129,7 +1129,7 @@
 
                                 // Upload original
                                 const origPath = `local/images/gallery/${timestamp}_${file.name}`;
-                                const origRes = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${origPath}`, {
+                                const origRes = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${origPath}`, {
                                     method: 'PUT',
                                     headers: { 'Authorization': `token ${this.data.config.secrets.githubToken}` },
                                     body: JSON.stringify({ message: 'upload original', content: originalContent })
@@ -1194,7 +1194,7 @@
                     const content = btoa(unescape(encodeURIComponent(JSON.stringify(cleanData, null, 2))));
 
                     // 1. Get current SHA to prevent conflicts
-                    fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/data.json`, {
+                    fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
                         headers: { 'Authorization': `token ${token}` }
                     })
                         .then(r => {
@@ -1204,7 +1204,7 @@
                         .then(d => {
                             const sha = d.sha;
                             // 2. PUT updated data
-                            return fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/data.json`, {
+                            return fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
                                 method: 'PUT',
                                 headers: { 'Authorization': `token ${token}` },
                                 body: JSON.stringify({ message: '초대장 데이터 업데이트 (Admin)', content, sha })
