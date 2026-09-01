@@ -40,7 +40,7 @@
             align-items: center;
         }
 
-        .input, .steam-input {
+        .input {
             background: #0e141b;
             border: 1px solid #45556c;
             color: #fff;
@@ -51,14 +51,14 @@
             border-radius: 2px;
         }
 
-        .input:focus, .steam-input:focus {
+        .input:focus {
             border-color: #66c0f4;
             background: #19222d;
             outline: none;
             box-shadow: 0 0 5px rgba(102, 192, 244, 0.4);
         }
 
-        .label, .steam-label {
+        .label {
             color: #5bcaff;
             font-size: 11px;
             font-weight: 700;
@@ -237,7 +237,7 @@
         </nav>
         <div class="p-4 border-t border-[#2a475e] space-y-2">
             <button @click="saveLocal" class="btn-gray w-full text-[10px]">임시 저장 (로컬)</button>
-            <button @click="publishGithub()" class="btn-blue w-full font-bold">🔒 서버에 적용 (배포)</button>
+            <button @click="publishGithub()" class="btn-blue w-full font-bold">서버에 적용 (배포)</button>
         </div>
     </aside>
 
@@ -249,7 +249,7 @@
             <div class="flex justify-between items-end border-b border-[#3d4450] pb-4">
                 <div>
                     <h1 class="text-3xl text-white font-light" x-text="tabs.find(t=>t.id===tab).name"></h1>
-                    <p class="text-xs text-gray-500 mt-1">모바일 초대장의 데이터를 설정합니다. (계좌번호 자동 암호화 활성화)</p>
+                    <p class="text-xs text-gray-500 mt-1">모바일 초대장의 데이터를 설정합니다.</p>
                 </div>
                 <div class="text-right">
                     <div class="text-xs text-[#66c0f4]">현재 IP: <span x-text="ip"></span></div>
@@ -299,7 +299,7 @@
                     <div><label class="label">연락처</label><input x-model="data.groom.phone" class="input"></div>
                     <div class="grid grid-cols-2 gap-2">
                         <div><label class="label">은행</label><input x-model="data.groom.bank" class="input"></div>
-                        <div><label class="label">계좌번호</label><input x-model="data.groom.account" class="input" placeholder="평문 입력 (저장 시 자동 암호화)"></div>
+                        <div><label class="label">계좌번호 (평문 입력)</label><input x-model="data.groom.account" class="input font-mono"></div>
                     </div>
 
                     <div class="p-4 bg-[#12151a] border border-[#2a475e] rounded space-y-3">
@@ -310,14 +310,14 @@
                                 <input x-model="data.groom.parents.father" placeholder="성함" class="input">
                                 <input x-model="data.groom.parents.fPhone" placeholder="연락처" class="input">
                                 <input x-model="data.groom.parents.fBank" placeholder="은행" class="input">
-                                <input x-model="data.groom.parents.fAccount" placeholder="계좌번호" class="input">
+                                <input x-model="data.groom.parents.fAccount" placeholder="계좌번호 (평문 입력)" class="input font-mono">
                             </div>
                             <div class="space-y-2">
                                 <p class="text-[10px] text-blue-400 font-bold">어머니</p>
                                 <input x-model="data.groom.parents.mother" placeholder="성함" class="input">
                                 <input x-model="data.groom.parents.mPhone" placeholder="연락처" class="input">
                                 <input x-model="data.groom.parents.mBank" placeholder="은행" class="input">
-                                <input x-model="data.groom.parents.mAccount" placeholder="계좌번호" class="input">
+                                <input x-model="data.groom.parents.mAccount" placeholder="계좌번호 (평문 입력)" class="input font-mono">
                             </div>
                         </div>
                     </div>
@@ -340,7 +340,7 @@
                     <div><label class="label">연락처</label><input x-model="data.bride.phone" class="input"></div>
                     <div class="grid grid-cols-2 gap-2">
                         <div><label class="label">은행</label><input x-model="data.bride.bank" class="input"></div>
-                        <div><label class="label">계좌번호</label><input x-model="data.bride.account" class="input" placeholder="평문 입력 (저장 시 자동 암호화)"></div>
+                        <div><label class="label">계좌번호 (평문 입력)</label><input x-model="data.bride.account" class="input font-mono"></div>
                     </div>
 
                     <div class="p-4 bg-[#12151a] border border-[#2a475e] rounded space-y-3">
@@ -351,14 +351,14 @@
                                 <input x-model="data.bride.parents.father" placeholder="성함" class="input">
                                 <input x-model="data.bride.parents.fPhone" placeholder="연락처" class="input">
                                 <input x-model="data.bride.parents.fBank" placeholder="은행" class="input">
-                                <input x-model="data.bride.parents.fAccount" placeholder="계좌번호" class="input">
+                                <input x-model="data.bride.parents.fAccount" placeholder="계좌번호 (평문 입력)" class="input font-mono">
                             </div>
                             <div class="space-y-2">
                                 <p class="text-[10px] text-pink-400 font-bold">어머니</p>
                                 <input x-model="data.bride.parents.mother" placeholder="성함" class="input">
                                 <input x-model="data.bride.parents.mPhone" placeholder="연락처" class="input">
                                 <input x-model="data.bride.parents.mBank" placeholder="은행" class="input">
-                                <input x-model="data.bride.parents.mAccount" placeholder="계좌번호" class="input">
+                                <input x-model="data.bride.parents.mAccount" placeholder="계좌번호 (평문 입력)" class="input font-mono">
                             </div>
                         </div>
                     </div>
@@ -461,7 +461,6 @@
                     <p class="mt-4 text-xs text-gray-500 italic">※ 실제 모바일 화면을 시뮬레이션한 예시입니다.</p>
                 </div>
             </div>
-
             <!-- TAB: VISUALS (Uploads) -->
             <div x-show="tab === 'visuals'" class="space-y-8">
                 <!-- Main Image -->
@@ -573,209 +572,211 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- TAB: LOGISTICS -->
-            <div x-show="tab === 'logistics'" class="space-y-8">
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <label class="steam-label">예식 일시</label>
-                        <input type="datetime-local" x-model="data.config.weddingDate" class="steam-input">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="steam-label">예식장 이름</label>
-                        <input x-model="data.config.venue.name" class="steam-input">
-                    </div>
+        <!-- TAB: LOGISTICS -->
+        <div x-show="tab === 'logistics'" class="space-y-8">
+            <div class="grid grid-cols-2 gap-8">
+                <div class="space-y-2">
+                    <label class="steam-label">예식 일시</label>
+                    <input type="datetime-local" x-model="data.config.weddingDate" class="steam-input">
                 </div>
-
-                <div class="space-y-4">
-                    <div class="space-y-2">
-                        <label class="steam-label">예식장 주소</label>
-                        <div class="flex gap-2">
-                            <input x-model="data.config.venue.address" class="steam-input" readonly>
-                            <button class="btn-gray whitespace-nowrap" @click="searchAddr">🔍 주소 검색</button>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <label class="text-[10px] text-gray-400 mb-1 uppercase">위도 (Lat)</label>
-                            <input type="number" x-model.number="data.config.venue.lat" step="0.000001"
-                                class="steam-input w-full" placeholder="37.xxxxxx">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] text-gray-400 mb-1 uppercase">경도 (Lng)</label>
-                            <input type="number" x-model.number="data.config.venue.lng" step="0.000001"
-                                class="steam-input w-full" placeholder="127.xxxxxx">
-                        </div>
-                    </div>
-                    <p class="text-[10px] text-gray-500 italic">※ 주소 검색이 정확하지 않을 경우 위도/경도를 직접 입력할 수 있습니다.</p>
-                </div>
-
-                <div class="space-y-4 pt-4 border-t border-[#3d4450]">
-                    <div class="flex justify-between items-center">
-                        <label class="steam-label">지도 다운로드용 이미지</label>
-                        <button class="btn-gray text-[10px]" @click="triggerUpload('mapImg')">📁 업로드</button>
-                    </div>
-                    <input type="file" id="file-mapImg" class="hidden" @change="handleFile($event, 'mapImg')">
-                    <input x-model="data.config.venue.mapImage" placeholder="지도 이미지 URL (업로드 시 자동 입력)" class="steam-input">
-                </div>
-
-                <div class="p-4 bg-[#12151a] rounded space-y-4">
-                    <label class="steam-label">지도/길찾기 링크</label>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input x-model="data.config.venue.mapLinks.naver" placeholder="네이버 지도 URL" class="steam-input">
-                        <input x-model="data.config.venue.mapLinks.kakao" placeholder="카카오 맵 URL" class="steam-input">
-                        <input x-model="data.config.venue.mapLinks.tmap" placeholder="티맵 URL" class="steam-input">
-                        <input x-model="data.config.venue.mapLinks.google" placeholder="구글 지도 URL" class="steam-input">
-                    </div>
+                <div class="space-y-2">
+                    <label class="steam-label">예식장 이름</label>
+                    <input x-model="data.config.venue.name" class="steam-input">
                 </div>
             </div>
 
-            <!-- TAB: DATA MANAGEMENT -->
-            <div x-show="tab === 'data_mgmt'" class="space-y-6">
-                <div class="flex gap-4 mb-4">
-                    <button @click="loadExternalData" class="btn-blue text-xs">🔄 데이터 새로고침</button>
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <label class="steam-label">예식장 주소</label>
+                    <div class="flex gap-2">
+                        <input x-model="data.config.venue.address" class="steam-input" readonly>
+                        <button class="btn-gray whitespace-nowrap" @click="searchAddr">🔍 주소 검색</button>
+                    </div>
                 </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gray-400 mb-1 uppercase">위도 (Lat)</label>
+                        <input type="number" x-model.number="data.config.venue.lat" step="0.000001"
+                            class="steam-input w-full" placeholder="37.xxxxxx">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gray-400 mb-1 uppercase">경도 (Lng)</label>
+                        <input type="number" x-model.number="data.config.venue.lng" step="0.000001"
+                            class="steam-input w-full" placeholder="127.xxxxxx">
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-500 italic">※ 주소 검색이 정확하지 않을 경우 위도/경도를 직접 입력할 수 있습니다.</p>
+            </div>
 
-                <!-- Guestbook -->
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-[#66c0f4] font-bold mb-4 flex items-center gap-2">📝 방명록 메시지 (<span
-                            x-text="bbs.length"></span>)</h3>
-                    <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
-                        <template x-for="(b, idx) in bbs" :key="idx">
-                            <div
-                                class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
-                                <div class="flex-1">
-                                    <div class="text-sm font-bold text-white" x-text="b.name"></div>
-                                    <div class="text-xs text-gray-400 mt-1" x-text="b.message"></div>
-                                    <div class="text-[9px] text-gray-600 mt-1" x-text="b.date"></div>
+            <div class="space-y-4 pt-4 border-t border-[#3d4450]">
+                <div class="flex justify-between items-center">
+                    <label class="steam-label">지도 다운로드용 이미지</label>
+                    <button class="btn-gray text-[10px]" @click="triggerUpload('mapImg')">📁 업로드</button>
+                </div>
+                <input type="file" id="file-mapImg" class="hidden" @change="handleFile($event, 'mapImg')">
+                <input x-model="data.config.venue.mapImage" placeholder="지도 이미지 URL (업로드 시 자동 입력)" class="steam-input">
+            </div>
+
+            <div class="p-4 bg-[#12151a] rounded space-y-4">
+                <label class="steam-label">지도/길찾기 링크</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <input x-model="data.config.venue.mapLinks.naver" placeholder="네이버 지도 URL" class="steam-input">
+                    <input x-model="data.config.venue.mapLinks.kakao" placeholder="카카오 맵 URL" class="steam-input">
+                    <input x-model="data.config.venue.mapLinks.tmap" placeholder="티맵 URL" class="steam-input">
+                    <input x-model="data.config.venue.mapLinks.google" placeholder="구글 지도 URL" class="steam-input">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DATA MANAGEMENT -->
+        <div x-show="tab === 'data_mgmt'" class="space-y-6">
+            <div class="flex gap-4 mb-4">
+                <button @click="loadExternalData" class="btn-blue text-xs">🔄 데이터 새로고침</button>
+            </div>
+
+            <!-- Guestbook -->
+            <div class="card p-6 rounded-lg">
+                <h3 class="text-[#66c0f4] font-bold mb-4 flex items-center gap-2">📝 방명록 메시지 (<span
+                        x-text="bbs.length"></span>)</h3>
+                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                    <template x-for="(b, idx) in bbs" :key="idx">
+                        <div
+                            class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
+                            <div class="flex-1">
+                                <div class="text-sm font-bold text-white" x-text="b.name"></div>
+                                <div class="text-xs text-gray-400 mt-1" x-text="b.message"></div>
+                                <div class="text-[9px] text-gray-600 mt-1" x-text="b.date"></div>
+                            </div>
+                            <button @click="deleteItem('bbs', idx)"
+                                class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- RSVP -->
+            <div class="card p-6 rounded-lg">
+                <h3 class="text-pink-400 font-bold mb-4 flex items-center gap-2">📋 참석자 명단 (<span
+                        x-text="joins.length"></span>)</h3>
+                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                    <template x-for="(j, idx) in joins" :key="idx">
+                        <div
+                            class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
+                            <div class="flex-1">
+                                <div class="text-sm font-bold text-white"><span x-text="j.name"></span> (<span
+                                        x-text="j.side === 'groom' ? '신랑측' : '신부측'"></span>)</div>
+                                <div class="text-xs text-gray-400 mt-1">인원: <span x-text="j.count"></span>명 / 식사:
+                                    <span x-text="j.meal ? '예' : '아니오'"></span>
                                 </div>
-                                <button @click="deleteItem('bbs', idx)"
-                                    class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
                             </div>
-                        </template>
-                    </div>
+                            <button @click="deleteItem('joins', idx)"
+                                class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
+                        </div>
+                    </template>
                 </div>
+            </div>
+        </div>
 
-                <!-- RSVP -->
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-pink-400 font-bold mb-4 flex items-center gap-2">📋 참석자 명단 (<span
-                            x-text="joins.length"></span>)</h3>
-                    <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
-                        <template x-for="(j, idx) in joins" :key="idx">
-                            <div
-                                class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
-                                <div class="flex-1">
-                                    <div class="text-sm font-bold text-white"><span x-text="j.name"></span> (<span
-                                            x-text="j.side === 'groom' ? '신랑측' : '신부측'"></span>)</div>
-                                    <div class="text-xs text-gray-400 mt-1">인원: <span x-text="j.count"></span>명 / 식사:
-                                        <span x-text="j.meal ? '예' : '아니오'"></span>
-                                    </div>
-                                </div>
-                                <button @click="deleteItem('joins', idx)"
-                                    class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
-                            </div>
-                        </template>
+        <!-- TAB: SETTINGS & SECRETS -->
+        <div x-show="tab === 'settings'" class="space-y-6">
+            <div class="p-4 border border-red-900 bg-red-900/10 rounded">
+                <div class="flex justify-between items-center mb-2">
+                    <label class="steam-label text-red-400">GITHUB 토큰 (필수)</label>
+                    <button @click="showTokenGuide = true" class="text-[10px] text-blue-400 underline">토큰 발급 방법
+                        보기</button>
+                </div>
+                <input type="password" x-model="data.config.secrets.githubToken"
+                    @input="localStorage.setItem('ghToken', $event.target.value)" class="steam-input"
+                    placeholder="ghp_...">
+                <p class="text-[10px] text-gray-500 mt-2">※ 파일을 수정하거나 업로드하려면 이 토큰이 반드시 필요합니다.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+                <div><label class="steam-label">카카오 API 키 (JavaScript)</label><input
+                        x-model="data.config.secrets.kakaoApiKey" class="steam-input"></div>
+                <div><label class="steam-label">관리자 비밀번호</label><input x-model="data.config.secrets.adminPassword"
+                        class="steam-input" placeholder="비밀번호 변경">
+                </div>
+            </div>
+
+            <!-- OG Images -->
+            <div class="space-y-4 pt-4 border-t border-[#3d4450]">
+                <label class="steam-label">공유용 메타 데이터 (OG Image)</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <input x-model="data.images.og.kakao" placeholder="카카오톡 공유 이미지" class="steam-input">
+                    <input x-model="data.images.og.facebook" placeholder="페이스북 공유 이미지" class="steam-input">
+                    <input x-model="data.images.og.insta" placeholder="인스타그램 공유 이미지" class="steam-input">
+                    <input x-model="data.images.og.x" placeholder="X(트위터) 공유 이미지" class="steam-input">
+                </div>
+            </div>
+
+            <!-- Kakao Implementation Guide -->
+            <div class="p-6 bg-blue-900/10 border border-blue-900/50 rounded-lg space-y-4">
+                <h3 class="text-blue-400 font-bold flex items-center gap-2">📍 Kakao API 설정 가이드</h3>
+                <div class="text-xs text-gray-400 space-y-3 leading-relaxed">
+                    <div class="p-3 bg-black/40 rounded">
+                        <p class="text-white font-bold mb-1">1. 카카오 개발자 콘솔 접속</p>
+                        <p><a href="https://developers.kakao.com/console/app" target="_blank"
+                                class="text-blue-400 underline">카카오 디벨로퍼스</a>에서 애플리케이션을 생성하세요.</p>
+                    </div>
+                    <div class="p-3 bg-black/40 rounded">
+                        <p class="text-white font-bold mb-1">2. 플랫폼 등록 (중요)</p>
+                        <p><b>[내 애플리케이션] > [플랫폼] > [Web]</b>에서 아래 도메인을 등록해야 기능이 동작합니다:</p>
+                        <code class="block mt-1 text-[#66c0f4]">https://jd-commit-us.github.io</code>
+                    </div>
+                    <div class="p-3 bg-black/40 rounded">
+                        <p class="text-white font-bold mb-1">3. 키 입력</p>
+                        <p><b>[앱 키]</b> 메뉴에서 <b class="text-white">JavaScript 키</b>를 복사하여 위 '카카오 API 키' 란에 입력하세요.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB: SETTINGS & SECRETS -->
-            <div x-show="tab === 'settings'" class="space-y-6">
-                <div class="p-4 border border-red-900 bg-red-900/10 rounded">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="steam-label text-red-400">GITHUB 토큰 (필수)</label>
-                        <button @click="showTokenGuide = true" class="text-[10px] text-blue-400 underline">토큰 발급 방법 보기</button>
-                    </div>
-                    <input type="password" x-model="data.config.secrets.githubToken"
-                        @input="localStorage.setItem('ghToken', $event.target.value)" class="steam-input"
-                        placeholder="ghp_ 또는 github_pat_...">
-                    <p class="text-[10px] text-gray-500 mt-2">※ 파일을 수정하거나 업로드하려면 이 토큰이 반드시 필요합니다.</p>
+            <!-- Update Log -->
+            <div class="space-y-4 pt-6 border-t border-[#3d4450]">
+                <div class="flex justify-between items-center">
+                    <label class="steam-label text-gray-400">업데이트 기록 (Update Log)</label>
+                    <button
+                        @click="data.updates.push({version: '', date: new Date().toISOString().split('T')[0], notes: ''})"
+                        class="text-[10px] text-[#66c0f4]">+ 기록 추가</button>
                 </div>
-                <div class="grid grid-cols-2 gap-6">
-                    <div><label class="steam-label">카카오 API 키 (JavaScript)</label><input
-                            x-model="data.config.secrets.kakaoApiKey" class="steam-input"></div>
-                    <div><label class="steam-label">관리자 비밀번호</label><input x-model="data.config.secrets.adminPassword"
-                            class="steam-input" placeholder="비밀번호 변경">
-                    </div>
-                </div>
-
-                <!-- OG Images -->
-                <div class="space-y-4 pt-4 border-t border-[#3d4450]">
-                    <label class="steam-label">공유용 메타 데이터 (OG Image)</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <input x-model="data.images.og.kakao" placeholder="카카오톡 공유 이미지" class="steam-input">
-                        <input x-model="data.images.og.facebook" placeholder="페이스북 공유 이미지" class="steam-input">
-                        <input x-model="data.images.og.insta" placeholder="인스타그램 공유 이미지" class="steam-input">
-                        <input x-model="data.images.og.x" placeholder="X(트위터) 공유 이미지" class="steam-input">
-                    </div>
-                </div>
-
-                <!-- Kakao Implementation Guide -->
-                <div class="p-6 bg-blue-900/10 border border-blue-900/50 rounded-lg space-y-4">
-                    <h3 class="text-blue-400 font-bold flex items-center gap-2">📍 Kakao API 설정 가이드</h3>
-                    <div class="text-xs text-gray-400 space-y-3 leading-relaxed">
-                        <div class="p-3 bg-black/40 rounded">
-                            <p class="text-white font-bold mb-1">1. 카카오 개발자 콘솔 접속</p>
-                            <p><a href="https://developers.kakao.com/console/app" target="_blank"
-                                    class="text-blue-400 underline">카카오 디벨로퍼스</a>에서 애플리케이션을 생성하세요.</p>
+                <div class="space-y-2">
+                    <template x-for="(upd, idx) in data.updates" :key="idx">
+                        <div class="flex gap-2 items-start">
+                            <input x-model="upd.version" placeholder="Ver" class="input w-20">
+                            <input x-model="upd.date" type="date" class="input w-36">
+                            <input x-model="upd.notes" placeholder="변경 내용" class="input flex-1">
+                            <button @click="data.updates.splice(idx, 1)" class="text-red-400 p-2">✕</button>
                         </div>
-                        <div class="p-3 bg-black/40 rounded">
-                            <p class="text-white font-bold mb-1">2. 플랫폼 등록 (중요)</p>
-                            <p><b>[내 애플리케이션] > [플랫폼] > [Web]</b>에서 아래 도메인을 등록해야 기능이 동작합니다:</p>
-                            <code class="block mt-1 text-[#66c0f4]">https://jd-commit-us.github.io</code>
-                        </div>
-                        <div class="p-3 bg-black/40 rounded">
-                            <p class="text-white font-bold mb-1">3. 키 입력</p>
-                            <p><b>[앱 키]</b> 메뉴에서 <b class="text-white">JavaScript 키</b>를 복사하여 위 '카카오 API 키' 란에 입력하세요.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Update Log -->
-                <div class="space-y-4 pt-6 border-t border-[#3d4450]">
-                    <div class="flex justify-between items-center">
-                        <label class="steam-label text-gray-400">업데이트 기록 (Update Log)</label>
-                        <button
-                            @click="data.updates.push({version: '', date: new Date().toISOString().split('T')[0], notes: ''})"
-                            class="text-[10px] text-[#66c0f4]">+ 기록 추가</button>
-                    </div>
-                    <div class="space-y-2">
-                        <template x-for="(upd, idx) in data.updates" :key="idx">
-                            <div class="flex gap-2 items-start">
-                                <input x-model="upd.version" placeholder="Ver" class="input w-20">
-                                <input x-model="upd.date" type="date" class="input w-36">
-                                <input x-model="upd.notes" placeholder="변경 내용" class="input flex-1">
-                                <button @click="data.updates.splice(idx, 1)" class="text-red-400 p-2">✕</button>
-                            </div>
-                        </template>
-                    </div>
+                    </template>
                 </div>
             </div>
+        </div>
 
-            <!-- TAB: MINI GAME -->
-            <div x-show="tab === 'mini_game'" class="space-y-4">
-                <div class="card p-6 rounded-lg text-center bg-[#0e141b] border border-[#2a475e]">
-                    <h3 class="text-xl font-bold text-[#66c0f4] mb-4">Wedding Path Game Test</h3>
-                    <p class="text-sm text-gray-400 mb-6 font-mono">
-                        <span class="text-white">Groom (Left):</span> W, A, S, D &nbsp;|&nbsp;
-                        <span class="text-white">Bride (Right):</span> Arrows
-                    </p>
-                    <div id="game-container"
-                        class="relative mx-auto border-4 border-[#2a475e] shadow-[0_0_20px_rgba(0,0,0,0.5)]"
-                        style="width: 800px; height: 400px; background: black;">
-                        <canvas id="gameCanvas" width="800" height="400"></canvas>
-                    </div>
-                    <div class="mt-6 flex justify-center gap-4">
-                        <button class="btn-blue px-8 py-2 text-lg font-bold"
-                            onclick="if(!window.gameInstance) window.gameInstance = new HighHighGame('gameCanvas'); window.gameInstance.start();">
-                            🎮 GAME START
-                        </button>
-                        <button class="btn-gray px-6 py-2" onclick="if(window.gameInstance) window.gameInstance.reset();">
-                            Restart
-                        </button>
-                    </div>
+        <!-- TAB: MINI GAME -->
+        <div x-show="tab === 'mini_game'" class="space-y-4">
+            <div class="card p-6 rounded-lg text-center bg-[#0e141b] border border-[#2a475e]">
+                <h3 class="text-xl font-bold text-[#66c0f4] mb-4">Wedding Path Game Test</h3>
+                <p class="text-sm text-gray-400 mb-6 font-mono">
+                    <span class="text-white">Groom (Left):</span> W, A, S, D &nbsp;|&nbsp;
+                    <span class="text-white">Bride (Right):</span> Arrows
+                </p>
+                <div id="game-container"
+                    class="relative mx-auto border-4 border-[#2a475e] shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                    style="width: 800px; height: 400px; background: black;">
+                    <canvas id="gameCanvas" width="800" height="400"></canvas>
+                </div>
+                <div class="mt-6 flex justify-center gap-4">
+                    <button class="btn-blue px-8 py-2 text-lg font-bold"
+                        onclick="if(!window.gameInstance) window.gameInstance = new HighHighGame('gameCanvas'); window.gameInstance.start();">
+                        🎮 GAME START
+                    </button>
+                    <button class="btn-gray px-6 py-2" onclick="if(window.gameInstance) window.gameInstance.reset();">
+                        Restart
+                    </button>
                 </div>
             </div>
+        </div>
 
         </div>
     </main>
@@ -810,8 +811,7 @@
                     images: { gallery: [], og: {} },
                     text: {}, media: { bgm: [] },
                     theme: {},
-                    sections: [],
-                    updates: []
+                    sections: []
                 },
                 defaultSections: [
                     { id: 'names', title: '청첩장 상단(Names)', isVisible: true, isFolded: false, order: 1 },
@@ -827,67 +827,30 @@
                     { id: 'minigame', title: '미니게임(Wedding Path)', isVisible: true, isFolded: false, order: 11 }
                 ],
 
-                // 💡 암호화된 계좌 데이터 복호화 (관리자 화면 표시용)
-                async decryptAllAccounts(targetData) {
-                    if (typeof WeddingCrypto === 'undefined') return targetData;
-                    const d = targetData;
-                    if (d.groom) {
-                        if (d.groom.account) d.groom.account = await WeddingCrypto.decrypt(d.groom.account);
-                        if (d.groom.parents) {
-                            if (d.groom.parents.fAccount) d.groom.parents.fAccount = await WeddingCrypto.decrypt(d.groom.parents.fAccount);
-                            if (d.groom.parents.mAccount) d.groom.parents.mAccount = await WeddingCrypto.decrypt(d.groom.parents.mAccount);
-                        }
-                    }
-                    if (d.bride) {
-                        if (d.bride.account) d.bride.account = await WeddingCrypto.decrypt(d.bride.account);
-                        if (d.bride.parents) {
-                            if (d.bride.parents.fAccount) d.bride.parents.fAccount = await WeddingCrypto.decrypt(d.bride.parents.fAccount);
-                            if (d.bride.parents.mAccount) d.bride.parents.mAccount = await WeddingCrypto.decrypt(d.bride.parents.mAccount);
-                        }
-                    }
-                    return d;
-                },
-
-                // 💡 평문 계좌 데이터를 AES-GCM 암호화 (서버 및 저장용)
-                async encryptAllAccounts(targetData) {
-                    if (typeof WeddingCrypto === 'undefined') return targetData;
-                    const d = JSON.parse(JSON.stringify(targetData));
-                    if (d.groom) {
-                        if (d.groom.account) d.groom.account = await WeddingCrypto.encrypt(d.groom.account);
-                        if (d.groom.parents) {
-                            if (d.groom.parents.fAccount) d.groom.parents.fAccount = await WeddingCrypto.encrypt(d.groom.parents.fAccount);
-                            if (d.groom.parents.mAccount) d.groom.parents.mAccount = await WeddingCrypto.encrypt(d.groom.parents.mAccount);
-                        }
-                    }
-                    if (d.bride) {
-                        if (d.bride.account) d.bride.account = await WeddingCrypto.encrypt(d.bride.account);
-                        if (d.bride.parents) {
-                            if (d.bride.parents.fAccount) d.bride.parents.fAccount = await WeddingCrypto.encrypt(d.bride.parents.fAccount);
-                            if (d.bride.parents.mAccount) d.bride.parents.mAccount = await WeddingCrypto.encrypt(d.bride.parents.mAccount);
-                        }
-                    }
-                    return d;
-                },
-
                 async init() {
                     fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => this.ip = d.ip);
                     const saved = localStorage.getItem('wedding_v2_data');
-                    if (saved) {
-                        this.data = await this.decryptAllAccounts(JSON.parse(saved));
-                    } else {
+                    if (saved) this.data = JSON.parse(saved);
+                    else {
                         try {
-                            const r = await fetch('data.json?v=' + Date.now());
+                            const r = await fetch('data.json');
                             if (r.ok) {
-                                const cloudData = await r.json();
-                                this.data = await this.decryptAllAccounts(cloudData);
-                                this.data.sections = (this.data.sections || []).filter(s => s.id !== 'navigation' && s.id !== 'navlinks' && s.id !== 'maplinks');
+                                this.data = await r.json();
+                                // Clean up navigation if exists
+                                this.data.sections = this.data.sections.filter(s => s.id !== 'navigation' && s.id !== 'navlinks' && s.id !== 'maplinks');
+                                // Ensure location section title is correct
                                 const loc = this.data.sections.find(s => s.id === 'location');
                                 if (loc) loc.title = '오시는 길(Location)';
                             }
                         } catch (e) { }
                     }
+
+                    // 계좌 데이터 복호화 수행 (화면에 평문으로 표시)
+                    await this.decryptAllAccounts();
+
                     if (!this.data.sections || !this.data.sections.length) this.data.sections = this.defaultSections;
                     else {
+                        // Merge missing default sections
                         this.defaultSections.forEach(def => {
                             if (!this.data.sections.find(s => s.id === def.id)) {
                                 this.data.sections.push(def);
@@ -897,16 +860,14 @@
                     if (!this.data.media) this.data.media = { bgm: [], youtube: '' };
                     if (!this.data.media.bgm) this.data.media.bgm = [];
                     if (!this.data.media.youtube) this.data.media.youtube = '';
-                    if (!this.data.updates) this.data.updates = [];
 
                     // Token Sync Logic
                     const localToken = localStorage.getItem('ghToken');
-                    const dataToken = this.data.config.secrets ? this.data.config.secrets.githubToken : '';
+                    const dataToken = this.data.config.secrets.githubToken;
 
                     if (dataToken) {
                         localStorage.setItem('ghToken', dataToken);
                     } else if (localToken) {
-                        if (!this.data.config.secrets) this.data.config.secrets = {};
                         this.data.config.secrets.githubToken = localToken;
                     }
 
@@ -927,6 +888,25 @@
                     this.$watch('data.config.venue.lng', () => {
                         this.initSimulationMap();
                     });
+                },
+
+                // 계좌 복호화 헬퍼 (로컬/서버 데이터 로드 시 호출)
+                async decryptAllAccounts() {
+                    if (typeof WeddingCrypto === 'undefined') return;
+                    if (this.data.groom) {
+                        if (this.data.groom.account) this.data.groom.account = await WeddingCrypto.decrypt(this.data.groom.account);
+                        if (this.data.groom.parents) {
+                            if (this.data.groom.parents.fAccount) this.data.groom.parents.fAccount = await WeddingCrypto.decrypt(this.data.groom.parents.fAccount);
+                            if (this.data.groom.parents.mAccount) this.data.groom.parents.mAccount = await WeddingCrypto.decrypt(this.data.groom.parents.mAccount);
+                        }
+                    }
+                    if (this.data.bride) {
+                        if (this.data.bride.account) this.data.bride.account = await WeddingCrypto.decrypt(this.data.bride.account);
+                        if (this.data.bride.parents) {
+                            if (this.data.bride.parents.fAccount) this.data.bride.parents.fAccount = await WeddingCrypto.decrypt(this.data.bride.parents.fAccount);
+                            if (this.data.bride.parents.mAccount) this.data.bride.parents.mAccount = await WeddingCrypto.decrypt(this.data.bride.parents.mAccount);
+                        }
+                    }
                 },
 
                 initSunEditor() {
@@ -953,6 +933,7 @@
                         const container = document.getElementById(ed.id);
                         if (!container) return;
 
+                        // Clear existing content to prevent double menu
                         container.innerHTML = '';
 
                         const editor = SUNEDITOR.create(ed.id, {
@@ -967,13 +948,16 @@
                             placeholder: '내용을 입력해주세요...'
                         });
 
+                        // Set Initial Content
                         const initial = _.get(this, ed.key) || '';
                         editor.setContents(initial);
 
+                        // Sync to Alpine
                         editor.onChange = (content) => {
                             _.set(this, ed.key, content);
                         };
 
+                        // Store editor instance for manual sync
                         if (!this._editors) this._editors = {};
                         this._editors[ed.key] = editor;
                     });
@@ -993,11 +977,16 @@
                         const r1 = await fetch('bbs.json?v=' + timestamp); if (r1.ok) this.bbs = await r1.json();
                         const r2 = await fetch('join.json?v=' + timestamp); if (r2.ok) this.joins = await r2.json();
 
+                        // Load Main Data
                         const r3 = await fetch('data.json?v=' + timestamp);
                         if (r3.ok) {
                             const cloudData = await r3.json();
-                            this.data = await this.decryptAllAccounts(cloudData);
+                            this.data = cloudData;
 
+                            // 계좌 복호화 수행
+                            await this.decryptAllAccounts();
+
+                            // Re-init editors with new data
                             this.$nextTick(() => {
                                 if (this._editors) {
                                     Object.keys(this._editors).forEach(key => {
@@ -1006,6 +995,7 @@
                                     });
                                 }
                             });
+                            alert('서버에서 데이터를 불러왔습니다.');
                         }
                     } catch (e) { console.error(e); }
                 },
@@ -1052,6 +1042,7 @@
                     return this.data.sections.sort((a, b) => a.order - b.order);
                 },
 
+                // Drag & Drop
                 dragStart(e, idx) { this.dragSrc = idx; e.dataTransfer.effectAllowed = 'move'; },
                 drop(e, idx) {
                     if (this.dragSrc !== idx) {
@@ -1064,6 +1055,7 @@
                     }
                 },
 
+                // File Upload Logic
                 triggerUpload(target) { document.getElementById('file-' + target).click(); },
                 triggerSimpleUpload(target) { document.getElementById('file-' + target).click(); },
 
@@ -1187,8 +1179,9 @@
                     }).open();
                 },
 
+                // 🌟 서버 배포 시 계좌번호 자동 암호화 처리 적용
                 async publishGithub(silent = false) {
-                    this.syncEditors();
+                    this.syncEditors(); // ENSURE RICH TEXT SYNC
 
                     const token = this.data.config.secrets.githubToken;
                     if (!token) {
@@ -1199,50 +1192,69 @@
                         return;
                     }
 
-                    if (!silent && !confirm('계좌번호를 암호화하여 서버에 배포하시겠습니까?')) return;
+                    if (!silent && !confirm('초대장 데이터를 실시간 서버에 배포하시겠습니까?')) return;
 
-                    // 1. 계좌번호 암호화 수행
-                    const encryptedData = await this.encryptAllAccounts(this.data);
-
-                    // 2. 토큰 등 민감한 관리자 키 마스킹
-                    const cleanData = JSON.parse(JSON.stringify(encryptedData));
+                    // 1. 배포용 데이터 깊은 복사
+                    const cleanData = JSON.parse(JSON.stringify(this.data));
                     if (cleanData.config.secrets) {
                         cleanData.config.secrets.githubToken = "";
                     }
 
+                    // 2. 🔒 계좌번호 6개 AES-256 암호화 변환
+                    if (typeof WeddingCrypto !== 'undefined') {
+                        if (cleanData.groom) {
+                            if (cleanData.groom.account) cleanData.groom.account = await WeddingCrypto.encrypt(cleanData.groom.account);
+                            if (cleanData.groom.parents) {
+                                if (cleanData.groom.parents.fAccount) cleanData.groom.parents.fAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.fAccount);
+                                if (cleanData.groom.parents.mAccount) cleanData.groom.parents.mAccount = await WeddingCrypto.encrypt(cleanData.groom.parents.mAccount);
+                            }
+                        }
+                        if (cleanData.bride) {
+                            if (cleanData.bride.account) cleanData.bride.account = await WeddingCrypto.encrypt(cleanData.bride.account);
+                            if (cleanData.bride.parents) {
+                                if (cleanData.bride.parents.fAccount) cleanData.bride.parents.fAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.fAccount);
+                                if (cleanData.bride.parents.mAccount) cleanData.bride.parents.mAccount = await WeddingCrypto.encrypt(cleanData.bride.parents.mAccount);
+                            }
+                        }
+                    }
+
                     const content = btoa(unescape(encodeURIComponent(JSON.stringify(cleanData, null, 2))));
 
-                    try {
-                        const getRes = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
-                            headers: { 'Authorization': `token ${token}` }
+                    // 3. Get SHA & PUT to GitHub
+                    fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
+                        headers: { 'Authorization': `token ${token}` }
+                    })
+                        .then(r => {
+                            if (!r.ok) throw new Error('파일 정보를 불러오는데 실패했습니다.');
+                            return r.json();
+                        })
+                        .then(d => {
+                            const sha = d.sha;
+                            return fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
+                                method: 'PUT',
+                                headers: { 'Authorization': `token ${token}` },
+                                body: JSON.stringify({ message: '초대장 데이터 업데이트 (계좌 암호화 적용)', content, sha })
+                            });
+                        })
+                        .then(r => {
+                            if (r.ok) {
+                                if (!silent) alert('✅ 배포되었습니다!\n\n계좌번호가 안전하게 암호화되어 서버에 저장되었습니다.');
+                                else console.log('Auto-apply: Successful');
+                            } else {
+                                return r.json().then(err => {
+                                    throw new Error(err.message || '배포 중 오류 발생');
+                                });
+                            }
+                        })
+                        .catch(e => {
+                            if (!silent) alert('❌ 배포 실패되었습니다.\n\n에러: ' + e.message);
+                            else console.error('Auto-apply failed:', e);
                         });
-                        if (!getRes.ok) throw new Error('파일 정보를 불러오는데 실패했습니다.');
-                        
-                        const fileData = await getRes.json();
-                        const sha = fileData.sha;
-
-                        const putRes = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/data.json`, {
-                            method: 'PUT',
-                            headers: { 'Authorization': `token ${token}` },
-                            body: JSON.stringify({ message: 'Update wedding data with encrypted accounts (Admin)', content, sha })
-                        });
-
-                        if (putRes.ok) {
-                            if (!silent) alert('✅ 계좌번호가 암호화되어 안전하게 배포되었습니다!\n\n수 분 내에 실제 사이트에 반영됩니다.');
-                            else console.log('Auto-apply: Successful');
-                        } else {
-                            const errJson = await putRes.json();
-                            throw new Error(errJson.message || '배포 중 오류 발생');
-                        }
-                    } catch (e) {
-                        if (!silent) alert('❌ 배포 실패되었습니다.\n\n에러: ' + e.message);
-                        else console.error('Auto-apply failed:', e);
-                    }
 
                     localStorage.setItem('wedding_v2_data', JSON.stringify(this.data));
                 },
 
-                async saveLocal() {
+                saveLocal() {
                     this.syncEditors();
                     localStorage.setItem('wedding_v2_data', JSON.stringify(this.data));
                     alert('로컬에 임시 저장되었습니다.');
