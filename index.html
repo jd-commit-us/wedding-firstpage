@@ -1158,7 +1158,7 @@
                                 drawMap(result[0].y, result[0].x);
                             } else {
                                 // Hard fallback to Mariage Square if search fails
-                                drawMap(37.521503, 127.037492);
+                                drawMap(37.4819407, 126.7984955);
                             }
                         });
                     };
@@ -1358,7 +1358,7 @@
                             Kakao.Share.sendDefault({
                                 objectType: 'feed',
                                 content: {
-                                    title: `§${this.data.groom.name}§ ♥ §${this.data.bride.name}§의 결혼식에 초대합니다`,
+                                    title: `${this.data.groom.name2} ♥ ${this.data.bride.name2}의 결혼식에 초대합니다!`,
                                     description: this.data.config.venue.name + ' ' + this.data.config.weddingDate,
                                     imageUrl: this.data.images.main || 'https://highhighcouple.github.io/Wedding_Invitation/og_image.png',
                                     link: { mobileWebUrl: window.location.href, webUrl: window.location.href },
@@ -1376,7 +1376,7 @@
                 shareSns(type) {
                     const url = window.location.href;
                     const encodedUrl = encodeURIComponent(url);
-                    const title = `§${this.data.groom.name}§ ♥ §${this.data.bride.name}§의 결혼식에 초대합니다`;
+                    const title = `${this.data.groom.name2} ♥ ${this.data.bride.name2}의 결혼식에 초대합니다!`;
                     const encodedTitle = encodeURIComponent(title);
 
                     let appUrl = '';
