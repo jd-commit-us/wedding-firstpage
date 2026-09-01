@@ -4,7 +4,7 @@
     "venue": {
       "name": "소사 MJ 컨벤션",
       "phone": "02-541-5007",
-      "address": "경기도 부천시 소사구 경인로 386",
+      "address": "경기도 부천시 소사구 경인로 386.",
       "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[5층 그랜드볼룸]</u></p>",
       "mapLinks": {
         "naver": "https://map.naver.com/p/entry/place/37537597",
@@ -16,7 +16,7 @@
         "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
         "tmap": "https://tmap.life/461d4003"
       },
-      "mapImage": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/map/mj_location.jpg",
+      "mapImage": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/map/mj_location.png",
       "lat": 37.4819407,
       "lng": 126.7984955
     },
@@ -29,7 +29,7 @@
     "name": "이재석",
     "name2": "재석",
     "rank": "차남",
-    "phone": "010-****-****",
+    "phone": "010-4174-7942",
     "bank": "기업",
     "account": "****",
     "parents": {
