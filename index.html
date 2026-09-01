@@ -325,23 +325,80 @@
                             </div>
                         </template>
 
-                        <!-- 2. Calendar -->
+                        <!-- 2. Calendar & D-Day Countdown -->
                         <template x-if="section.id === 'calendar'">
-                            <div class="px-8 pb-12 text-center">
-                                <h3 class="lux-font text-xl text-gray-700 mb-6" x-text="calTitle"></h3>
-                                <div
-                                    class="bg-white p-4 rounded-xl border border-gray-100 grid grid-cols-7 gap-1 text-center shadow-sm mb-10">
+                            <div class="px-8 pb-12 text-center" 
+                                x-data="{
+                                    days: '0',
+                                    hours: '00',
+                                    minutes: '00',
+                                    seconds: '00',
+                                    initTimer() {
+                                        const update = () => {
+                                            const target = new Date(weddingDate || '2026-09-29T12:00:00').getTime();
+                                            const now = new Date().getTime();
+                                            const diff = target - now;
+
+                                            if (diff > 0) {
+                                                this.days = String(Math.floor(diff / (1000 * 60 * 60 * 24)));
+                                                this.hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                                                this.minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                                                this.seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+                                            } else {
+                                                this.days = '0';
+                                                this.hours = '00';
+                                                this.minutes = '00';
+                                                this.seconds = '00';
+                                            }
+                                        };
+                                        update();
+                                        setInterval(update, 1000);
+                                    }
+                                }"
+                                x-init="initTimer()">
+
+                                <!-- 캘린더 타이틀 -->
+                                <h3 class="lux-font text-xl text-gray-700 mb-6 tracking-wide" x-text="calTitle"></h3>
+
+                                <!-- 1. 달력 카드 -->
+                                <div class="bg-white p-5 rounded-2xl border border-gray-100 grid grid-cols-7 gap-1 text-center shadow-sm mb-6">
                                     <template x-for="day in ['일','월','화','수','목','금','토']">
-                                        <div class="text-[10px] font-bold text-gray-400 pb-2" x-text="day"></div>
+                                        <div class="text-[11px] font-bold text-gray-400 pb-2" 
+                                            :class="day === '일' ? 'text-red-400' : (day === '토' ? 'text-blue-400' : 'text-gray-400')" 
+                                            x-text="day"></div>
                                     </template>
                                     <template x-for="d in calDays">
-                                        <div class="h-10 flex items-center justify-center text-sm"
-                                            :class="d.isTarget ? 'bg-pink-400 text-white rounded-full font-bold shadow-md' : (d.isSun ? 'text-red-400' : 'text-gray-600')"
+                                        <div class="h-9 w-9 mx-auto flex items-center justify-center text-xs transition-all"
+                                            :class="d.isTarget ? 'bg-pink-400 text-white rounded-full font-bold shadow-md scale-105 ring-2 ring-pink-200' : (d.isSun ? 'text-red-400' : 'text-gray-600')"
                                             x-text="d.day || ''"></div>
                                     </template>
                                 </div>
-                                <div class="mt-4 p-6 bg-pink-50/30 rounded-2xl border border-pink-100/50">
-                                    <div class="text-[16px] font-bold text-gray-700 tracking-tight" x-text="dDay"></div>
+
+                                <!-- 2. 실시간 카운트다운 박스 (DAYS / HOUR / MIN / SEC) -->
+                                <div class="p-6 bg-pink-50/40 rounded-2xl border border-pink-100/60 shadow-sm">
+                                    <div class="text-[11px] font-semibold text-pink-400 tracking-widest uppercase mb-4">COUNTDOWN</div>
+                                    
+                                    <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto mb-5">
+                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
+                                            <div class="text-lg font-bold text-gray-800 font-mono tracking-tight" x-text="days">0</div>
+                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">DAYS</div>
+                                        </div>
+                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
+                                            <div class="text-lg font-bold text-gray-800 font-mono tracking-tight" x-text="hours">00</div>
+                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">HOUR</div>
+                                        </div>
+                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
+                                            <div class="text-lg font-bold text-gray-800 font-mono tracking-tight" x-text="minutes">00</div>
+                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">MIN</div>
+                                        </div>
+                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
+                                            <div class="text-lg font-bold text-pink-500 font-mono tracking-tight" x-text="seconds">00</div>
+                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">SEC</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 하단 D-Day 문구 -->
+                                    <div class="text-xs font-medium text-gray-600 tracking-tight" x-text="dDay"></div>
                                 </div>
                             </div>
                         </template>
