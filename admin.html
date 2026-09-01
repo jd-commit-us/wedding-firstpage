@@ -890,6 +890,31 @@
                     });
                 },
 
+
+                async decryptAllPersonalData() {
+                    if (typeof WeddingCrypto === 'undefined') return;
+
+                    const fields = ['name', 'name2', 'phone', 'account'];
+                    const parentFields = ['father', 'mother', 'fPhone', 'mPhone', 'fAccount', 'mAccount'];
+
+                    for (const side of ['groom', 'bride']) {
+                        if (this.data[side]) {
+                            for (const f of fields) {
+                                if (this.data[side][f]) {
+                                    this.data[side][f] = await WeddingCrypto.decrypt(this.data[side][f]);
+                                }
+                            }
+                            if (this.data[side].parents) {
+                                for (const pf of parentFields) {
+                                    if (this.data[side].parents[pf]) {
+                                        this.data[side].parents[pf] = await WeddingCrypto.decrypt(this.data[side].parents[pf]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+
                 // 계좌 복호화 헬퍼 (로컬/서버 데이터 로드 시 호출)
                 async decryptAllAccounts() {
                     if (typeof WeddingCrypto === 'undefined') return;
@@ -984,7 +1009,8 @@
                             this.data = cloudData;
 
                             // 계좌 복호화 수행
-                            await this.decryptAllAccounts();
+                            //await this.decryptAllAccounts();
+                            await this.decryptAllPersonalData()
 
                             // Re-init editors with new data
                             this.$nextTick(() => {
