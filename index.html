@@ -460,9 +460,13 @@
 
                         <!-- 5. Contact -->                        
                         <template x-if="section.id === 'phone'">
-                            <div class="px-8 pb-10" x-data="{ openPhoneModal: false }">
+                            <div class="px-8 pb-10" 
+                                x-data="{ openPhoneModal: false }"
+                                x-init="$watch('openPhoneModal', value => document.body.style.overflow = value ? 'hidden' : '')">                                                                
+
                                 <div class="max-w-xs mx-auto">
                                     <button 
+                                        type="button"
                                         @click="openPhoneModal = true"
                                         class="w-full py-3.5 px-5 bg-white hover:bg-gray-50 active:scale-[0.99] text-gray-700 font-bold text-xs rounded-2xl flex items-center justify-center gap-2 border border-gray-200 shadow-sm transition-all">
                                         <span>📞</span>
@@ -479,8 +483,9 @@
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100"
                                         x-transition:leave-end="opacity-0"
-                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                                        @touchmove.self.prevent
                                         @click.self="openPhoneModal = false"
+                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
                                         style="display: none;">
 
                                         <div 
@@ -497,7 +502,10 @@
                                                 <h3 class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
                                                     <span>📞</span> 축하 연락처 안내
                                                 </h3>
-                                                <button @click="openPhoneModal = false" class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
+                                                <button 
+                                                    type="button"
+                                                    @click="openPhoneModal = false" 
+                                                    class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
                                                     ✕
                                                 </button>
                                             </div>
@@ -517,11 +525,11 @@
                                                                 </div>
                                                                 <div class="flex items-center gap-1.5">
                                                                     <a :href="'tel:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-[11px] rounded-lg text-blue-600 font-semibold shadow-xs flex items-center gap-1">
+                                                                    class="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-[11px] rounded-lg text-blue-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
                                                                         <span>📞</span> 전화
                                                                     </a>
                                                                     <a :href="'sms:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-gray-50 hover:bg-gray-100 text-[11px] rounded-lg text-gray-600 font-semibold shadow-xs flex items-center gap-1">
+                                                                    class="px-2.5 py-1.5 bg-gray-50 hover:bg-gray-100 text-[11px] rounded-lg text-gray-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
                                                                         <span>💬</span> 문자
                                                                     </a>
                                                                 </div>
@@ -543,11 +551,11 @@
                                                                 </div>
                                                                 <div class="flex items-center gap-1.5">
                                                                     <a :href="'tel:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-pink-50 hover:bg-pink-100 text-[11px] rounded-lg text-pink-600 font-semibold shadow-xs flex items-center gap-1">
+                                                                    class="px-2.5 py-1.5 bg-pink-50 hover:bg-pink-100 text-[11px] rounded-lg text-pink-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
                                                                         <span>📞</span> 전화
                                                                     </a>
                                                                     <a :href="'sms:' + p.phone" 
-                                                                    class="px-2.5 py-1.5 bg-gray-50 hover:bg-gray-100 text-[11px] rounded-lg text-gray-600 font-semibold shadow-xs flex items-center gap-1">
+                                                                    class="px-2.5 py-1.5 bg-gray-50 hover:bg-gray-100 text-[11px] rounded-lg text-gray-600 font-semibold shadow-xs flex items-center gap-1 transition-colors">
                                                                         <span>💬</span> 문자
                                                                     </a>
                                                                 </div>
@@ -559,6 +567,7 @@
                                             </div>
 
                                             <button 
+                                                type="button"
                                                 @click="openPhoneModal = false"
                                                 class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
                                                 닫기
