@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title
-        x-text="data.groom?.name && data.bride?.name ? '§' + data.groom.name + '§ ♥ §' + data.bride.name + '§의 모바일 청첩장' : '모바일 청첩장'">
+        x-text="모바일 청첩장">
     </title>
 
     <!-- Open Graph / Facebook / KakaoTalk -->
@@ -1071,6 +1071,11 @@
 
                         // 복호화 완료된 데이터를 Alpine 상태에 할당
                         this.data = rawData;
+
+                        // 4. 복호화된 평문 이름으로 브라우저 탭 타이틀 변경
+                        if (this.data.groom?.name && this.data.bride?.name) {
+                            document.title = `${this.data.groom.name} ♥ ${this.data.bride.name}의 모바일 청첩장`;
+                        }
 
                     } catch (err) {
                         console.error("데이터 로드 및 복호화 실패:", err);
