@@ -9,12 +9,12 @@
       "mapLinks": {
         "naver": "https://map.naver.com/p/entry/place/37537597",
         "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
-        "tmap":  "https://tmap.life/461d4003",
+        "tmap": "https://tmap.life/461d4003",
         "google": "https://maps.app.goo.gl/PJsju5CFUeXmxdZh9"
       },
       "navLinks": {
         "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
-        "tmap":  "https://tmap.life/461d4003"
+        "tmap": "https://tmap.life/461d4003"
       },
       "mapImage": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/map/mj_location.png",
       "lat": 37.4819407,
