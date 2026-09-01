@@ -2,10 +2,10 @@
   "config": {
     "weddingDate": "2026-05-02T13:00:00",
     "venue": {
-      "name": "마리아쥬 스퀘어",
+      "name": "소사 MJ 컨벤션",
       "phone": "02-541-5007",
-      "address": "서울특별시 강남구 도산대로 318 SB타워 G층",
-      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[내부주차 300대 수용 가능]</u></span></p><p style=\"text-align: center\"><u>▶</u><span style=\"font-family: Nanum Myeongjo\"><u>당일 교통혼잡이 예상되는 경우,</u></span></p><p style=\"text-align: center\"><span style=\"color: rgb(241, 95, 95);font-family: Nanum Myeongjo\"><u>지하철</u></span><span style=\"font-family: Nanum Myeongjo\"><u> + </u></span><span style=\"color: rgb(0, 51, 153);font-family: Nanum Myeongjo\"><span style=\"font-family: Nanum Myeongjo\"><u>셔틀버스</u></span></span><span style=\"font-family: Nanum Myeongjo\"><u> 이용을</u></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>적극 권장드립니다.</u></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><strong>셔틀운행</strong></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">7호선, 분당선 강남구청역 3번출구 셔틀버스 이용</span></p><p><span style=\"font-family: Nanum Myeongjo\">└예식 있을 시 수시 운행</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><strong>지하철</strong></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">7호선, 분당선 강남구청역 하차</span></p><p><span style=\"font-family: Nanum Myeongjo\">강남구청역 3-1번 출구</span></p><p>└<span style=\"font-family: Nanum Myeongjo\">[도보] 출구 좌측 학동사거리 방향 600M 도보 이동 후</span></p><p><span style=\"font-family: Nanum Myeongjo\">학동사거리에서 좌회전 200M</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">분당선 압구정로데오역</span></p><p><span style=\"font-family: Nanum Myeongjo\"> 하차압구정로데오역 5번 출구</span></p><p><span style=\"font-family: Nanum Myeongjo\">└[도보] 400M 도보 이동 후</span></p><p><span style=\"font-family: Nanum Myeongjo\">학동사거리 횡단보도 건너우측 200M</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><strong>버스</strong></span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\"><span style=\"font-family: Nanum Myeongjo\">정류장_</span>도산공원사거리.호림아트센터</span></p><p><span style=\"font-family: Nanum Myeongjo\">[정류장 번호-23125]</span></p><p><span style=\"font-family: Nanum Myeongjo\">└간선버스_145, 440</span></p><p><span style=\"font-family: Nanum Myeongjo\">└지선버스_3011, 4212</span></p><p><span style=\"font-family: Nanum Myeongjo\"><br></span></p><p><span style=\"font-family: Nanum Myeongjo\">정류장_영동119안전센터</span></p><p><span style=\"font-family: Nanum Myeongjo\">[정류장 번호-23126]</span></p><p><span style=\"font-family: Nanum Myeongjo\">└지선버스_3011, 4212</span></p>",
+      "address": "경기도 부천시 소사구 경인로 386",
+      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[내부주차 300대 수용 가능]</u></p>",
       "mapLinks": {
         "naver": "https://map.naver.com/p/entry/place/21413303",
         "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=17416438",
@@ -26,8 +26,8 @@
     }
   },
   "groom": {
-    "name": "조현우",
-    "rank": "장남",
+    "name": "이재석",
+    "rank": "차남",
     "phone": "010-****-****",
     "bank": "기업",
     "account": "****",
@@ -43,7 +43,7 @@
     }
   },
   "bride": {
-    "name": "류하영",
+    "name": "임동희",
     "rank": "장녀",
     "phone": "010-****-****",
     "bank": "국민",
@@ -193,7 +193,7 @@
   },
   "text": {
     "mainOverlay": "<p><br></p><p><br></p><p>Wedding Invitation</p>",
-    "mainMessage": "<p style=\"text-align: center\">류하영 그리고 조현우</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">2026년 05월 02일 토요일 PM 13시 00분</p><p style=\"text-align: center\">강남 마리아쥬 스퀘어</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">영원히 함께할</p><p style=\"text-align: center\">사랑의 맹세</p><p style=\"text-align: center\">같이 축복해주세요</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\"><u>하객분들을 위해 준비한</u></p><p style=\"text-align: center\"><span style=\"color: rgb(103, 0, 0)\"><u>무제한 카페</u></span><u>와 </u><span style=\"color: rgb(107, 153, 0)\"><u>야외정원</u></span><u>이있으니</u></p><p style=\"text-align: center\"><u>30분 일찍 오셔서 즐거운 시간을</u></p><p style=\"text-align: center\"><u>보내주시길 바랍니다</u></p><p style=\"text-align: center\"><u><br></u></p><p style=\"text-align: center\"><span style=\"color: rgb(153, 0, 133)\"><u>[12시 30분 개장]</u></span></p>"
+    "mainMessage": "<p style=\"text-align: center\">이재석 그리고 임동희</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">2027년 01월 30일 토요일 AM 11시 00분</p><p style=\"text-align: center\">강남 마리아쥬 스퀘어</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">영원히 함께할</p><p style=\"text-align: center\">사랑의 맹세</p><p style=\"text-align: center\">같이 축복해주세요</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\"><u>하객분들을 위해 준비한</u></p><p style=\"text-align: center\"><span style=\"color: rgb(103, 0, 0)\"><u>무제한 카페</u></span><u>와 </u><span style=\"color: rgb(107, 153, 0)\"><u>야외정원</u></span><u>이있으니</u></p><p style=\"text-align: center\"><u>30분 일찍 오셔서 즐거운 시간을</u></p><p style=\"text-align: center\"><u>보내주시길 바랍니다</u></p><p style=\"text-align: center\"></span></p>"
   },
   "media": {
     "youtube": "XvSkuFcqEhI",
