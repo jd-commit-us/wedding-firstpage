@@ -1570,81 +1570,76 @@
                 },                
 
                 // index.html의 app() 컨트롤러 내부
-                getAllAccounts(type) {
-                    const person = this.data[type];
-                    if (!person) return [];
 
+                // 1. 신랑/신부 계좌 목록 추출 함수
+                getAllAccounts(type) {
+                    if (!this.data || !this.data[type]) return [];
+                    const person = this.data[type];
                     const list = [];
-                    
-                    // 1. 본인 계좌
+
+                    // 본인 계좌
                     if (person.account) {
                         list.push({
                             relation: type === 'groom' ? '신랑' : '신부',
-                            holder: person.name,
-                            bank: person.bank,
-                            account: person.account,
-                            kakaopayLink: person.kakaopayLink || ''
+                            name: person.name,
+                            bank: person.bank || '은행',
+                            num: person.account
                         });
                     }
 
-                    // 2. 아버지 계좌
-                    if (person.parents && person.parents.fAccount) {
+                    // 아버지 계좌
+                    if (person.parents?.fAccount) {
                         list.push({
                             relation: '아버지',
-                            holder: person.parents.father,
-                            bank: person.parents.fBank,
-                            account: person.parents.fAccount,
-                            kakaopayLink: person.parents.fKakaopayLink || ''
+                            name: person.parents.father,
+                            bank: person.parents.fBank || '은행',
+                            num: person.parents.fAccount
                         });
                     }
 
-                    // 3. 어머니 계좌
-                    if (person.parents && person.parents.mAccount) {
+                    // 어머니 계좌
+                    if (person.parents?.mAccount) {
                         list.push({
                             relation: '어머니',
-                            holder: person.parents.mother,
-                            bank: person.parents.mBank,
-                            account: person.parents.mAccount,
-                            kakaopayLink: person.parents.mKakaopayLink || ''
+                            name: person.parents.mother,
+                            bank: person.parents.mBank || '은행',
+                            num: person.parents.mAccount
                         });
                     }
 
                     return list;
                 },
 
-                // 🌟 data.json 로드 시 계좌 일괄 복호화 함수
-                async decryptAccounts() {
-                    if (typeof WeddingCrypto === 'undefined') return;
-
-                    // 신랑측 복호화
-                    if (this.data.groom) {
-                        if (this.data.groom.account) {
-                            this.data.groom.account = await WeddingCrypto.decrypt(this.data.groom.account);
-                        }
-                        if (this.data.groom.parents) {
-                            if (this.data.groom.parents.fAccount) {
-                                this.data.groom.parents.fAccount = await WeddingCrypto.decrypt(this.data.groom.parents.fAccount);
-                            }
-                            if (this.data.groom.parents.mAccount) {
-                                this.data.groom.parents.mAccount = await WeddingCrypto.decrypt(this.data.groom.parents.mAccount);
-                            }
-                        }
+                // 2. 계좌번호 클립보드 복사 함수
+                copyAccount(acc) {
+                    const textToCopy = `${acc.bank} ${acc.num} ${acc.name}`;
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(acc.num).then(() => {
+                            alert(`${acc.name}님의 계좌번호가 복사되었습니다.\n(${acc.bank} ${acc.num})`);
+                        }).catch(() => {
+                            this.fallbackCopy(acc.num, acc.name);
+                        });
+                    } else {
+                        this.fallbackCopy(acc.num, acc.name);
                     }
+                },
 
-                    // 신부측 복호화
-                    if (this.data.bride) {
-                        if (this.data.bride.account) {
-                            this.data.bride.account = await WeddingCrypto.decrypt(this.data.bride.account);
-                        }
-                        if (this.data.bride.parents) {
-                            if (this.data.bride.parents.fAccount) {
-                                this.data.bride.parents.fAccount = await WeddingCrypto.decrypt(this.data.bride.parents.fAccount);
-                            }
-                            if (this.data.bride.parents.mAccount) {
-                                this.data.bride.parents.mAccount = await WeddingCrypto.decrypt(this.data.bride.parents.mAccount);
-                            }
-                        }
+                // 모바일 호환용 fallback 복사
+                fallbackCopy(num, name) {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = num;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-999999px";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        alert(`${name}님의 계좌번호가 복사되었습니다.`);
+                    } catch (err) {
+                        alert('계좌번호 복사에 실패했습니다.');
                     }
+                    textArea.remove();
                 }
             }
         }
