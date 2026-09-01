@@ -1040,6 +1040,36 @@
                     } catch (e) {
                         console.error('Data loading error:', e);
                     }
+
+                    // 2. [데이터 로드 및 복호화 구간]
+                    try {
+                        const res = await fetch('./data.json?v=' + Date.now());
+                        if (res.ok) {
+                            const rawData = await res.json();
+
+                            // 🔒 계좌 복호화 실행
+                            if (typeof WeddingCrypto !== 'undefined') {
+                                if (rawData.groom) {
+                                    if (rawData.groom.account) rawData.groom.account = await WeddingCrypto.decrypt(rawData.groom.account);
+                                    if (rawData.groom.parents) {
+                                        if (rawData.groom.parents.fAccount) rawData.groom.parents.fAccount = await WeddingCrypto.decrypt(rawData.groom.parents.fAccount);
+                                        if (rawData.groom.parents.mAccount) rawData.groom.parents.mAccount = await WeddingCrypto.decrypt(rawData.groom.parents.mAccount);
+                                    }
+                                }
+                                if (rawData.bride) {
+                                    if (rawData.bride.account) rawData.bride.account = await WeddingCrypto.decrypt(rawData.bride.account);
+                                    if (rawData.bride.parents) {
+                                        if (rawData.bride.parents.fAccount) rawData.bride.parents.fAccount = await WeddingCrypto.decrypt(rawData.bride.parents.fAccount);
+                                        if (rawData.bride.parents.mAccount) rawData.bride.parents.mAccount = await WeddingCrypto.decrypt(rawData.bride.parents.mAccount);
+                                    }
+                                }
+                            }
+
+                            this.data = rawData;
+                        }
+                    } catch (e) {
+                        console.error("data.json 로드/복호화 실패:", e);
+                    }
                 },
 
                 closeIntro() {
@@ -1572,21 +1602,7 @@
                         ut.lang = this.lang;
                         window.speechSynthesis.speak(ut);
                     } else alert('TTS not supported');
-                },
-
-                // 👇 여기에 넣으시면 됩니다.
-                async init() {
-                    try {
-                    const res = await fetch('./data.json?v=' + Date.now());
-                    if (res.ok) {
-                        this.data = await res.json();
-                        // 🔒 계좌번호 복호화 실행
-                        await this.decryptAccounts();
-                    }
-                    } catch (e) {
-                    console.error("데이터 로드 실패:", e);
-                    }
-                },
+                },                
 
                 // index.html의 app() 컨트롤러 내부
                 getAllAccounts(type) {
