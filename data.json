@@ -4,7 +4,7 @@
     "venue": {
       "name": "소사 MJ 컨벤션",
       "phone": "02-541-5007",
-      "address": "경기도 부천시 소사구 경인로 386.",
+      "address": "경기도 부천시 소사구 경인로 386",
       "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[5층 그랜드볼룸]</u></p>",
       "mapLinks": {
         "naver": "https://map.naver.com/p/entry/place/37537597",
@@ -258,7 +258,7 @@
     {
       "id": "guestbook",
       "title": "방명록(Guestbook)",
-      "isVisible": false,
+      "isVisible": true,
       "isFolded": false,
       "order": 8
     },

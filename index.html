@@ -11,19 +11,19 @@
     <!-- Open Graph / Facebook / KakaoTalk -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://highhighcouple.github.io/Wedding_Invitation/">
-    <meta property="og:title" content="이재석 ♥ 임동희의 모바일 청첩장">
+    <meta property="og:title" content="재석 ♥ 동희의 모바일 청첩장">
     <meta property="og:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션  | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
     <meta property="og:image"
         content="https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/og/thumbnail.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="ko_KR">
-    <meta property="og:site_name" content="이재석 ♥ 임동희 결혼식">
+    <meta property="og:site_name" content="재석 ♥ 동희 결혼식">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://highhighcouple.github.io/Wedding_Invitation/">
-    <meta name="twitter:title" content="이재석 ♥ 임동희 모바일 청첩장">
+    <meta name="twitter:title" content="재석 ♥ 동희 모바일 청첩장">
     <meta name="twitter:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
     <meta name="twitter:image"
         content="https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/og/thumbnail.png">
@@ -283,7 +283,13 @@
                                 <div class="max-w-md mx-auto space-y-8 mt-12 mb-12">
                                     <div class="text-sm md:text-base leading-relaxed lux-font sun-editor-common px-8"
                                         :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '1.8'}; letter-spacing: ${data.theme?.style?.letterSpacing || '0px'}; text-align: ${data.theme?.style?.textAlign || 'center'}`"
-                                        x-html="data.text.mainMessage"></div>
+                                        x-html="data.text.mainMessage">
+                                        <p style="text-align: center">새로운 한 해가 시작되는 1월,<br>저희 두 사람도 새로운 시작을 하려 합니다.</p>
+                                        <p style="text-align: center"><br></p>
+                                        <p style="text-align: center">서로의 가장 따뜻한 사람이 되어<br>앞으로의 모든 계절을 함께하고자 합니다.</p>
+                                        <p style="text-align: center"><br></p>
+                                        <p style="text-align: center">저희의 첫 계절을 함께해 주시고<br>따뜻한 마음으로 축복해 주세요.</p>
+                                    </div>
                                 </div>
 
                                 <!-- Names Section UI Restoration & Improvement -->
@@ -393,7 +399,7 @@
 
                                 <!-- 2. 실시간 카운트다운 박스 (DAYS / HOUR / MIN / SEC) -->
                                 <div class="p-6 bg-pink-50/40 rounded-2xl border border-pink-100/60 shadow-sm">
-                                    <div class="text-[11px] font-semibold text-pink-400 tracking-widest uppercase mb-4">COUNTDOWN</div>
+                                    <div class="text-[11px] font-semibold text-pink-400 tracking-widest uppercase mb-4">D-Day</div>
                                     
                                     <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto mb-4">
                                         <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
@@ -908,7 +914,7 @@
                 dict: {
                     ko: {
                         names: '초대합니다',
-                        calendar: '결혼식 날',
+                        calendar: '',
                         youtube: '영상',
                         gallery: '사진 앨범',
                         phone: '연락처',
@@ -945,7 +951,7 @@
                             this.sortedSections = [...this.data.sections].sort((a, b) => a.order - b.order);
 
                             // Dynamic Title
-                            document.title = `§${this.data.groom.name}§ ♥ §${this.data.bride.name}§의 청첩장`;
+                            document.title = `§${this.data.groom.name2}§ ♥ §${this.data.bride.name2}§의 청첩장`;
                         }
 
                         // Fixed Default States
@@ -1013,8 +1019,8 @@
                         this.data = rawData;
 
                         // 4. 복호화된 평문 이름으로 브라우저 탭 타이틀 변경
-                        if (this.data.groom?.name && this.data.bride?.name) {
-                            document.title = `${this.data.groom.name} ♥ ${this.data.bride.name}의 모바일 청첩장`;
+                        if (this.data.groom?.name2 && this.data.bride?.name2) {
+                            document.title = `${this.data.groom.name2} ♥ ${this.data.bride.name2}의 모바일 청첩장`;
                         }
 
                     } catch (err) {
@@ -1480,7 +1486,7 @@
                             Kakao.Share.sendDefault({
                                 objectType: 'feed',
                                 content: {
-                                    title: `${this.data.groom.name} ♥ ${this.data.bride.name}의 결혼식에 초대합니다!`,
+                                    title: `${this.data.groom.name2} ♥ ${this.data.bride.name2}의 결혼식에 초대합니다!`,
                                     description: this.data.config.venue.name + ' ' + this.data.config.weddingDate,
                                     imageUrl: this.data.images.main || 'https://highhighcouple.github.io/Wedding_Invitation/og_image.png',
                                     link: { mobileWebUrl: window.location.href, webUrl: window.location.href },
