@@ -335,14 +335,14 @@
                                     seconds: '00',
                                     dDayText: '',
                                     initTimer() {
-                                        // 💡 실제 결혼식 날짜 및 시간을 여기에 입력하세요 (형식: YYYY-MM-DDTHH:mm:ss)
-                                        const weddingTargetStr = (typeof weddingDate !== 'undefined' && weddingDate) 
-                                                                ? weddingDate 
-                                                                : '2027-01-30T11:00:00';
-
                                         const update = () => {
-                                            // 아이폰 Safari 호환성을 위해 공백을 'T'로 치환하여 파싱
-                                            const safeDateStr = String(weddingTargetStr).replace(' ', 'T');
+                                            // data.json의 config.weddingDate 값을 정확하게 탐색
+                                            const rawDate = (typeof config !== 'undefined' && config.weddingDate) 
+                                                        || (this.config && this.config.weddingDate) 
+                                                        || (this.data && this.data.config && this.data.config.weddingDate)
+                                                        || '2027-01-30T11:00:00';
+
+                                            const safeDateStr = String(rawDate).replace(' ', 'T');
                                             const target = new Date(safeDateStr).getTime();
                                             const now = new Date().getTime();
                                             const diff = target - now;
