@@ -752,7 +752,15 @@
                 ],
                 bbs: [], joins: [],
                 data: {
-                    config: { venue: { mapLinks: {}, navLinks: {} }, secrets: {} },
+                    config: { 
+                        venue: { mapLinks: {}, navLinks: {} }, 
+                        secrets: {
+                            githubToken: '',
+                            encryptedGithubToken: '',
+                            kakaoApiKey: '',
+                            adminPassword: ''
+                        } 
+                    },
                     groom: { parents: {} }, bride: { parents: {} },
                     images: { gallery: [], og: {} },
                     text: {}, media: { bgm: [] },
@@ -766,7 +774,6 @@
                     },
                     sections: [], updates: []
                 },
-                // 🌟 분리된 독립 섹션 규격 완벽 반영
                 defaultSections: [
                     { id: 'hero', title: '메인 배너 사진(Hero)', isVisible: true, isFolded: false, order: 1 },
                     { id: 'greeting', title: '초대 인사말(Greeting)', isVisible: true, isFolded: false, order: 2 },
@@ -796,7 +803,6 @@
                 async init() {
                     fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => this.ip = d.ip).catch(() => {});
                     
-                    // 🌟 최신 data.json을 최우선으로 fetch
                     try {
                         const timestamp = Date.now();
                         const r = await fetch('data.json?v=' + timestamp);
@@ -811,18 +817,15 @@
                         if (saved) this.data = JSON.parse(saved);
                     }
 
-                    // sections 정리 및 새 섹션(hero, greeting) 보장
                     if (!this.data.sections || !this.data.sections.length) {
                         this.data.sections = JSON.parse(JSON.stringify(this.defaultSections));
                     } else {
-                        // 기본 필수 섹션 누락 시 자동 추가
                         this.defaultSections.forEach(def => {
                             const existing = this.data.sections.find(s => s.id === def.id);
                             if (!existing) {
                                 this.data.sections.push(JSON.parse(JSON.stringify(def)));
                             }
                         });
-                        // 순서 재정렬 보정
                         this.data.sections.sort((a, b) => a.order - b.order);
                         this.data.sections.forEach((s, idx) => s.order = idx + 1);
                     }
@@ -834,7 +837,6 @@
                         };
                     }
 
-                    // 개인정보 일괄 복호화
                     await this.decryptAllPersonalData();
 
                     if (!this.data.media) this.data.media = { bgm: [], youtube: '' };
@@ -850,10 +852,8 @@
                     const encToken = this.data.config.secrets.encryptedGithubToken;
 
                     if (localToken) {
-                        // 1. 현재 브라우저의 localStorage에 토큰이 남아있는 경우 우선 적용
                         this.data.config.secrets.githubToken = localToken;
                     } else if (encToken && typeof WeddingCrypto !== 'undefined') {
-                        // 2. 다른 기기/새 브라우저라 로컬스토리지에 없지만, data.json에 암호화된 토큰이 있는 경우
                         try {
                             const decrypted = await WeddingCrypto.decrypt(encToken);
                             if (decrypted && (decrypted.startsWith('ghp_') || decrypted.startsWith('github_pat_') || decrypted.startsWith('gho_'))) {
@@ -1045,7 +1045,7 @@
                         if (encToken && typeof WeddingCrypto !== 'undefined') {
                             try {
                                 const decrypted = await WeddingCrypto.decrypt(encToken);
-                                if (decrypted && decrypted.startsWith('gh')) {
+                                if (decrypted && (decrypted.startsWith('ghp_') || decrypted.startsWith('github_pat_') || decrypted.startsWith('gho_'))) {
                                     this.data.config.secrets.githubToken = decrypted;
                                     localStorage.setItem('ghToken', decrypted);
                                 }
@@ -1202,7 +1202,7 @@
                     }).open();
                 },
 
-                // 🌟 서버 배포 (새 섹션 목록 + 개인정보 암호화 안전 보장)
+                // 🌟 서버 배포 (토큰 암호화 저장 + 새 섹션 목록 + 개인정보 암호화)
                 async publishGithub(silent = false) {
                     this.syncEditors();
 
@@ -1219,17 +1219,23 @@
 
                     try {
                         const cleanData = JSON.parse(JSON.stringify(this.data));
-                        if (cleanData.config?.secrets) {
-                            cleanData.config.secrets.githubToken = "";
-                        }
+                        
+                        // 🌟 1. 토큰 암호화 처리
+                        if (!cleanData.config) cleanData.config = {};
+                        if (!cleanData.config.secrets) cleanData.config.secrets = {};
 
-                        // 순서 번호 재보정
+                        if (typeof WeddingCrypto !== 'undefined') {
+                            cleanData.config.secrets.encryptedGithubToken = await WeddingCrypto.encrypt(token);
+                        }
+                        cleanData.config.secrets.githubToken = ""; // 평문 토큰 제거
+
+                        // 2. 순서 번호 재보정
                         if (cleanData.sections) {
                             cleanData.sections.sort((a, b) => a.order - b.order);
                             cleanData.sections.forEach((s, idx) => s.order = idx + 1);
                         }
 
-                        // 개인정보 암호화
+                        // 3. 개인정보 암호화
                         if (typeof WeddingCrypto !== 'undefined') {
                             const fields = ['name', 'name2', 'phone', 'account'];
                             const parentFields = ['father', 'mother', 'fPhone', 'mPhone', 'fAccount', 'mAccount'];
@@ -1268,7 +1274,7 @@
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({ 
-                                message: '초대장 데이터 업데이트 (섹션 목록 및 인사말 반영)', 
+                                message: '초대장 데이터 업데이트 (토큰 암호화 및 섹션 반영)', 
                                 content: content, 
                                 sha: shaData.sha 
                             })
@@ -1283,7 +1289,7 @@
                         localStorage.setItem('wedding_v2_data', JSON.stringify(this.data));
 
                         if (!silent) {
-                            alert('✅ 배포 완료!\n\n섹션 구성과 초대장 내용이 깃허브 서버에 성공적으로 업데이트되었습니다.');
+                            alert('✅ 배포 완료!\n\n섹션 구성과 암호화된 토큰이 깃허브 서버에 성공적으로 업데이트되었습니다.');
                         }
 
                     } catch (err) {
