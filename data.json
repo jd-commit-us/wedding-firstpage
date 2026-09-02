@@ -221,7 +221,7 @@
       },
       {
         "id": "greeting",
-        "title": "초대 인사말(Greeting)",
+        "title": "초대 인사말",
         "isVisible": true,
         "isFolded": false,
         "order": 2

@@ -279,19 +279,28 @@
                                 </div>
                             </section>
                         </template>
-
-                        <!-- 2. 초대 인사말 단독 섹션 (greeting) -->
+                        
+                        <!-- 2. 초대 인사말 단독 섹션 (Greeting / Information) -->
                         <template x-if="section.id === 'greeting'">
-                            <section class="w-full py-16 px-6 bg-[#fffcfc] border-b border-gray-100/80">
-                                <div class="max-w-md mx-auto text-center space-y-6">
-                                    <div class="inline-block">
-                                        <span class="text-[11px] font-medium tracking-[0.3em] text-gray-400 uppercase">INVITATION</span>
-                                        <div class="w-6 h-[1px] bg-gray-300 mx-auto mt-2"></div>
+                            <section class="w-full py-20 px-6 bg-[#fffcfb] border-b border-[#f3eee8]">
+                                <div class="max-w-md mx-auto text-center">
+                                    
+                                    <!-- 감성적인 영문 타이틀 영역 (참고 사이트 스타일) -->
+                                    <div class="mb-10 flex flex-col items-center">
+                                        <!-- 클래식 세리프 & 이탤릭체 영문 라벨 -->
+                                        <span class="font-serif italic text-2xl text-[#8d8276] tracking-wide select-none">
+                                            Invitation
+                                        </span>
+                                        <!-- 은은한 미니 도트(dot) 또는 얇은 포인트 바 -->
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#d6cec5] mt-3"></div>
                                     </div>
-                                    <div class="text-sm md:text-base leading-relaxed lux-font sun-editor-common break-keep px-4 pt-2"
-                                        :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '1.85'}; letter-spacing: ${data.theme?.style?.letterSpacing || '0px'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
+
+                                    <!-- 관리자 입력 인사말 본문 -->
+                                    <div class="text-[13.5px] leading-[2.2] text-[#4a4744] font-light break-keep px-4 sun-editor-common"
+                                        :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '2.1'}; letter-spacing: ${data.theme?.style?.letterSpacing || '-0.02em'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
                                         x-html="data.text?.mainMessage">
                                     </div>
+
                                 </div>
                             </section>
                         </template>
