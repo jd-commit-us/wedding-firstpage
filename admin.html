@@ -969,10 +969,10 @@
                         const container = document.getElementById(ed.id);
                         if (!container) return;
 
-                        // 기존 에디터 잔여물 정리 후 생성
                         container.innerHTML = '';
 
-                        const editor = SUNEDITOR.create(ed.id, {
+                        // 🌟 수정: ed.id 문자열 대신 container DOM 요소를 직접 전달
+                        const editor = SUNEDITOR.create(container, {
                             lang: SUNEDITOR_LANG['ko'],
                             buttonList: buttonList,
                             width: '100%',
@@ -984,11 +984,9 @@
                             placeholder: '내용을 입력해주세요...'
                         });
 
-                        // 초기 데이터 세팅
                         const initial = _.get(this, ed.key) || '';
                         editor.setContents(initial);
 
-                        // 변경 이벤트 바인딩
                         editor.onChange = (content) => {
                             _.set(this, ed.key, content);
                         };
