@@ -822,7 +822,7 @@
                                 this.data.sections.push(JSON.parse(JSON.stringify(def)));
                             }
                         });
-                        // 기존에 names가 1번이었던 구버전 order 재정렬 보정
+                        // 순서 재정렬 보정
                         this.data.sections.sort((a, b) => a.order - b.order);
                         this.data.sections.forEach((s, idx) => s.order = idx + 1);
                     }
@@ -834,6 +834,7 @@
                         };
                     }
 
+                    // 개인정보 일괄 복호화
                     await this.decryptAllPersonalData();
 
                     if (!this.data.media) this.data.media = { bgm: [], youtube: '' };
@@ -841,14 +842,29 @@
                     if (!this.data.media.youtube) this.data.media.youtube = '';
                     if (!this.data.text) this.data.text = {};
 
-                    const localToken = localStorage.getItem('ghToken');
-                    const dataToken = this.data.config?.secrets?.githubToken;
+                    // 🌟 GitHub 토큰 동기화 및 자동 복호화 로직
+                    if (!this.data.config) this.data.config = {};
+                    if (!this.data.config.secrets) this.data.config.secrets = {};
 
-                    if (dataToken) {
-                        localStorage.setItem('ghToken', dataToken);
-                    } else if (localToken) {
-                        if (!this.data.config.secrets) this.data.config.secrets = {};
+                    const localToken = localStorage.getItem('ghToken');
+                    const encToken = this.data.config.secrets.encryptedGithubToken;
+
+                    if (localToken) {
+                        // 1. 현재 브라우저의 localStorage에 토큰이 남아있는 경우 우선 적용
                         this.data.config.secrets.githubToken = localToken;
+                    } else if (encToken && typeof WeddingCrypto !== 'undefined') {
+                        // 2. 다른 기기/새 브라우저라 로컬스토리지에 없지만, data.json에 암호화된 토큰이 있는 경우
+                        try {
+                            const decrypted = await WeddingCrypto.decrypt(encToken);
+                            if (decrypted && (decrypted.startsWith('ghp_') || decrypted.startsWith('github_pat_') || decrypted.startsWith('gho_'))) {
+                                this.data.config.secrets.githubToken = decrypted;
+                                localStorage.setItem('ghToken', decrypted);
+                            }
+                        } catch (e) {
+                            console.warn('토큰 자동 복호화 실패:', e);
+                        }
+                    } else if (this.data.config.secrets.githubToken) {
+                        localStorage.setItem('ghToken', this.data.config.secrets.githubToken);
                     }
 
                     this.loadExternalData();
@@ -1017,12 +1033,31 @@
                     } catch (e) { alert('삭제 실패'); }
                 },
 
-                login() {
-                    if (this.pass === 'admin1234!' || (this.data.config.secrets && this.pass === this.data.config.secrets.adminPassword)) {
+                async login() {
+                    const isMaster = this.pass === 'admin1234!';
+                    const isCustom = this.data.config.secrets && this.pass === this.data.config.secrets.adminPassword;
+
+                    if (isMaster || isCustom) {
                         this.auth = true;
-                        if (this.data.config.secrets?.githubToken) localStorage.setItem('ghToken', this.data.config.secrets.githubToken);
+
+                        // 🌟 저장된 암호화 토큰이 있다면 로그인 즉시 자동 복호화
+                        const encToken = this.data.config?.secrets?.encryptedGithubToken;
+                        if (encToken && typeof WeddingCrypto !== 'undefined') {
+                            try {
+                                const decrypted = await WeddingCrypto.decrypt(encToken);
+                                if (decrypted && decrypted.startsWith('gh')) {
+                                    this.data.config.secrets.githubToken = decrypted;
+                                    localStorage.setItem('ghToken', decrypted);
+                                }
+                            } catch (e) {
+                                console.warn('토큰 복호화 실패:', e);
+                            }
+                        } else if (this.data.config?.secrets?.githubToken) {
+                            localStorage.setItem('ghToken', this.data.config.secrets.githubToken);
+                        }
+                    } else {
+                        alert('비밀번호가 틀렸습니다.');
                     }
-                    else alert('비밀번호가 틀렸습니다.');
                 },
 
                 get sortedSections() {
