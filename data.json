@@ -5,7 +5,7 @@
       "name": "소사 MJ 컨벤션",
       "phone": "02-541-5007",
       "address": "경기도 부천시 소사구 경인로 386",
-      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[5층 그랜드볼룸]</u></p>",
+      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[5층 그랜드볼룸]</u></span></p>",
       "mapLinks": {
         "naver": "https://map.naver.com/p/entry/place/37537597",
         "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
@@ -26,39 +26,39 @@
     }
   },
   "groom": {
-    "name": "hiDPr7kcvwJoTkIESjiaNWU0F2hqVkU3ujce9q2JWL4enxdOkA==",
-    "name2": "Aw5HDR4lh1LkNUY2+Q+/jdRgdtOZhzHj+9G361m5iwR4Ag==",
+    "name": "jF2H1Dl7piiL8aIPhpKC3/U0Nw68VaJdXf5YoE5pk3adzBW72Q==",
+    "name2": "8jMdCaZg7hm6P0vuwZk90HgPmlimmfoz3Rcp0MnYHHiOgw==",
     "rank": "차남",
-    "phone": "v2MRxxt+xDgvyC5wvvxqNA/kfYXFhTum0iR+UHbqB7DR6SiKE4IbUog=",
+    "phone": "DOKIWpeHHY6Tpd1imqA92QjMp38Hi8TnR7EDh3yoyQxSrz4ZxbOXOm8=",
     "bank": "국민",
-    "account": "HwfMbzMOJENnaHvHNVYzP0+5bgt+NzBcMt0DSY2WMluGew==",
+    "account": "BqWdJYbehsdVyTxXREc2WezKaGEDNn2q7LHD08IZ35walQ==",
     "parents": {
-      "father": "+Y+AOsLdWsYx6EHA5jKTeuQU/UuTVPaJnDLXIjWzziky",
-      "mother": "7e9CFxOMs0g/+rRrG9T+7Nuw5EH0kcKOMvvQV+wCx5EJ",
-      "fPhone": "OvqN0c7SSXbowGH8fED4LyB4gbs2kvuuGzgksPtVjUDQsHFMZUNvXDI=",
-      "mPhone": "fkaAQVdoO8+T0ILQJBA0I5cONLju/OLF9uvbEzpPAVnacnRFDCa2Lf8=",
+      "father": "mr/MIS6ik2xXvmklNhH9draWPdz/oJCj503pqlTX4hrH",
+      "mother": "VzhB/+Uw+e7kxaW1pEE6jRxFuMbxjIrDyfVdfBkf5laa",
+      "fPhone": "osLgZe5nWmPv/9+Uum4w7l4Pid92mk9EOHb625f9qc0smcjxaKGnVAo=",
+      "mPhone": "cwBk/koVJA+hzDpCqcBG8wVsBK/F6I6stwXaQ2Wo4JQbTLQgkzvXL6s=",
       "fBank": "우리",
-      "fAccount": "m/C3fhPr6m1XdYUxxTBJrdHmM6OA/X4qZSMFnz8Yhen+NA==",
+      "fAccount": "bH+66WpqEj/hS4+jMvasYKdD7TUAD687KAlTWJWWZ+PHHg==",
       "mBank": "신한",
-      "mAccount": "AoG08uSC8Z+TdGujDONr1fWBJsEjnEP93kj3mo3MXRGWxA=="
+      "mAccount": "FxOkv/FjJVxLEdoDscyl3rZIt8NbH0H8XssbdtT6AkdtAg=="
     }
   },
   "bride": {
-    "name": "XBLqCnYonnutJXx+wz7IKj580l1R9vCwxuilPgEroUrsLgMjOg==",
-    "name2": "N7jmwmvZogUm534udYC666+aUw76SNg7N0SKIiZncQ0OHg==",
+    "name": "eDq4az5e/QjNqqJY8z1rvjAzhyPGDQAKkkP3PsW3ufxClf0OiA==",
+    "name2": "/TkMvK07PkEks3wZQanurH5v0prrF6SuK2u2OQAfSzMp+g==",
     "rank": "장녀",
-    "phone": "Xv93n3pYpkCeAmEBN1YtYuT70BJ0lKQecoCF2+guWJDogkUGMJiqONA=",
+    "phone": "lwr7ZEKow1GV2FRTqfydGcMaG1jVLuT4YOcf/tzm2pygWFBJuWzGuTQ=",
     "bank": "국민",
-    "account": "3qxePinhyu0N0hRljYLAymsC0aN/WidIm1kni4q/HNV19A==",
+    "account": "CoSpBmxkzjA8e+tjtOVebT9waLkCuVQXzunDlOlwhVzeVg==",
     "parents": {
-      "father": "ZgOYVQw92TikGmgevRdzT00RHoCVr0gd/qr6hHIhl1Ge",
-      "mother": "2x3DLKjcEEr939w2wRWzeTYy5d5GFeRjmyUnC/c0YQER",
-      "fPhone": "R/gD9NyJgeTjnFaC1YiYB+37v3sxS7QnGoklv9y1PC3wIDHFb1KjZo0=",
-      "mPhone": "Is2h4lZGDPLtb5r/BRUlxYWDKTQUNm5rHPkyL8sLBdFd0oztk/dHHBA=",
+      "father": "6odLKq3QLQIwuK03EbUgVJRq2s2kbh6t2TC2guWh16nu",
+      "mother": "6scgwkBoFAu2gv5j9lC1ElFo6/SmV3JfcxEaAfbz12df",
+      "fPhone": "rjagcl0cI+q75ZScjn39zmfbVP/iRrcbHG/jyo4mSCEbvFUD7EMF9CU=",
+      "mPhone": "wCtwQdzib05VyYlq9p37LD8faA7wRTov9Vb0yKko4ugHgRndQsIhGTQ=",
       "fBank": "농협",
-      "fAccount": "D3gF8H/ughTTO+Zry63QZlNUml27TLHlVlaVg3zwR83gcg==",
+      "fAccount": "7qq1KI4URH3y1wlba3DGyhG0CeIJhxoZH7EBzh1AoTh6cQ==",
       "mBank": "신한",
-      "mAccount": "28e4nbC437NLr0IOsoNK14doZUQQAnR7b3weoZaE2fu4Dhw="
+      "mAccount": "W8XHxxyjBOQa7zpX5DIJ5WF+IyrVy+wuJayHvl71lxr/HGo="
     }
   },
   "images": {
@@ -195,7 +195,7 @@
   },
   "text": {
     "mainOverlay": "<p><br></p><p><br></p><p>Wedding Invitation</p>",
-    "mainMessage": "<p style=\"text-align: center\">이재석 그리고 임동희</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">2027년 01월 30일 토요일 AM 11시 00분</p>"
+    "mainMessage": "<p style=\"text-align: center\">이재석 그리고 임동희2222</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">2027년 01월 30일 토요일 AM 11시 00분</p>"
   },
   "media": {
     "youtube": "XvSkuFcqEhI",
@@ -203,7 +203,13 @@
   },
   "theme": {
     "effect": "petals",
-    "color": "#f2aebc"
+    "color": "#f2aebc",
+    "style": {
+      "fontSize": "14px",
+      "lineHeight": "1.8",
+      "letterSpacing": "0px",
+      "textAlign": "center"
+    }
   },
   "sections": [
     {
