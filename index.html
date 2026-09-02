@@ -253,8 +253,8 @@
                 <div class="section-wrap relative" :id="section.id"
                     :class="section.id === 'names' ? 'pt-0 w-full mb-0 shadow-none' : 'max-w-lg mx-auto'">
 
-                    <!-- Toggle/Static Header (Exclude Names) -->
-                    <div x-show="section.id !== 'names'"
+                    <!-- 변경 후: hero, greeting, names 3개 모두 상단 타이틀 헤더 숨김 -->
+                    <div x-show="!['names', 'hero', 'greeting'].includes(section.id)"
                         @click="if(section._canFold) section._isFolded = !section._isFolded"
                         class="p-6 flex justify-between items-center bg-white z-10 relative"
                         :class="section._canFold ? 'cursor-pointer' : ''">
