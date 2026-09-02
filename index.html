@@ -30,7 +30,7 @@
     <meta name="description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 이재석과 임동희의 결혼식에 초대합니다">
     <meta name="keywords" content="결혼식, 청첩장, 모바일청첩장, 이재석, 임동희, 소사 MJ 컨벤션">
     <meta name="author" content="이재석, 임동희">
-    <meta name="theme-color" content="#f2aebc">
+    <meta name="theme-color" content="#b8d5f2">
     
     <!-- Fonts -->
     <link
@@ -48,8 +48,9 @@
 
     <style>
         :root {
-            --accent: #f2aebc;
-            --text: #333;
+            --accent: #93c5fd;
+            --accent-soft: #e0f2fe;
+            --text: #334155;
         }
 
         .eng-font {
@@ -68,7 +69,8 @@
         #intro-layer {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -79,7 +81,7 @@
         }
 
         .scroll-icon {
-            border: 2px solid white;
+            border: 2px solid rgba(255, 255, 255, 0.9);
             width: 30px;
             height: 50px;
             border-radius: 15px;
@@ -131,7 +133,7 @@
 
             .section-wrap {
                 box-shadow: none;
-                border-bottom: 1px solid #f9f9f9;
+                border-bottom: 1px solid #f1f5f9;
             }
         }
 
@@ -142,7 +144,7 @@
             transition: 1s cubic-bezier(0.2, 1, 0.3, 1);
             margin-bottom: 2px;
             background: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 20px rgba(148, 163, 184, 0.08);
         }
 
         .section-wrap.active {
@@ -165,21 +167,21 @@
             aspect-ratio: 1;
             background-size: cover;
             background-position: center;
-            border: 1px solid #f0f0f0;
+            border: 1px solid #e2e8f0;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .gal-grid-item:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(148, 163, 184, 0.25);
         }
 
         .gal-main {
             width: 100%;
             aspect-ratio: 3/4;
             background-size: contain;
-            background-color: #000;
+            background-color: #0f172a;
             background-repeat: no-repeat;
             background-position: center;
             transition: opacity 0.8s ease-in-out, background-image 0.8s ease-in-out;
@@ -191,36 +193,44 @@
             content: '';
             position: absolute;
             inset: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             pointer-events: none;
+        }
+
+        /* Guestbook Scrollbar */
+        .guestbook-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .guestbook-scroll::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
         }
     </style>
 </head>
 
-<body x-data="app()" x-init="init()" class="relative text-center"
+<body x-data="app()" x-init="init()" class="relative text-center bg-[#f8fafc]"
     :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '1.8'}; letter-spacing: ${data.theme?.style?.letterSpacing || '0px'}`"
     @mousemove="handleMouseMove($event)" @mousedown="handleMouseDown($event)" @touchstart="handleTouchStart($event)">
 
     <!-- Intro Layer -->
     <div id="intro-layer" x-show="showIntro" @click="closeIntro" @wheel.prevent="closeIntro"
         @touchmove.prevent="closeIntro">
-        <div class="text-3xl eng-font mb-4 animate-pulse">Our Wedding</div>
+        <div class="text-3xl eng-font mb-4 tracking-wider text-sky-100 animate-pulse">Our Winter Wedding</div>
         <div class="scroll-icon mb-4"></div>
-        <div class="text-xs tracking-widest opacity-80">SCROLL DOWN</div>
+        <div class="text-xs tracking-widest text-sky-200/80">SCROLL DOWN</div>
     </div>
 
     <!-- Floating Nav -->
     <div class="fixed top-4 left-4 z-[90] flex flex-col gap-2 transition-all duration-300"
         :class="showIntro?'opacity-0':'opacity-100'">
-        <!-- BGM -->
         <button x-show="data.media && data.media.bgm && data.media.bgm.length > 0" @click="toggleBgm"
-            class="w-10 h-10 rounded-full bg-white/60 backdrop-blur shadow border border-gray-100 flex items-center justify-center animate-[spin_4s_linear_infinite]"
+            class="w-10 h-10 rounded-full bg-white/80 backdrop-blur shadow-md border border-sky-100 flex items-center justify-center animate-[spin_4s_linear_infinite]"
             :style="bgmPlaying ? '' : 'animation: none'">
-            💿
+            ❄️
         </button>
     </div>
 
-    <!-- Effect Canvas -->
+    <!-- Snow Effect Canvas -->
     <canvas id="effect"></canvas>
 
     <!-- Main Content -->
@@ -230,38 +240,38 @@
                 <div class="section-wrap relative" :id="section.id"
                     :class="section.id === 'names' ? 'pt-0 w-full mb-0 shadow-none' : 'max-w-lg mx-auto'">
 
-                    <!-- hero, greeting, names 3개 모두 상단 타이틀 헤더 숨김 -->
+                    <!-- 헤더 영역 (hero, greeting, names 숨김) -->
                     <div x-show="!['names', 'hero', 'greeting'].includes(section.id)"
                         @click="if(section._canFold) section._isFolded = !section._isFolded"
                         class="p-6 flex justify-between items-center bg-white z-10 relative"
                         :class="section._canFold ? 'cursor-pointer' : ''">
-                        <h2 class="text-lg lux-font font-bold text-gray-700 tracking-wide"
+                        <h2 class="text-lg lux-font font-bold text-slate-700 tracking-wide"
                             x-text="t(section.id) === section.id ? section.title : t(section.id)"></h2>
-                        <span x-show="section._canFold" class="text-gray-300 text-xs"
+                        <span x-show="section._canFold" class="text-slate-400 text-xs"
                             x-text="section._isFolded ? '▼' : '▲'"></span>
                     </div>
 
                     <!-- Body -->
                     <div class="content-body" :class="section._isFolded ? 'folded' : ''">                    
-                        <!-- 1. 최상단 메인 대표 사진 섹션 (hero) -->
+                        <!-- 1. 메인 배너 사진 (hero) -->
                         <template x-if="section.id === 'hero'">
-                            <section class="relative w-full overflow-hidden bg-[#fffcfc] h-[75vh]">
+                            <section class="relative w-full overflow-hidden bg-slate-900 h-[75vh]">
                                 <img :src="data.images?.main" class="w-full h-full object-cover block shadow-inner">                                
                             </section>
                         </template>
                         
-                        <!-- 2. 초대 인사말 단독 섹션 (Greeting / Information) -->
+                        <!-- 2. 초대 인사말 (Greeting) -->
                         <template x-if="section.id === 'greeting'">
-                            <section class="w-full py-20 px-6 bg-[#fffcfb] border-b border-[#f3eee8]">
+                            <section class="w-full py-20 px-6 bg-[#fbfdff] border-b border-sky-50">
                                 <div class="max-w-md mx-auto text-center">
                                     <div class="mb-10 flex flex-col items-center">
-                                        <span class="font-serif italic text-2xl text-[#8d8276] tracking-wide select-none">
+                                        <span class="font-serif italic text-2xl text-sky-800/80 tracking-wide select-none">
                                             Invitation
                                         </span>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-[#d6cec5] mt-3"></div>
+                                        <div class="w-1.5 h-1.5 rounded-full bg-sky-300 mt-3"></div>
                                     </div>
 
-                                    <div class="text-[13.5px] leading-[2.2] text-[#4a4744] font-light break-keep px-4 sun-editor-common"
+                                    <div class="text-[13.5px] leading-[2.2] text-slate-700 font-light break-keep px-4 sun-editor-common"
                                         :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '2.1'}; letter-spacing: ${data.theme?.style?.letterSpacing || '-0.02em'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
                                         x-html="data.text?.mainMessage">
                                     </div>
@@ -269,36 +279,36 @@
                             </section>
                         </template>
 
-                        <!-- 3. 신랑 · 신부 성함 단독 섹션 (names) -->
+                        <!-- 3. 신랑 · 신부 성함 (names) -->
                         <template x-if="section.id === 'names'">
-                            <section class="w-full py-16 px-6 bg-white border-b border-gray-100">
+                            <section class="w-full py-16 px-6 bg-white border-b border-slate-100">
                                 <div class="max-w-lg mx-auto flex justify-center">
                                     <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-x-6 sm:gap-x-12 text-center">
                                         <!-- 신랑측 -->
                                         <div class="flex flex-col items-center min-w-[110px]">
-                                            <div class="text-[12px] text-gray-500 mb-3 lux-font whitespace-nowrap">
+                                            <div class="text-[12px] text-slate-500 mb-3 lux-font whitespace-nowrap">
                                                 <span x-text="data.groom?.parents?.father"></span> · <span x-text="data.groom?.parents?.mother"></span>의 
-                                                <span class="text-gray-600 font-medium" x-text="data.groom?.rank"></span>
+                                                <span class="text-slate-600 font-medium" x-text="data.groom?.rank"></span>
                                             </div>
                                             <div class="flex flex-col items-center">
-                                                <span class="text-sm text-blue-600 font-bold mb-1 lux-font">신랑</span>
-                                                <h1 class="text-2xl sm:text-3xl tracking-[0.15em] font-light lux-font text-gray-800"
+                                                <span class="text-sm text-sky-600 font-bold mb-1 lux-font">신랑</span>
+                                                <h1 class="text-2xl sm:text-3xl tracking-[0.15em] font-light lux-font text-slate-800"
                                                     x-text="data.groom?.name"></h1>
                                             </div>
                                         </div>
 
                                         <!-- 구분 기호 -->
-                                        <div class="lux-font text-2xl text-pink-200 self-center pb-2">&</div>
+                                        <div class="lux-font text-2xl text-sky-200 self-center pb-2">&</div>
 
                                         <!-- 신부측 -->
                                         <div class="flex flex-col items-center min-w-[110px]">
-                                            <div class="text-[12px] text-gray-500 mb-3 lux-font whitespace-nowrap">
+                                            <div class="text-[12px] text-slate-500 mb-3 lux-font whitespace-nowrap">
                                                 <span x-text="data.bride?.parents?.father"></span> · <span x-text="data.bride?.parents?.mother"></span>의 
-                                                <span class="text-gray-600 font-medium" x-text="data.bride?.rank"></span>
+                                                <span class="text-slate-600 font-medium" x-text="data.bride?.rank"></span>
                                             </div>
                                             <div class="flex flex-col items-center">
-                                                <span class="text-sm text-pink-500 font-bold mb-1 lux-font">신부</span>
-                                                <h1 class="text-2xl sm:text-3xl tracking-[0.15em] font-light lux-font text-gray-800"
+                                                <span class="text-sm text-sky-500 font-bold mb-1 lux-font">신부</span>
+                                                <h1 class="text-2xl sm:text-3xl tracking-[0.15em] font-light lux-font text-slate-800"
                                                     x-text="data.bride?.name"></h1>
                                             </div>
                                         </div>
@@ -311,16 +321,10 @@
                         <template x-if="section.id === 'calendar'">
                             <div class="px-8 pb-12 text-center" 
                                 x-data="{
-                                    days: '0',
-                                    hours: '00',
-                                    minutes: '00',
-                                    seconds: '00',
-                                    dDayText: '',
+                                    days: '0', hours: '00', minutes: '00', seconds: '00', dDayText: '',
                                     initTimer() {
                                         const update = () => {
-                                            const rawDate = (this.data && this.data.config && this.data.config.weddingDate)
-                                                        || '2027-01-30T11:00:00';
-
+                                            const rawDate = (this.data && this.data.config && this.data.config.weddingDate) || '2027-01-30T11:00:00';
                                             const safeDateStr = String(rawDate).replace(' ', 'T');
                                             const target = new Date(safeDateStr).getTime();
                                             const now = new Date().getTime();
@@ -342,56 +346,55 @@
                                                 this.hours = '00';
                                                 this.minutes = '00';
                                                 this.seconds = '00';
-                                                this.dDayText = '오늘 우리의 결혼식이 시작됩니다! 🎉';
+                                                this.dDayText = '오늘 우리의 결혼식이 시작됩니다! ❄️';
                                             }
                                         };
-
                                         update();
                                         setInterval(update, 1000);
                                     }
                                 }"
                                 x-init="initTimer()">
 
-                                <h3 class="lux-font text-xl text-gray-700 mb-6 tracking-wide" x-text="calTitle"></h3>
+                                <h3 class="lux-font text-xl text-slate-700 mb-6 tracking-wide" x-text="calTitle"></h3>
 
-                                <!-- 1. 달력 카드 -->
-                                <div class="bg-white p-5 rounded-2xl border border-gray-100 grid grid-cols-7 gap-1 text-center shadow-sm mb-6">
+                                <!-- 달력 카드 -->
+                                <div class="bg-white p-5 rounded-2xl border border-sky-100/70 grid grid-cols-7 gap-1 text-center shadow-sm mb-6">
                                     <template x-for="day in ['일','월','화','수','목','금','토']">
                                         <div class="text-[11px] font-bold pb-2" 
-                                            :class="day === '일' ? 'text-red-400' : (day === '토' ? 'text-blue-400' : 'text-gray-400')" 
+                                            :class="day === '일' ? 'text-rose-400' : (day === '토' ? 'text-sky-500' : 'text-slate-400')" 
                                             x-text="day"></div>
                                     </template>
                                     <template x-for="d in calDays">
                                         <div class="h-9 w-9 mx-auto flex items-center justify-center text-xs transition-all"
-                                            :class="d.isTarget ? 'bg-pink-400 text-white rounded-full font-bold shadow-md scale-105 ring-2 ring-pink-200' : (d.isSun ? 'text-red-400' : 'text-gray-600')"
+                                            :class="d.isTarget ? 'bg-sky-400 text-white rounded-full font-bold shadow-md scale-105 ring-2 ring-sky-200' : (d.isSun ? 'text-rose-400' : 'text-slate-600')"
                                             x-text="d.day || ''"></div>
                                     </template>
                                 </div>
 
-                                <!-- 2. 실시간 카운트다운 박스 -->
-                                <div class="p-6 bg-pink-50/40 rounded-2xl border border-pink-100/60 shadow-sm">
-                                    <div class="text-[11px] font-semibold text-pink-400 tracking-widest uppercase mb-4">D-Day</div>
+                                <!-- 카운트다운 박스 -->
+                                <div class="p-6 bg-sky-50/50 rounded-2xl border border-sky-100 shadow-sm">
+                                    <div class="text-[11px] font-semibold text-sky-500 tracking-widest uppercase mb-4">Winter D-Day</div>
                                     
                                     <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto mb-4">
-                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
-                                            <div class="text-lg font-bold text-gray-800 font-mono tracking-tight" x-text="days"></div>
-                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">DAYS</div>
+                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
+                                            <div class="text-lg font-bold text-slate-800 font-mono tracking-tight" x-text="days"></div>
+                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">DAYS</div>
                                         </div>
-                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
-                                            <div class="text-lg font-bold text-gray-800 font-mono tracking-tight" x-text="hours"></div>
-                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">HOUR</div>
+                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
+                                            <div class="text-lg font-bold text-slate-800 font-mono tracking-tight" x-text="hours"></div>
+                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">HOUR</div>
                                         </div>
-                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
-                                            <div class="text-lg font-bold text-gray-800 font-mono tracking-tight" x-text="minutes"></div>
-                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">MIN</div>
+                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
+                                            <div class="text-lg font-bold text-slate-800 font-mono tracking-tight" x-text="minutes"></div>
+                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">MIN</div>
                                         </div>
-                                        <div class="bg-white/90 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-pink-100 shadow-xs">
-                                            <div class="text-lg font-bold text-pink-500 font-mono tracking-tight" x-text="seconds"></div>
-                                            <div class="text-[9px] text-gray-400 font-semibold mt-0.5">SEC</div>
+                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
+                                            <div class="text-lg font-bold text-sky-500 font-mono tracking-tight" x-text="seconds"></div>
+                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">SEC</div>
                                         </div>
                                     </div>
 
-                                    <div class="text-xs font-semibold text-gray-700 tracking-tight" x-text="dDayText"></div>
+                                    <div class="text-xs font-semibold text-slate-700 tracking-tight" x-text="dDayText"></div>
                                 </div>
                             </div>
                         </template>
@@ -399,14 +402,14 @@
                         <!-- 5. Video -->
                         <template x-if="section.id === 'youtube' && data.media.youtube">
                             <div class="px-8 pb-10">
-                                <div class="relative w-full aspect-video bg-black rounded shadow-lg overflow-hidden group cursor-pointer"
+                                <div class="relative w-full aspect-video bg-black rounded-xl shadow-lg overflow-hidden group cursor-pointer"
                                     @click="showVideo=true">
                                     <img :src="`https://i.ytimg.com/vi/${data.media.youtube.trim()}/hqdefault.jpg`"
                                         class="w-full h-full object-cover transition duration-300">
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <div
-                                            class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center text-xl pl-1">
-                                            ▶</div>
+                                        <div class="w-12 h-12 bg-white/85 rounded-full flex items-center justify-center text-xl pl-1 shadow-md text-sky-600">
+                                            ▶
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -415,7 +418,7 @@
                         <!-- 6. Gallery -->
                         <template x-if="section.id === 'gallery'">
                             <div class="px-4 pb-10">
-                                <div class="gal-main mb-2 rounded shadow-xl relative overflow-hidden bg-black"
+                                <div class="gal-main mb-2 rounded-xl shadow-lg relative overflow-hidden bg-slate-900"
                                     @click="openLightbox(getGalleryImage(galIdx, 'original'))">
                                     <img :src="getGalleryImage(galIdx, 'original')"
                                         class="w-full h-full object-contain transition-opacity duration-600 ease-in-out"
@@ -424,9 +427,9 @@
                                 </div>
                                 <div class="grid grid-cols-5 gap-1">
                                     <template x-for="(img, idx) in data.images.gallery.slice(0,30)" :key="idx">
-                                        <div class="gal-grid-item"
+                                        <div class="gal-grid-item rounded-xs"
                                             :style="`background-image: url(${getGalleryImage(idx, 'thumbnail')})`"
-                                            :class="galIdx===idx ? 'ring-2 ring-pink-300 shadow-[0_0_15px_rgba(249,168,212,0.8)] z-10' : ''"
+                                            :class="galIdx===idx ? 'ring-2 ring-sky-400 shadow-[0_0_12px_rgba(186,230,253,0.9)] z-10' : ''"
                                             @click="selectGalleryImage(idx)"></div>
                                     </template>
                                 </div>
@@ -440,21 +443,21 @@
                                     <button 
                                         type="button"
                                         @click="openContactModal = 'groom'"
-                                        class="py-3 px-3 bg-white hover:bg-blue-50/40 active:scale-[0.98] rounded-xl flex items-center justify-between border border-blue-200/80 shadow-xs transition-all">
-                                        <span class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
-                                            <span>💙</span> 신랑측 연락처
+                                        class="py-3 px-3 bg-white hover:bg-sky-50/50 active:scale-[0.98] rounded-xl flex items-center justify-between border border-sky-200/80 shadow-xs transition-all">
+                                        <span class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+                                            <span>❄️</span> 신랑측 연락처
                                         </span>
-                                        <span class="text-blue-500 text-[10px] font-medium">열기 →</span>
+                                        <span class="text-sky-500 text-[10px] font-medium">열기 →</span>
                                     </button>
 
                                     <button 
                                         type="button"
                                         @click="openContactModal = 'bride'"
-                                        class="py-3 px-3 bg-white hover:bg-pink-50/40 active:scale-[0.98] rounded-xl flex items-center justify-between border border-pink-200/80 shadow-xs transition-all">
-                                        <span class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
-                                            <span>💗</span> 신부측 연락처
+                                        class="py-3 px-3 bg-white hover:bg-sky-50/50 active:scale-[0.98] rounded-xl flex items-center justify-between border border-sky-200/80 shadow-xs transition-all">
+                                        <span class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+                                            <span>🤍</span> 신부측 연락처
                                         </span>
-                                        <span class="text-pink-500 text-[10px] font-medium">열기 →</span>
+                                        <span class="text-sky-500 text-[10px] font-medium">열기 →</span>
                                     </button>
                                 </div>
 
@@ -471,7 +474,7 @@
                                         @touchmove.prevent
                                         @wheel.prevent
                                         @click.self="openContactModal = null"
-                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overscroll-contain select-none"
+                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overscroll-contain select-none"
                                         style="display: none; touch-action: none;">
 
                                         <div 
@@ -482,14 +485,14 @@
                                             x-transition:leave="transition ease-in duration-150"
                                             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                                             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-                                            class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-gray-100 relative">
+                                            class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-sky-100 relative">
                                             
-                                            <div class="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
-                                                <h3 class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
-                                                    <span x-text="openContactModal === 'groom' ? '💙' : '💗'"></span>
+                                            <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
+                                                <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                                                    <span>❄️</span>
                                                     <span x-text="openContactModal === 'groom' ? '신랑측 축하 연락처' : '신부측 축하 연락처'"></span>
                                                 </h3>
-                                                <button type="button" @click="openContactModal = null" class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
+                                                <button type="button" @click="openContactModal = null" class="text-slate-400 hover:text-slate-600 p-1 text-base leading-none">
                                                     ✕
                                                 </button>
                                             </div>
@@ -500,22 +503,22 @@
                                                 class="space-y-3 max-h-72 overflow-y-auto pr-0.5 overscroll-contain"
                                                 style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
                                                 <template x-for="(contact, idx) in (openContactModal === 'groom' ? getAllContacts('groom') : (openContactModal === 'bride' ? getAllContacts('bride') : []))" :key="idx">
-                                                    <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                                                    <div class="flex justify-between items-center p-3.5 bg-slate-50 rounded-xl border border-slate-100">
                                                         <div class="space-y-0.5">
                                                             <div class="flex items-center gap-1.5">
-                                                                <span :class="openContactModal === 'groom' ? 'text-blue-600' : 'text-pink-600'" class="text-[11px] font-bold" x-text="contact.relation"></span>
-                                                                <span class="font-bold text-xs text-gray-800" x-text="contact.name"></span>
+                                                                <span class="text-sky-600 text-[11px] font-bold" x-text="contact.relation"></span>
+                                                                <span class="font-bold text-xs text-slate-800" x-text="contact.name"></span>
                                                             </div>
-                                                            <div class="text-xs text-gray-600 font-mono tracking-tight" x-text="contact.phone"></div>
+                                                            <div class="text-xs text-slate-600 font-mono tracking-tight" x-text="contact.phone"></div>
                                                         </div>
                                                         <div class="flex items-center gap-1.5 shrink-0">
                                                             <a :href="`tel:${contact.phone}`" 
-                                                            class="p-2 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
+                                                            class="p-2 bg-white border border-slate-200 hover:bg-slate-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
                                                             title="전화 걸기">
                                                                 📞
                                                             </a>
                                                             <a :href="`sms:${contact.phone}`" 
-                                                            class="p-2 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
+                                                            class="p-2 bg-white border border-slate-200 hover:bg-slate-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
                                                             title="문자 보내기">
                                                                 💬
                                                             </a>
@@ -527,7 +530,7 @@
                                             <button 
                                                 type="button" 
                                                 @click="openContactModal = null" 
-                                                class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
+                                                class="w-full mt-5 py-3 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 text-xs font-bold rounded-xl transition">
                                                 닫기
                                             </button>
                                         </div>
@@ -536,28 +539,28 @@
                             </div>
                         </template>
 
-                        <!-- 8. Accounts (Layer Modal Type) -->
+                        <!-- 8. Accounts -->
                         <template x-if="section.id === 'accounts'">
-                            <div class="px-8 pb-10" x-data="{ openModal: null, copyToast: false, toastMsg: '' }">                                
+                            <div class="px-8 pb-10" x-data="{ openModal: null }">                                
                                 <div class="space-y-3">
                                     <button 
                                         type="button"
                                         @click="openModal = 'groom'"
-                                        class="w-full py-3.5 px-5 bg-blue-50/70 hover:bg-blue-100/70 active:scale-[0.99] text-blue-700 font-bold text-xs rounded-xl flex items-center justify-between border border-blue-100 transition-all shadow-sm">
+                                        class="w-full py-3.5 px-5 bg-sky-50/70 hover:bg-sky-100/70 active:scale-[0.99] text-sky-800 font-bold text-xs rounded-xl flex items-center justify-between border border-sky-100 transition-all shadow-xs">
                                         <span class="flex items-center gap-1.5">
-                                            <span>💙</span> 신랑측 계좌번호 보기
+                                            <span>❄️</span> 신랑측 계좌번호 보기
                                         </span>
-                                        <span class="text-blue-400 text-[10px]">열기 →</span>
+                                        <span class="text-sky-500 text-[10px]">열기 →</span>
                                     </button>
 
                                     <button 
                                         type="button"
                                         @click="openModal = 'bride'"
-                                        class="w-full py-3.5 px-5 bg-pink-50/70 hover:bg-pink-100/70 active:scale-[0.99] text-pink-700 font-bold text-xs rounded-xl flex items-center justify-between border border-pink-100 transition-all shadow-sm">
+                                        class="w-full py-3.5 px-5 bg-blue-50/70 hover:bg-blue-100/70 active:scale-[0.99] text-blue-800 font-bold text-xs rounded-xl flex items-center justify-between border border-blue-100 transition-all shadow-xs">
                                         <span class="flex items-center gap-1.5">
-                                            <span>💗</span> 신부측 계좌번호 보기
+                                            <span>🤍</span> 신부측 계좌번호 보기
                                         </span>
-                                        <span class="text-pink-400 text-[10px]">열기 →</span>
+                                        <span class="text-blue-500 text-[10px]">열기 →</span>
                                     </button>
                                 </div>
 
@@ -574,7 +577,7 @@
                                         @touchmove.prevent
                                         @wheel.prevent
                                         @click.self="openModal = null"
-                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overscroll-contain select-none"
+                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overscroll-contain select-none"
                                         style="display: none; touch-action: none;">
 
                                         <div 
@@ -585,14 +588,14 @@
                                             x-transition:leave="transition ease-in duration-150"
                                             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                                             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-                                            class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-gray-100 relative">
+                                            class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-sky-100 relative">
                                             
-                                            <div class="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
-                                                <h3 class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
-                                                    <span x-text="openModal === 'groom' ? '💙' : '💗'"></span>
+                                            <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
+                                                <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                                                    <span>❄️</span>
                                                     <span x-text="openModal === 'groom' ? '신랑측 계좌번호' : '신부측 계좌번호'"></span>
                                                 </h3>
-                                                <button type="button" @click="openModal = null" class="text-gray-400 hover:text-gray-600 p-1 text-base leading-none">
+                                                <button type="button" @click="openModal = null" class="text-slate-400 hover:text-slate-600 p-1 text-base leading-none">
                                                     ✕
                                                 </button>
                                             </div>
@@ -603,19 +606,19 @@
                                                 class="space-y-3 max-h-72 overflow-y-auto pr-0.5 overscroll-contain"
                                                 style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
                                                 <template x-for="acc in (openModal ? getAllAccounts(openModal) : [])" :key="acc.name + acc.relation">
-                                                    <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                                                    <div class="flex justify-between items-center p-3.5 bg-slate-50 rounded-xl border border-slate-100">
                                                         <div class="space-y-0.5">
                                                             <div class="flex items-center gap-1.5">
-                                                                <span :class="openModal === 'groom' ? 'text-blue-600' : 'text-pink-600'" class="text-[11px] font-bold" x-text="acc.relation"></span>
-                                                                <span class="font-bold text-xs text-gray-800" x-text="acc.name"></span>
-                                                                <span class="text-[11px] text-gray-500 font-medium" x-text="`(${acc.bank})`"></span>
+                                                                <span class="text-sky-600 text-[11px] font-bold" x-text="acc.relation"></span>
+                                                                <span class="font-bold text-xs text-slate-800" x-text="acc.name"></span>
+                                                                <span class="text-[11px] text-slate-500 font-medium" x-text="`(${acc.bank})`"></span>
                                                             </div>
-                                                            <div class="text-xs text-gray-700 font-mono tracking-tight font-medium" x-text="acc.num"></div>
+                                                            <div class="text-xs text-slate-700 font-mono tracking-tight font-medium" x-text="acc.num"></div>
                                                         </div>
                                                         <button 
                                                             type="button" 
                                                             @click="copyAccount(acc)"
-                                                            class="px-3 py-1.5 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 text-[11px] rounded-lg shadow-xs font-semibold text-gray-700 transition-all shrink-0">
+                                                            class="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-100 active:scale-95 text-[11px] rounded-lg shadow-xs font-semibold text-slate-700 transition-all shrink-0">
                                                             복사
                                                         </button>
                                                     </div>
@@ -625,7 +628,7 @@
                                             <button 
                                                 type="button" 
                                                 @click="openModal = null" 
-                                                class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
+                                                class="w-full mt-5 py-3 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 text-xs font-bold rounded-xl transition">
                                                 닫기
                                             </button>
                                         </div>
@@ -638,12 +641,12 @@
                         <template x-if="section.id === 'location'">
                             <div class="px-6 pb-10">
                                 <div class="text-center mb-6">
-                                    <div class="font-bold text-lg" x-text="data.config?.venue?.name"></div>
-                                    <div class="text-sm text-gray-500 mt-1" x-text="data.config?.venue?.address"></div>
+                                    <div class="font-bold text-lg text-slate-800" x-text="data.config?.venue?.name"></div>
+                                    <div class="text-sm text-slate-500 mt-1" x-text="data.config?.venue?.address"></div>
                                 </div>
-                                <div id="map" class="w-full h-64 bg-gray-100 rounded mb-4"
+                                <div id="map" class="w-full h-64 bg-slate-100 rounded-xl mb-4 border border-slate-200"
                                     x-init="$nextTick(() => initMap())"></div>
-                                <div class="text-left text-sm md:text-base leading-relaxed bg-[#fff9f9] p-6 md:p-10 rounded-2xl shadow-sm border border-pink-50 sun-editor-common mb-8"
+                                <div class="text-left text-sm md:text-base leading-relaxed bg-[#f8fbff] p-6 md:p-10 rounded-2xl shadow-sm border border-sky-100/60 sun-editor-common mb-8"
                                     x-html="data.config?.venue?.guideText"></div>
 
                                 <!-- Map Apps -->
@@ -653,40 +656,40 @@
                                         <div
                                             class="w-12 h-12 bg-yellow-400 rounded-2xl flex items-center justify-center text-lg shadow-sm">
                                             K</div>
-                                        <span class="text-[10px] text-gray-500">카카오맵</span>
+                                        <span class="text-[10px] text-slate-500">카카오맵</span>
                                     </a>
                                     <a :href="data.config?.venue?.mapLinks?.naver" target="_blank"
                                         class="flex flex-col items-center gap-1">
                                         <div
                                             class="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center text-lg text-white shadow-sm font-bold">
                                             N</div>
-                                        <span class="text-[10px] text-gray-500">네이버지도</span>
+                                        <span class="text-[10px] text-slate-500">네이버지도</span>
                                     </a>
                                     <a :href="data.config?.venue?.mapLinks?.tmap" target="_blank"
                                         class="flex flex-col items-center gap-1">
                                         <div
                                             class="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center text-lg text-white shadow-sm font-bold">
                                             T</div>
-                                        <span class="text-[10px] text-gray-500">티맵</span>
+                                        <span class="text-[10px] text-slate-500">티맵</span>
                                     </a>
                                     <a :href="data.config?.venue?.mapLinks?.google" target="_blank"
                                         class="flex flex-col items-center gap-1">
                                         <div
-                                            class="w-12 h-12 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-lg shadow-sm font-bold">
+                                            class="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-lg shadow-sm font-bold">
                                             G</div>
-                                        <span class="text-[10px] text-gray-500">구글맵</span>
+                                        <span class="text-[10px] text-slate-500">구글맵</span>
                                     </a>
                                 </div>
 
                                 <!-- Detail Map Image -->
                                 <template x-if="data.config?.venue?.mapImage">
-                                    <div class="mt-4 pt-6 border-t">
-                                        <h3 class="text-sm font-bold text-gray-700 mb-4">지도 다운로드</h3>
+                                    <div class="mt-4 pt-6 border-t border-slate-100">
+                                        <h3 class="text-sm font-bold text-slate-700 mb-4">약도 이미지</h3>
                                         <a :href="data.config.venue.mapImage" download class="block">
                                             <img :src="data.config.venue.mapImage"
-                                                class="w-full rounded-lg shadow-md mb-2">
+                                                class="w-full rounded-xl shadow-md mb-2">
                                             <button
-                                                class="w-full py-3 bg-gray-100 text-xs font-bold text-gray-600 rounded-lg hover:bg-gray-200">
+                                                class="w-full py-3 bg-slate-100 text-xs font-bold text-slate-600 rounded-xl hover:bg-slate-200 transition">
                                                 📥 지도를 이미지로 저장하기
                                             </button>
                                         </a>
@@ -695,27 +698,43 @@
                             </div>
                         </template>
 
-                        <!-- 10. Guestbook -->
+                        <!-- 🌟 10. Guestbook (참고 사이트 스타일의 부드러운 그라데이션 & 스크롤 UI) -->
                         <template x-if="section.id === 'guestbook'">
-                            <div class="px-8 pb-10">
-                                <div class="space-y-4 mb-6">
-                                    <template x-for="post in bbs" :key="post.date">
-                                        <div class="p-4 bg-gray-50 rounded text-sm relative">
-                                            <div class="font-bold mb-1" x-text="post.name"></div>
-                                            <div class="text-gray-600 mb-2 whitespace-pre-line" x-text="post.message">
+                            <div class="px-6 pb-12">
+                                <!-- 방명록 리스트 컨테이너 -->
+                                <div class="relative mb-6">
+                                    <div class="space-y-3 max-h-[360px] overflow-y-auto pr-1 pb-4 guestbook-scroll text-left">
+                                        <template x-for="(post, pIdx) in bbs" :key="pIdx">
+                                            <div class="p-4 bg-gradient-to-br from-white to-[#f1f7ff] rounded-2xl border border-sky-100/80 shadow-xs transition hover:shadow-sm">
+                                                <div class="flex justify-between items-center mb-1.5">
+                                                    <span class="font-bold text-xs text-slate-800 flex items-center gap-1">
+                                                        <span class="text-sky-500">❄️</span>
+                                                        <span x-text="post.name"></span>
+                                                    </span>
+                                                    <span class="text-[10px] text-slate-400 font-mono"
+                                                        x-text="new Date(post.date).toLocaleDateString()"></span>
+                                                </div>
+                                                <div class="text-xs text-slate-600 leading-relaxed whitespace-pre-line break-keep" x-text="post.message"></div>
                                             </div>
-                                            <div class="text-[10px] text-gray-400"
-                                                x-text="new Date(post.date).toLocaleString()"></div>
+                                        </template>
+
+                                        <div x-show="!bbs.length" class="py-12 text-center text-xs text-slate-400">
+                                            첫 번째 축하 메시지의 주인공이 되어주세요! ❄️
                                         </div>
-                                    </template>
+                                    </div>
+
+                                    <!-- 하단 부드러운 페이드 그라데이션 -->
+                                    <div class="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white via-white/70 to-transparent"></div>
                                 </div>
-                                <div class="p-4 border rounded space-y-3">
-                                    <input x-model="newPost.name" placeholder="성함"
-                                        class="w-full border p-2 text-sm rounded outline-none focus:border-pink-300">
-                                    <textarea x-model="newPost.message" placeholder="축하 메시지를 남겨주세요"
-                                        class="w-full border p-2 text-sm rounded outline-none focus:border-pink-300" rows="3"></textarea>
+
+                                <!-- 방명록 입력 카드 -->
+                                <div class="p-5 bg-[#f8fbff] border border-sky-100 rounded-2xl space-y-3 text-left">
+                                    <input x-model="newPost.name" placeholder="작성자 성함"
+                                        class="w-full bg-white border border-sky-100 p-2.5 text-xs rounded-xl outline-none focus:border-sky-300 transition">
+                                    <textarea x-model="newPost.message" placeholder="신랑 신부에게 따뜻한 축하의 한마디를 남겨주세요."
+                                        class="w-full bg-white border border-sky-100 p-3 text-xs rounded-xl outline-none focus:border-sky-300 transition resize-none" rows="3"></textarea>
                                     <button @click="saveBbs"
-                                        class="w-full bg-pink-100 py-2.5 text-sm font-bold rounded hover:bg-pink-200 transition-colors">
+                                        class="w-full bg-gradient-to-r from-sky-400 to-blue-400 hover:from-sky-500 hover:to-blue-500 active:scale-[0.99] text-white py-2.5 text-xs font-bold rounded-xl shadow-xs transition-all">
                                         메시지 남기기
                                     </button>
                                 </div>
@@ -725,47 +744,47 @@
                         <!-- 11. RSVP -->
                         <template x-if="section.id === 'rsvp'">
                             <div class="px-8 pb-10">
-                                <div class="p-6 bg-pink-50 rounded-lg space-y-4">
-                                    <div
-                                        class="text-center font-bold text-pink-700 mb-2 underline decoration-pink-200 underline-offset-4">
-                                        참석 여부 전달</div>
+                                <div class="p-6 bg-[#f0f7ff] rounded-2xl border border-sky-100 space-y-4">
+                                    <div class="text-center font-bold text-sky-800 mb-2">
+                                        참석 여부 전달
+                                    </div>
                                     <div class="grid grid-cols-2 gap-2">
                                         <button @click="newJoin.side='groom'"
-                                            class="py-2 text-xs border rounded transition-all"
-                                            :class="newJoin.side==='groom'?'bg-blue-500 text-white border-blue-600 shadow-sm':'bg-white text-gray-400 border-gray-100'">신랑측</button>
+                                            class="py-2.5 text-xs border rounded-xl transition-all font-semibold"
+                                            :class="newJoin.side==='groom'?'bg-sky-500 text-white border-sky-600 shadow-xs':'bg-white text-slate-400 border-slate-200'">신랑측</button>
                                         <button @click="newJoin.side='bride'"
-                                            class="py-2 text-xs border rounded transition-all"
-                                            :class="newJoin.side==='bride'?'bg-pink-500 text-white border-pink-600 shadow-sm':'bg-white text-gray-400 border-gray-100'">신부측</button>
+                                            class="py-2.5 text-xs border rounded-xl transition-all font-semibold"
+                                            :class="newJoin.side==='bride'?'bg-sky-500 text-white border-sky-600 shadow-xs':'bg-white text-slate-400 border-slate-200'">신부측</button>
                                     </div>
                                     <input x-model="newJoin.name" placeholder="성함"
-                                        class="w-full bg-white border-gray-100 border p-3 text-sm rounded-lg focus:ring-2 focus:ring-pink-200 outline-none">
+                                        class="w-full bg-white border-slate-200 border p-3 text-xs rounded-xl outline-none focus:border-sky-300">
                                     <div class="flex gap-2">
                                         <input type="number" x-model.number="newJoin.count" placeholder="동반 인원 (본인 포함)"
-                                            class="flex-1 bg-white border border-gray-100 p-3 text-sm rounded-lg outline-none">
+                                            class="flex-1 bg-white border border-slate-200 p-3 text-xs rounded-xl outline-none focus:border-sky-300">
                                         <label
-                                            class="flex items-center gap-2 text-xs text-gray-500 whitespace-nowrap bg-white px-3 border border-gray-100 rounded-lg">
-                                            <input type="checkbox" x-model="newJoin.meal" class="accent-pink-500"> 식사 여부
+                                            class="flex items-center gap-2 text-xs text-slate-600 whitespace-nowrap bg-white px-3.5 border border-slate-200 rounded-xl">
+                                            <input type="checkbox" x-model="newJoin.meal" class="accent-sky-500"> 식사 여부
                                         </label>
                                     </div>
                                     <button @click="saveJoin"
-                                        class="w-full bg-gray-800 text-white py-3 text-sm font-bold rounded-lg shadow-lg active:scale-[0.98] transition-transform">
+                                        class="w-full bg-slate-800 hover:bg-slate-900 text-white py-3 text-xs font-bold rounded-xl shadow-md active:scale-[0.98] transition">
                                         참석 정보 보내기
                                     </button>
                                 </div>
                             </div>
                         </template>
 
-                        <!-- 12. Mini Game (Wedding Path) -->
+                        <!-- 12. Mini Game -->
                         <template x-if="section.id === 'minigame'">
-                            <div class="px-4 pb-10 text-center bg-[#111] text-white py-12">
-                                <h2 class="text-2xl font-bold mb-6 font-[Nanum Myeongjo] text-pink-300">Wedding Path</h2>
-                                <p class="text-xs text-gray-400 mb-4">PC: WASD / Arrows | Mobile: Touch to Start</p>
-                                <div class="relative w-full max-w-[800px] mx-auto aspect-[2/1] border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl"
+                            <div class="px-4 pb-10 text-center bg-[#0b1329] text-white py-12">
+                                <h2 class="text-2xl font-bold mb-6 font-[Nanum Myeongjo] text-sky-200">Wedding Path</h2>
+                                <p class="text-xs text-slate-400 mb-4">PC: WASD / 방향키 | Mobile: 터치하여 시작</p>
+                                <div class="relative w-full max-w-[800px] mx-auto aspect-[2/1] border-4 border-slate-800 rounded-xl overflow-hidden shadow-2xl"
                                     x-init="$nextTick(() => { if (typeof HighHighGame !== 'undefined') window.publicGame = new HighHighGame('publicGameCanvas'); })">
                                     <canvas id="publicGameCanvas" width="800" height="400"
                                         class="w-full h-full object-contain"></canvas>
                                 </div>
-                                <p class="text-[10px] text-gray-500 mt-4">검은색 영역을 피해 가운데에서 만나세요!</p>
+                                <p class="text-[10px] text-slate-400 mt-4">어두운 영역을 피해 가운데에서 만나보세요! ❄️</p>
                             </div>
                         </template>
 
@@ -777,37 +796,37 @@
                                         <div
                                             class="w-12 h-12 bg-[#FEE500] rounded-full flex items-center justify-center text-xl shadow-sm">
                                             💬</div>
-                                        <span class="text-[10px] text-gray-500">카카오톡</span>
+                                        <span class="text-[10px] text-slate-500">카카오톡</span>
                                     </button>
                                     <button @click="shareSns('facebook')" class="flex flex-col items-center gap-2">
                                         <div
                                             class="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center text-white text-xl shadow-sm font-bold">
                                             f</div>
-                                        <span class="text-[10px] text-gray-500">페이스북</span>
+                                        <span class="text-[10px] text-slate-500">페이스북</span>
                                     </button>
                                     <button @click="shareSns('x')" class="flex flex-col items-center gap-2">
                                         <div
                                             class="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-lg shadow-sm">
                                             𝕏</div>
-                                        <span class="text-[10px] text-gray-500">X</span>
+                                        <span class="text-[10px] text-slate-500">X</span>
                                     </button>
                                     <button @click="shareSns('line')" class="flex flex-col items-center gap-2">
                                         <div
                                             class="w-12 h-12 bg-[#00B900] rounded-full flex items-center justify-center text-white text-xl shadow-sm font-bold">
                                             L</div>
-                                        <span class="text-[10px] text-gray-500">라인</span>
+                                        <span class="text-[10px] text-slate-500">라인</span>
                                     </button>
                                     <button @click="shareSns('telegram')" class="flex flex-col items-center gap-2">
                                         <div
                                             class="w-12 h-12 bg-[#0088CC] rounded-full flex items-center justify-center text-white text-xl shadow-sm">
                                             ✈</div>
-                                        <span class="text-[10px] text-gray-500">텔레그램</span>
+                                        <span class="text-[10px] text-slate-500">텔레그램</span>
                                     </button>
                                     <button @click="copyLink" class="flex flex-col items-center gap-2">
                                         <div
-                                            class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-xl shadow-sm">
+                                            class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-xl shadow-sm">
                                             🔗</div>
-                                        <span class="text-[10px] text-gray-500">링크 복사</span>
+                                        <span class="text-[10px] text-slate-500">링크 복사</span>
                                     </button>
                                 </div>
                             </div>
@@ -820,14 +839,14 @@
     </main>
 
     <footer
-        class="py-12 text-center text-[11px] text-gray-500 font-medium tracking-widest bg-white border-t border-gray-100">
+        class="py-12 text-center text-[11px] text-slate-400 font-medium tracking-widest bg-white border-t border-slate-100">
         Copyright (c) 이재석 All Right Reserved
     </footer>
 
     <!-- Video Modal -->
-    <div x-show="showVideo" class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" x-cloak
+    <div x-show="showVideo" class="fixed inset-0 z-[100] bg-slate-950/90 flex items-center justify-center p-4" x-cloak
         @click="showVideo=false">
-        <div class="w-full max-w-2xl aspect-video bg-black" @click.stop>
+        <div class="w-full max-w-2xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl" @click.stop>
             <iframe class="w-full h-full"
                 :src="showVideo ? `https://www.youtube.com/embed/${data.media?.youtube}?autoplay=1` : ''"
                 allow="autoplay" frameborder="0"></iframe>
@@ -835,10 +854,10 @@
     </div>
 
     <!-- Lightbox Modal -->
-    <div x-show="lightbox" class="fixed inset-0 z-[100] bg-black flex items-center justify-center p-0" x-cloak
+    <div x-show="lightbox" class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-0" x-cloak
         @click="lightbox=null">
         <button @click="lightbox = null"
-            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-gray-300 transition-colors z-50">✕</button>
+            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-slate-300 transition-colors z-50">✕</button>
         <img :src="lightbox" class="w-full h-full object-contain" @click.stop>
     </div>
 
@@ -859,7 +878,7 @@
                 bbs: [], newPost: { name: '', message: '' },
                 join: [], newJoin: { side: 'groom', name: '', count: 1, meal: true },
                 copyNotified: false,
-                ghToken: '', // 🌟 복호화된 토큰 보관 변수
+                ghToken: '',
 
                 dict: {
                     ko: {
@@ -886,7 +905,7 @@
                         if (!res.ok) throw new Error("data.json 로드 실패");
                         const rawData = await res.json();
 
-                        // 🌟 1. 방명록/참석자 등록을 위한 암호화된 토큰 복호화
+                        // 1. 토큰 복호화
                         const encToken = rawData.config?.secrets?.encryptedGithubToken;
                         if (encToken && typeof WeddingCrypto !== 'undefined') {
                             try {
@@ -896,7 +915,7 @@
                             }
                         }
 
-                        // 🔒 2. 개인정보 전체(이름, 연락처, 부모님 성함, 계좌번호) 일괄 복호화
+                        // 2. 개인정보 전체 일괄 복호화
                         if (typeof WeddingCrypto !== 'undefined') {
                             const fields = ['name', 'name2', 'phone', 'account'];
                             const parentFields = ['father', 'mother', 'fPhone', 'mPhone', 'fAccount', 'mAccount'];
@@ -919,7 +938,6 @@
                             }
                         }
 
-                        // 복호화 완료된 데이터를 컴포넌트에 할당
                         this.data = rawData;
 
                         // Kakao Init
@@ -928,7 +946,7 @@
                             Kakao.init(kKey);
                         }
 
-                        // 섹션 설정
+                        // 섹션 정렬 및 타이틀
                         if (this.data.sections) {
                             this.data.sections.forEach(sec => {
                                 sec._canFold = !!sec.isFolded;
@@ -948,13 +966,13 @@
                         }
 
                         this.initCal();
-                        this.initEffects();
+                        this.initSnowEffects(); // ❄️ 겨울 눈꽃 이펙트 실행
 
-                        // 방명록 & 참석명단 로드
+                        // 방명록 & 참석자 로드
                         try { this.bbs = await (await fetch(`bbs.json?v=${timestamp}`)).json(); } catch (e) { }
                         try { this.join = await (await fetch(`join.json?v=${timestamp}`)).json(); } catch (e) { }
 
-                        // 갤러리 설정
+                        // 갤러리 루프
                         if (this.data.images?.gallery?.length > 0) {
                             this.galIdx = Math.floor(Math.random() * this.data.images.gallery.length);
                             this.preloadNextGalleryImage();
@@ -1034,7 +1052,8 @@
                     this.dDay = `${prefix}${daysStr}${timeStr} ${suffix}`;
                 },
 
-                initEffects() {
+                // ❄️ 아름다운 겨울 눈 내리는 효과 (Winter Snowflakes)
+                initSnowEffects() {
                     const canvas = document.getElementById('effect');
                     if (!canvas) return;
                     const ctx = canvas.getContext('2d');
@@ -1046,147 +1065,69 @@
                     window.addEventListener('resize', resize);
                     resize();
 
-                    const type = this.data.theme?.effect || 'petals';
                     this.particles = [];
 
-                    class Particle {
+                    class Snowflake {
                         constructor(config = {}) {
-                            this.isExplosion = config.isExplosion || false;
+                            this.isTouchExplosion = config.isExplosion || false;
                             this.x = config.x !== undefined ? config.x : Math.random() * canvas.width;
-                            this.y = config.y !== undefined ? config.y : -20;
-                            this.size = Math.random() * (this.isExplosion ? 4 : 10) + 6;
-                            this.speedX = this.isExplosion ? (Math.random() - 0.5) * 12 : (Math.random() - 0.5) * 0.4;
-                            this.speedY = this.isExplosion ? (Math.random() - 0.5) * 12 : Math.random() * 0.7 + 0.4;
-                            this.angle = Math.random() * 360;
-                            this.spin = Math.random() * 1.5 - 0.75;
-                            this.sway = Math.random() * 2 * Math.PI;
-                            this.swaySpeed = 0.015 + Math.random() * 0.015;
+                            this.y = config.y !== undefined ? config.y : Math.random() * -canvas.height;
+                            this.radius = this.isTouchExplosion ? Math.random() * 3 + 2 : Math.random() * 3 + 1.5;
+                            this.speedX = this.isTouchExplosion ? (Math.random() - 0.5) * 8 : (Math.random() - 0.5) * 0.8;
+                            this.speedY = this.isTouchExplosion ? (Math.random() - 0.5) * 8 : Math.random() * 1.0 + 0.6;
+                            this.sway = Math.random() * Math.PI * 2;
+                            this.swaySpeed = 0.02 + Math.random() * 0.02;
+                            this.opacity = Math.random() * 0.5 + 0.4;
                             this.life = 1.0;
-                            this.opacity = 0.75 + Math.random() * 0.2;
                         }
                         update() {
-                            this.x += this.speedX + Math.sin(this.sway) * 0.6;
-                            this.y += this.speedY;
-                            this.angle += this.spin;
                             this.sway += this.swaySpeed;
-                            if (this.isExplosion) {
-                                this.life -= 0.02;
+                            this.x += this.speedX + Math.sin(this.sway) * 0.7;
+                            this.y += this.speedY;
+
+                            if (this.isTouchExplosion) {
+                                this.life -= 0.03;
                                 this.opacity = Math.max(0, this.life);
-                            } else if (this.y > canvas.height + 20) {
-                                this.y = -20;
+                            } else if (this.y > canvas.height + 10) {
+                                this.y = -10;
                                 this.x = Math.random() * canvas.width;
                             }
                         }
                         draw() {
                             ctx.save();
-                            ctx.translate(this.x, this.y);
-                            ctx.rotate(this.angle * Math.PI / 180);
-                            ctx.globalAlpha = this.opacity;
-                            ctx.fillStyle = this.getColor();
-
-                            if (this.isExplosion || type === 'snow') {
-                                ctx.beginPath();
-                                ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
-                                ctx.fill();
-                            } else {
-                                ctx.beginPath();
-                                ctx.moveTo(0, -this.size / 2);
-                                ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size / 1.5, this.size / 4, 0, this.size / 2);
-                                ctx.bezierCurveTo(this.size / 1.5, this.size / 4, this.size / 2, -this.size / 2, 0, -this.size / 2);
-                                ctx.fill();
-                                ctx.fillStyle = 'rgba(0,0,0,0.05)';
-                                ctx.beginPath();
-                                ctx.moveTo(0, -this.size / 2);
-                                ctx.arc(0, -this.size / 2, this.size / 6, 0, Math.PI * 2);
-                                ctx.fill();
-                            }
-                            ctx.restore();
-                        }
-                        getColor() {
-                            if (this.isExplosion) return '#fff700';
-                            if (type === 'snow') return '#fff';
-                            return '#f8ccd4';
-                        }
-                    }
-
-                    class Butterfly {
-                        constructor(x, y) {
-                            this.x = x; this.y = y;
-                            this.size = Math.random() * 15 + 25;
-                            this.life = 1.0;
-                            this.flap = Math.random() * Math.PI;
-                            this.speedX = (Math.random() - 0.5) * 3;
-                            this.speedY = -Math.random() * 1.5 - 0.5;
-                            this.hue = Math.random() * 360;
-                        }
-                        update() {
-                            this.life -= 0.008;
-                            this.x += this.speedX;
-                            this.y += this.speedY;
-                            this.flap += 0.12;
-                            this.hue = (this.hue + 5) % 360;
-                        }
-                        draw() {
-                            ctx.save();
-                            ctx.translate(this.x, this.y);
-                            ctx.globalAlpha = this.life * 0.9;
-
-                            const flapScale = Math.sin(this.flap);
-                            const w = (this.size / 2) * Math.abs(flapScale);
-
-                            ctx.fillStyle = `hsl(${this.hue}, 90%, 75%)`;
-
                             ctx.beginPath();
-                            ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(-w, -this.size / 2, -w, 0, 0, 0);
+                            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                            ctx.shadowBlur = 4;
+                            ctx.shadowColor = 'rgba(186, 230, 253, 0.8)';
                             ctx.fill();
-                            ctx.beginPath();
-                            ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(-w * 0.8, this.size / 3, -w * 0.5, this.size / 2, 0, 0);
-                            ctx.fill();
-
-                            ctx.beginPath();
-                            ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(w, -this.size / 2, w, 0, 0, 0);
-                            ctx.fill();
-                            ctx.beginPath();
-                            ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(w * 0.8, this.size / 3, w * 0.5, this.size / 2, 0, 0);
-                            ctx.fill();
-
-                            ctx.fillStyle = "rgba(0,0,0,0.1)";
-                            ctx.beginPath();
-                            ctx.ellipse(0, 0, 1, this.size / 4, 0, 0, Math.PI * 2);
-                            ctx.fill();
-
                             ctx.restore();
                         }
                     }
 
-                    for (let i = 0; i < 30; i++) this.particles.push(new Particle());
-                    this.butterflies = [];
+                    // 눈송이 45개 생성
+                    for (let i = 0; i < 45; i++) {
+                        this.particles.push(new Snowflake({ y: Math.random() * canvas.height }));
+                    }
 
                     const loop = () => {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        this.particles = this.particles.filter(p => !p.isExplosion || p.life > 0);
+                        this.particles = this.particles.filter(p => !p.isTouchExplosion || p.life > 0);
                         this.particles.forEach(p => { p.update(); p.draw(); });
-                        this.butterflies = this.butterflies.filter(b => b.life > 0);
-                        this.butterflies.forEach(b => { b.update(); b.draw(); });
                         requestAnimationFrame(loop);
                     };
                     loop();
 
-                    this._createTrail = (x, y) => {
-                        if (this.butterflies.length < 15) this.butterflies.push(new Butterfly(x, y));
-                    };
-                    this._createExplosion = (x, y) => {
-                        for (let i = 0; i < 20; i++) this.particles.push(new Particle({ isExplosion: true, x, y }));
+                    this._createSnowExplosion = (x, y) => {
+                        for (let i = 0; i < 16; i++) {
+                            this.particles.push(new Snowflake({ isExplosion: true, x, y }));
+                        }
                     };
                 },
 
-                handleMouseMove(e) { if (this._createTrail) this._createTrail(e.clientX, e.clientY); },
-                handleMouseDown(e) { if (this._createExplosion) this._createExplosion(e.clientX, e.clientY); },
-                handleTouchStart(e) { if (this._createExplosion) this._createExplosion(e.touches[0].clientX, e.touches[0].clientY); },
+                handleMouseMove(e) {},
+                handleMouseDown(e) { if (this._createSnowExplosion) this._createSnowExplosion(e.clientX, e.clientY); },
+                handleTouchStart(e) { if (this._createSnowExplosion) this._createSnowExplosion(e.touches[0].clientX, e.touches[0].clientY); },
 
                 initMap() {
                     const key = this.data.config?.secrets?.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
@@ -1316,7 +1257,7 @@
                     }
                 },
 
-                // 🌟 방명록 저장 함수
+                // 방명록 등록
                 async saveBbs() {
                     if (!this.newPost.name || !this.newPost.message) return alert('성함과 메시지를 입력해주세요.');
                     const post = { ...this.newPost, date: new Date().toISOString() };
@@ -1324,11 +1265,11 @@
                     if (await this.pushToGithub('bbs.json', newList)) {
                         this.bbs = newList;
                         this.newPost = { name: '', message: '' };
-                        alert('축하 메시지가 등록되었습니다! 감사합니다.');
+                        alert('축하 메시지가 등록되었습니다! 따뜻한 마음에 감사드립니다.');
                     }
                 },
 
-                // 🌟 참석 여부 전달 함수
+                // 참석 여부 등록
                 async saveJoin() {
                     if (!this.newJoin.name) return alert('성함을 입력해주세요.');
                     const entry = { ...this.newJoin, date: new Date().toISOString() };
@@ -1337,11 +1278,11 @@
                     if (await this.pushToGithub('join.json', newList)) {
                         this.join = newList;
                         this.newJoin = { side: 'groom', name: '', count: 1, meal: true };
-                        alert('참석 정보가 전달되었습니다. 감사합니다.');
+                        alert('참석 정보가 안전하게 전달되었습니다. 감사합니다.');
                     }
                 },
 
-                // 🌟 복호화된 토큰(this.ghToken)으로 깃허브 커밋 푸시
+                // 깃허브 API 커밋
                 async pushToGithub(filename, payloadData) {
                     const token = this.ghToken || localStorage.getItem('ghToken') || this.data.config?.secrets?.githubToken;
                     if (!token) {
@@ -1368,7 +1309,7 @@
                         return res.ok;
                     } catch (e) {
                         console.error(e);
-                        alert('등록 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+                        alert('등록 중 통신 오류가 발생했습니다.');
                         return false;
                     }
                 },
