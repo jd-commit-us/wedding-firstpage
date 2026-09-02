@@ -10,11 +10,11 @@
 
     <!-- Open Graph / Facebook / KakaoTalk -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://highhighcouple.github.io/Wedding_Invitation/">
+    <meta property="og:url" content="https://jd-commit-us.github.io/wedding-firstpage/">
     <meta property="og:title" content="재석 ♥ 동희의 모바일 청첩장">
     <meta property="og:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션  | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
     <meta property="og:image"
-        content="https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/og/thumbnail.png">
+        content="https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/og/thumbnail.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="ko_KR">
@@ -22,11 +22,11 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://highhighcouple.github.io/Wedding_Invitation/">
+    <meta name="twitter:url" content="https://jd-commit-us.github.io/wedding-firstpage/">
     <meta name="twitter:title" content="재석 ♥ 동희 모바일 청첩장">
     <meta name="twitter:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
     <meta name="twitter:image"
-        content="https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/og/thumbnail.png">
+        content="https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/og/thumbnail.png">
 
     <!-- Additional Meta Tags -->
     <meta name="description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 이재석과 임동희의 결혼식에 초대합니다">
@@ -1450,13 +1450,13 @@
 
                     const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
                     try {
-                        const r = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                        const r = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${filename}`, {
                             headers: { 'Authorization': `token ${token}` }
                         });
                         const d = await r.json();
                         const sha = d.sha;
 
-                        const res = await fetch(`https://api.github.com/repos/highhighcouple/Wedding_Invitation/contents/${filename}`, {
+                        const res = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${filename}`, {
                             method: 'PUT',
                             headers: { 'Authorization': `token ${token}` },
                             body: JSON.stringify({ message: `update ${filename}`, content, sha })
@@ -1500,7 +1500,7 @@
                                 content: {
                                     title: `${this.data.groom.name2} ♥ ${this.data.bride.name2}의 결혼식에 초대합니다!`,
                                     description: this.data.config.venue.name + ' ' + this.data.config.weddingDate,
-                                    imageUrl: this.data.images.main || 'https://highhighcouple.github.io/Wedding_Invitation/og_image.png',
+                                    imageUrl: this.data.images.main || 'https://jd-commit-us.github.io/wedding-firstpage/og_image.png',
                                     link: { mobileWebUrl: window.location.href, webUrl: window.location.href },
                                 },
                                 buttons: [{ title: '모바일 청첩장 보기', link: { mobileWebUrl: window.location.href, webUrl: window.location.href } }],
