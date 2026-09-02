@@ -947,56 +947,54 @@
                 },
 
                 initSunEditor() {
-                    initSunEditor() {
-                        const buttonList = [
-                            ['undo', 'redo'],
-                            ['font', 'fontSize', 'formatBlock'],
-                            ['bold', 'underline', 'italic', 'strike'],
-                            ['fontColor', 'hiliteColor'],
-                            ['align', 'list', 'lineHeight'],
-                            ['link', 'image', 'video'],
-                            ['codeView']
-                        ];
+                    const buttonList = [
+                        ['undo', 'redo'],
+                        ['font', 'fontSize', 'formatBlock'],
+                        ['bold', 'underline', 'italic', 'strike'],
+                        ['fontColor', 'hiliteColor'],
+                        ['align', 'list', 'lineHeight'],
+                        ['link', 'image', 'video'],
+                        ['codeView']
+                    ];
 
-                        const editors = [
-                            { id: 'editor-mainOverlay', key: 'data.text.mainOverlay' },
-                            { id: 'editor-mainMessage', key: 'data.text.mainMessage' },
-                            { id: 'editor-venueGuide', key: 'data.config.venue.guideText' }
-                        ];
+                    const editors = [
+                        { id: 'editor-mainOverlay', key: 'data.text.mainOverlay' },
+                        { id: 'editor-mainMessage', key: 'data.text.mainMessage' },
+                        { id: 'editor-venueGuide', key: 'data.config.venue.guideText' }
+                    ];
 
-                        if (!this._editors) this._editors = {};
+                    if (!this._editors) this._editors = {};
 
-                        editors.forEach(ed => {
-                            const container = document.getElementById(ed.id);
-                            if (!container) return;
+                    editors.forEach(ed => {
+                        const container = document.getElementById(ed.id);
+                        if (!container) return;
 
-                            // 기존 에디터 잔여물 정리 후 생성
-                            container.innerHTML = '';
+                        // 기존 에디터 잔여물 정리 후 생성
+                        container.innerHTML = '';
 
-                            const editor = SUNEDITOR.create(ed.id, {
-                                lang: SUNEDITOR_LANG['ko'],
-                                buttonList: buttonList,
-                                width: '100%',
-                                height: ed.id === 'editor-venueGuide' ? '260px' : '180px',
-                                minHeight: '160px',
-                                stickyToolbar: 0,
-                                font: ['Nanum Myeongjo', 'Gowun Batang', 'Noto Sans KR', 'Arial'],
-                                fontSize: [10, 12, 14, 16, 18, 20, 24, 28],
-                                placeholder: '내용을 입력해주세요...'
-                            });
-
-                            // 초기 데이터 세팅
-                            const initial = _.get(this, ed.key) || '';
-                            editor.setContents(initial);
-
-                            // 변경 이벤트 바인딩
-                            editor.onChange = (content) => {
-                                _.set(this, ed.key, content);
-                            };
-
-                            this._editors[ed.key] = editor;
+                        const editor = SUNEDITOR.create(ed.id, {
+                            lang: SUNEDITOR_LANG['ko'],
+                            buttonList: buttonList,
+                            width: '100%',
+                            height: ed.id === 'editor-venueGuide' ? '260px' : '180px',
+                            minHeight: '160px',
+                            stickyToolbar: 0,
+                            font: ['Nanum Myeongjo', 'Gowun Batang', 'Noto Sans KR', 'Arial'],
+                            fontSize: [10, 12, 14, 16, 18, 20, 24, 28],
+                            placeholder: '내용을 입력해주세요...'
                         });
-                    }
+
+                        // 초기 데이터 세팅
+                        const initial = _.get(this, ed.key) || '';
+                        editor.setContents(initial);
+
+                        // 변경 이벤트 바인딩
+                        editor.onChange = (content) => {
+                            _.set(this, ed.key, content);
+                        };
+
+                        this._editors[ed.key] = editor;
+                    });
                 },
 
                 syncEditors() {
