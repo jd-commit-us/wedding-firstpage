@@ -4,15 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title
-        x-text="모바일 청첩장">
-    </title>
+    <title>모바일 청첩장</title>
 
     <!-- Open Graph / Facebook / KakaoTalk -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jd-commit-us.github.io/wedding-firstpage/">
     <meta property="og:title" content="재석 ♥ 동희의 모바일 청첩장">
-    <meta property="og:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션  | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
+    <meta property="og:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
     <meta property="og:image"
         content="https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/og/thumbnail.png">
     <meta property="og:image:width" content="1200">
@@ -33,6 +31,7 @@
     <meta name="keywords" content="결혼식, 청첩장, 모바일청첩장, 이재석, 임동희, 소사 MJ 컨벤션">
     <meta name="author" content="이재석, 임동희">
     <meta name="theme-color" content="#f2aebc">
+    
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap"
@@ -40,7 +39,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./local/js/crypto-util.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Kakao SDKs will be loaded dynamically in init() if keys are present -->
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
         integrity="sha384-l6I7YpLAnpS8mXdfzD4pUnVqB3kS+Yn0yW4I3oR6K7CizK6G/h6y3J3LzW9p+G2J"
         crossorigin="anonymous"></script>
@@ -52,10 +50,6 @@
         :root {
             --accent: #f2aebc;
             --text: #333;
-        }
-
-        .sun-editor-common {
-            /* Remove global override to let inner styles through */
         }
 
         .eng-font {
@@ -225,35 +219,18 @@
             💿
         </button>
     </div>
-    <!-- Floating Nav (TTS/Language UI 주석 처리) -->
-    <!--
-    <div class="fixed top-4 right-4 z-[90] flex gap-2 transition-all duration-300"
-        :class="showIntro?'opacity-0':'opacity-100'">
-        <select x-model="lang" class="bg-white/80 backdrop-blur border rounded-full px-3 py-1 text-xs outline-none">
-            <option value="ko">KR</option>
-            <option value="en">EN</option>
-            <option value="jp">JP</option>
-            <option value="cn">CN</option>
-        </select>
-        <button @click="speakAll"
-            class="w-8 h-8 rounded-full bg-pink-100/80 backdrop-blur flex items-center justify-center text-sm shadow">
-            👄
-        </button>
-    </div>
-    -->
 
     <!-- Effect Canvas -->
     <canvas id="effect"></canvas>
 
     <!-- Main Content -->
     <main class="pb-32 w-full">
-        <!-- Hero Section (Fixed ID: names) handled dynamically via sort -->
         <template x-for="section in sortedSections" :key="section.id">
             <template x-if="section.isVisible">
                 <div class="section-wrap relative" :id="section.id"
                     :class="section.id === 'names' ? 'pt-0 w-full mb-0 shadow-none' : 'max-w-lg mx-auto'">
 
-                    <!-- 변경 후: hero, greeting, names 3개 모두 상단 타이틀 헤더 숨김 -->
+                    <!-- hero, greeting, names 3개 모두 상단 타이틀 헤더 숨김 -->
                     <div x-show="!['names', 'hero', 'greeting'].includes(section.id)"
                         @click="if(section._canFold) section._isFolded = !section._isFolded"
                         class="p-6 flex justify-between items-center bg-white z-10 relative"
@@ -277,23 +254,17 @@
                         <template x-if="section.id === 'greeting'">
                             <section class="w-full py-20 px-6 bg-[#fffcfb] border-b border-[#f3eee8]">
                                 <div class="max-w-md mx-auto text-center">
-                                    
-                                    <!-- 감성적인 영문 타이틀 영역 (참고 사이트 스타일) -->
                                     <div class="mb-10 flex flex-col items-center">
-                                        <!-- 클래식 세리프 & 이탤릭체 영문 라벨 -->
                                         <span class="font-serif italic text-2xl text-[#8d8276] tracking-wide select-none">
                                             Invitation
                                         </span>
-                                        <!-- 은은한 미니 도트(dot) 또는 얇은 포인트 바 -->
                                         <div class="w-1.5 h-1.5 rounded-full bg-[#d6cec5] mt-3"></div>
                                     </div>
 
-                                    <!-- 관리자 입력 인사말 본문 -->
                                     <div class="text-[13.5px] leading-[2.2] text-[#4a4744] font-light break-keep px-4 sun-editor-common"
                                         :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '2.1'}; letter-spacing: ${data.theme?.style?.letterSpacing || '-0.02em'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
                                         x-html="data.text?.mainMessage">
                                     </div>
-
                                 </div>
                             </section>
                         </template>
@@ -336,7 +307,7 @@
                             </section>
                         </template>
 
-                        <!-- 2. Calendar & D-Day Countdown -->
+                        <!-- 4. Calendar & D-Day Countdown -->
                         <template x-if="section.id === 'calendar'">
                             <div class="px-8 pb-12 text-center" 
                                 x-data="{
@@ -347,10 +318,7 @@
                                     dDayText: '',
                                     initTimer() {
                                         const update = () => {
-                                            // data.json의 config.weddingDate 값을 정확하게 탐색
-                                            const rawDate = (typeof config !== 'undefined' && config.weddingDate) 
-                                                        || (this.config && this.config.weddingDate) 
-                                                        || (this.data && this.data.config && this.data.config.weddingDate)
+                                            const rawDate = (this.data && this.data.config && this.data.config.weddingDate)
                                                         || '2027-01-30T11:00:00';
 
                                             const safeDateStr = String(rawDate).replace(' ', 'T');
@@ -384,7 +352,6 @@
                                 }"
                                 x-init="initTimer()">
 
-                                <!-- 캘린더 타이틀 -->
                                 <h3 class="lux-font text-xl text-gray-700 mb-6 tracking-wide" x-text="calTitle"></h3>
 
                                 <!-- 1. 달력 카드 -->
@@ -401,7 +368,7 @@
                                     </template>
                                 </div>
 
-                                <!-- 2. 실시간 카운트다운 박스 (DAYS / HOUR / MIN / SEC) -->
+                                <!-- 2. 실시간 카운트다운 박스 -->
                                 <div class="p-6 bg-pink-50/40 rounded-2xl border border-pink-100/60 shadow-sm">
                                     <div class="text-[11px] font-semibold text-pink-400 tracking-widest uppercase mb-4">D-Day</div>
                                     
@@ -424,13 +391,12 @@
                                         </div>
                                     </div>
 
-                                    <!-- 하단 실시간 D-Day 문구 -->
                                     <div class="text-xs font-semibold text-gray-700 tracking-tight" x-text="dDayText"></div>
                                 </div>
                             </div>
                         </template>
 
-                        <!-- 3. Video -->
+                        <!-- 5. Video -->
                         <template x-if="section.id === 'youtube' && data.media.youtube">
                             <div class="px-8 pb-10">
                                 <div class="relative w-full aspect-video bg-black rounded shadow-lg overflow-hidden group cursor-pointer"
@@ -446,10 +412,9 @@
                             </div>
                         </template>
 
-                        <!-- 4. Gallery -->
+                        <!-- 6. Gallery -->
                         <template x-if="section.id === 'gallery'">
                             <div class="px-4 pb-10">
-                                <!-- Main Gallery Image (Original, Object-Contain) -->
                                 <div class="gal-main mb-2 rounded shadow-xl relative overflow-hidden bg-black"
                                     @click="openLightbox(getGalleryImage(galIdx, 'original'))">
                                     <img :src="getGalleryImage(galIdx, 'original')"
@@ -457,7 +422,6 @@
                                         :class="galleryMainLoaded ? 'opacity-100' : 'opacity-0'"
                                         @load="galleryMainLoaded = true">
                                 </div>
-                                <!-- Thumbnail Grid (Thumbnails, 5x6 max 30 images) -->
                                 <div class="grid grid-cols-5 gap-1">
                                     <template x-for="(img, idx) in data.images.gallery.slice(0,30)" :key="idx">
                                         <div class="gal-grid-item"
@@ -468,11 +432,10 @@
                                 </div>
                             </div>
                         </template>
-                                            
-                        <!-- 5. Phone Section -->
+                                                    
+                        <!-- 7. Phone Section -->
                         <template x-if="section.id === 'phone'">
                             <div class="px-8 pb-10" x-data="{ openContactModal: null }">                                
-                                <!-- 1. 신랑측 / 신부측 축하 연락처 버튼 -->
                                 <div class="grid grid-cols-2 gap-3">
                                     <button 
                                         type="button"
@@ -495,7 +458,7 @@
                                     </button>
                                 </div>
 
-                                <!-- 2. 연락처 레이어 팝업 (Modal) -->
+                                <!-- 연락처 모달 -->
                                 <template x-teleport="body">
                                     <div 
                                         x-show="openContactModal !== null" 
@@ -511,7 +474,6 @@
                                         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overscroll-contain select-none"
                                         style="display: none; touch-action: none;">
 
-                                        <!-- 팝업 본문 카드 -->
                                         <div 
                                             x-show="openContactModal !== null"
                                             x-transition:enter="transition ease-out duration-200"
@@ -522,7 +484,6 @@
                                             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
                                             class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-gray-100 relative">
                                             
-                                            <!-- 팝업 헤더 -->
                                             <div class="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
                                                 <h3 class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
                                                     <span x-text="openContactModal === 'groom' ? '💙' : '💗'"></span>
@@ -533,7 +494,6 @@
                                                 </button>
                                             </div>
 
-                                            <!-- 연락처 목록 렌더링 (내부 스크롤 허용 & 체이닝 차단) -->
                                             <div 
                                                 @touchmove.stop
                                                 @wheel.stop
@@ -564,7 +524,6 @@
                                                 </template>
                                             </div>
 
-                                            <!-- 닫기 버튼 -->
                                             <button 
                                                 type="button" 
                                                 @click="openContactModal = null" 
@@ -577,10 +536,9 @@
                             </div>
                         </template>
 
-                        <!-- 6. Accounts (Layer Modal Type) -->
+                        <!-- 8. Accounts (Layer Modal Type) -->
                         <template x-if="section.id === 'accounts'">
                             <div class="px-8 pb-10" x-data="{ openModal: null, copyToast: false, toastMsg: '' }">                                
-                                <!-- 1. 신랑측 / 신부측 계좌 열기 버튼 -->
                                 <div class="space-y-3">
                                     <button 
                                         type="button"
@@ -603,7 +561,7 @@
                                     </button>
                                 </div>
 
-                                <!-- 2. 계좌 정보 레이어 팝업 (Modal) -->
+                                <!-- 계좌 모달 -->
                                 <template x-teleport="body">
                                     <div 
                                         x-show="openModal !== null" 
@@ -619,7 +577,6 @@
                                         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overscroll-contain select-none"
                                         style="display: none; touch-action: none;">
 
-                                        <!-- 팝업 본문 카드 -->
                                         <div 
                                             x-show="openModal !== null"
                                             x-transition:enter="transition ease-out duration-200"
@@ -630,7 +587,6 @@
                                             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
                                             class="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 border border-gray-100 relative">
                                             
-                                            <!-- 팝업 헤더 -->
                                             <div class="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
                                                 <h3 class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
                                                     <span x-text="openModal === 'groom' ? '💙' : '💗'"></span>
@@ -641,7 +597,6 @@
                                                 </button>
                                             </div>
 
-                                            <!-- 계좌 목록 렌더링 (내부 스크롤 허용 & 체이닝 차단) -->
                                             <div 
                                                 @touchmove.stop
                                                 @wheel.stop
@@ -667,7 +622,6 @@
                                                 </template>
                                             </div>
 
-                                            <!-- 닫기 버튼 -->
                                             <button 
                                                 type="button" 
                                                 @click="openModal = null" 
@@ -680,42 +634,42 @@
                             </div>
                         </template>
 
-                        <!-- 7. Location -->
+                        <!-- 9. Location -->
                         <template x-if="section.id === 'location'">
                             <div class="px-6 pb-10">
                                 <div class="text-center mb-6">
-                                    <div class="font-bold text-lg" x-text="data.config.venue.name"></div>
-                                    <div class="text-sm text-gray-500 mt-1" x-text="data.config.venue.address"></div>
+                                    <div class="font-bold text-lg" x-text="data.config?.venue?.name"></div>
+                                    <div class="text-sm text-gray-500 mt-1" x-text="data.config?.venue?.address"></div>
                                 </div>
                                 <div id="map" class="w-full h-64 bg-gray-100 rounded mb-4"
                                     x-init="$nextTick(() => initMap())"></div>
                                 <div class="text-left text-sm md:text-base leading-relaxed bg-[#fff9f9] p-6 md:p-10 rounded-2xl shadow-sm border border-pink-50 sun-editor-common mb-8"
-                                    x-html="data.config.venue.guideText"></div>
+                                    x-html="data.config?.venue?.guideText"></div>
 
                                 <!-- Map Apps -->
                                 <div class="grid grid-cols-4 gap-4 mb-8">
-                                    <a :href="data.config.venue.mapLinks.kakao" target="_blank"
+                                    <a :href="data.config?.venue?.mapLinks?.kakao" target="_blank"
                                         class="flex flex-col items-center gap-1">
                                         <div
                                             class="w-12 h-12 bg-yellow-400 rounded-2xl flex items-center justify-center text-lg shadow-sm">
                                             K</div>
                                         <span class="text-[10px] text-gray-500">카카오맵</span>
                                     </a>
-                                    <a :href="data.config.venue.mapLinks.naver" target="_blank"
+                                    <a :href="data.config?.venue?.mapLinks?.naver" target="_blank"
                                         class="flex flex-col items-center gap-1">
                                         <div
                                             class="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center text-lg text-white shadow-sm font-bold">
                                             N</div>
                                         <span class="text-[10px] text-gray-500">네이버지도</span>
                                     </a>
-                                    <a :href="data.config.venue.mapLinks.tmap" target="_blank"
+                                    <a :href="data.config?.venue?.mapLinks?.tmap" target="_blank"
                                         class="flex flex-col items-center gap-1">
                                         <div
                                             class="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center text-lg text-white shadow-sm font-bold">
                                             T</div>
                                         <span class="text-[10px] text-gray-500">티맵</span>
                                     </a>
-                                    <a :href="data.config.venue.mapLinks.google" target="_blank"
+                                    <a :href="data.config?.venue?.mapLinks?.google" target="_blank"
                                         class="flex flex-col items-center gap-1">
                                         <div
                                             class="w-12 h-12 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-lg shadow-sm font-bold">
@@ -725,7 +679,7 @@
                                 </div>
 
                                 <!-- Detail Map Image -->
-                                <template x-if="data.config.venue.mapImage">
+                                <template x-if="data.config?.venue?.mapImage">
                                     <div class="mt-4 pt-6 border-t">
                                         <h3 class="text-sm font-bold text-gray-700 mb-4">지도 다운로드</h3>
                                         <a :href="data.config.venue.mapImage" download class="block">
@@ -741,7 +695,7 @@
                             </div>
                         </template>
 
-                        <!-- 8. Guestbook (New Implementation) -->
+                        <!-- 10. Guestbook -->
                         <template x-if="section.id === 'guestbook'">
                             <div class="px-8 pb-10">
                                 <div class="space-y-4 mb-6">
@@ -757,17 +711,18 @@
                                 </div>
                                 <div class="p-4 border rounded space-y-3">
                                     <input x-model="newPost.name" placeholder="성함"
-                                        class="w-full border p-2 text-sm rounded">
+                                        class="w-full border p-2 text-sm rounded outline-none focus:border-pink-300">
                                     <textarea x-model="newPost.message" placeholder="축하 메시지를 남겨주세요"
-                                        class="w-full border p-2 text-sm rounded" rows="3"></textarea>
+                                        class="w-full border p-2 text-sm rounded outline-none focus:border-pink-300" rows="3"></textarea>
                                     <button @click="saveBbs"
-                                        class="w-full bg-pink-100 py-2 text-sm font-bold rounded hover:bg-pink-200">메시지
-                                        남기기</button>
+                                        class="w-full bg-pink-100 py-2.5 text-sm font-bold rounded hover:bg-pink-200 transition-colors">
+                                        메시지 남기기
+                                    </button>
                                 </div>
                             </div>
                         </template>
 
-                        <!-- 9. RSVP (New Implementation) -->
+                        <!-- 11. RSVP -->
                         <template x-if="section.id === 'rsvp'">
                             <div class="px-8 pb-10">
                                 <div class="p-6 bg-pink-50 rounded-lg space-y-4">
@@ -785,7 +740,7 @@
                                     <input x-model="newJoin.name" placeholder="성함"
                                         class="w-full bg-white border-gray-100 border p-3 text-sm rounded-lg focus:ring-2 focus:ring-pink-200 outline-none">
                                     <div class="flex gap-2">
-                                        <input type="number" x-model="newJoin.count" placeholder="동반 인원 (본인 포함)"
+                                        <input type="number" x-model.number="newJoin.count" placeholder="동반 인원 (본인 포함)"
                                             class="flex-1 bg-white border border-gray-100 p-3 text-sm rounded-lg outline-none">
                                         <label
                                             class="flex items-center gap-2 text-xs text-gray-500 whitespace-nowrap bg-white px-3 border border-gray-100 rounded-lg">
@@ -793,20 +748,20 @@
                                         </label>
                                     </div>
                                     <button @click="saveJoin"
-                                        class="w-full bg-gray-800 text-white py-3 text-sm font-bold rounded-lg shadow-lg active:scale-[0.98] transition-transform">참석
-                                        정보 보내기</button>
+                                        class="w-full bg-gray-800 text-white py-3 text-sm font-bold rounded-lg shadow-lg active:scale-[0.98] transition-transform">
+                                        참석 정보 보내기
+                                    </button>
                                 </div>
                             </div>
                         </template>
 
-                        <!-- 10. Mini Game (Wedding Path) -->
+                        <!-- 12. Mini Game (Wedding Path) -->
                         <template x-if="section.id === 'minigame'">
                             <div class="px-4 pb-10 text-center bg-[#111] text-white py-12">
-                                <h2 class="text-2xl font-bold mb-6 font-[Nanum Myeongjo] text-pink-300">Wedding Path
-                                </h2>
+                                <h2 class="text-2xl font-bold mb-6 font-[Nanum Myeongjo] text-pink-300">Wedding Path</h2>
                                 <p class="text-xs text-gray-400 mb-4">PC: WASD / Arrows | Mobile: Touch to Start</p>
                                 <div class="relative w-full max-w-[800px] mx-auto aspect-[2/1] border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl"
-                                    x-init="$nextTick(() => { window.publicGame = new HighHighGame('publicGameCanvas'); })">
+                                    x-init="$nextTick(() => { if (typeof HighHighGame !== 'undefined') window.publicGame = new HighHighGame('publicGameCanvas'); })">
                                     <canvas id="publicGameCanvas" width="800" height="400"
                                         class="w-full h-full object-contain"></canvas>
                                 </div>
@@ -814,7 +769,7 @@
                             </div>
                         </template>
 
-                        <!-- 10. Share -->
+                        <!-- 13. Share -->
                         <template x-if="section.id === 'share'">
                             <div class="px-8 pb-10 flex flex-col items-center gap-6">
                                 <div class="flex flex-wrap justify-center gap-6 w-full">
@@ -869,35 +824,17 @@
         Copyright (c) 이재석 All Right Reserved
     </footer>
 
-    <!-- Image Modal -->
-    <div x-show="showGal" x-transition class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
-        <button @click="showGal = false"
-            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-gray-300 transition-colors">✕</button>
-        <img :src="galSrc" class="max-w-full max-h-[85vh] rounded shadow-2xl">
-    </div>
-
     <!-- Video Modal -->
-    <div x-show="showVid" x-transition class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
-        <button @click="showVid = false"
-            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-gray-300 transition-colors">✕</button>
-        <div class="w-full max-w-2xl aspect-video bg-black rounded overflow-hidden">
-            <template x-if="data.media.vidUrl">
-                <iframe class="w-full h-full" :src="data.media.vidUrl.replace('watch?v=', 'embed/')" frameborder="0"
-                    allowfullscreen></iframe>
-            </template>
-        </div>
-    </div>
-
-    <!-- Modals -->
     <div x-show="showVideo" class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" x-cloak
         @click="showVideo=false">
         <div class="w-full max-w-2xl aspect-video bg-black" @click.stop>
             <iframe class="w-full h-full"
-                :src="showVideo ? `https://www.youtube.com/embed/${data.media.youtube}?autoplay=1` : ''"
+                :src="showVideo ? `https://www.youtube.com/embed/${data.media?.youtube}?autoplay=1` : ''"
                 allow="autoplay" frameborder="0"></iframe>
         </div>
     </div>
 
+    <!-- Lightbox Modal -->
     <div x-show="lightbox" class="fixed inset-0 z-[100] bg-black flex items-center justify-center p-0" x-cloak
         @click="lightbox=null">
         <button @click="lightbox = null"
@@ -920,8 +857,9 @@
                 galleryTimer: null,
                 nextImagePreloader: null,
                 bbs: [], newPost: { name: '', message: '' },
-                join: [], newJoin: { side: 'groom', name: '', count: 0, meal: true },
+                join: [], newJoin: { side: 'groom', name: '', count: 1, meal: true },
                 copyNotified: false,
+                ghToken: '', // 🌟 복호화된 토큰 보관 변수
 
                 dict: {
                     ko: {
@@ -940,71 +878,25 @@
                 },
 
                 async init() {
-                    // Check Session for Intro
                     if (sessionStorage.getItem('visited')) this.showIntro = false;
 
-                    // Fetch Data with Cache Busting
                     const timestamp = new Date().getTime();
                     try {
-                        this.data = await (await fetch(`data.json?v=${timestamp}`)).json();
-
-                        // Kakao Init for Share
-                        const kKey = this.data.config.secrets.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
-                        if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
-                            Kakao.init(kKey);
-                        }
-
-                        // Process Sections with Internal State
-                        if (this.data.sections) {
-                            this.data.sections.forEach(sec => {
-                                sec._canFold = !!sec.isFolded;
-                                sec._isFolded = !!sec.isFolded;
-                            });
-                            this.sortedSections = [...this.data.sections].sort((a, b) => a.order - b.order);
-
-                            // Dynamic Title
-                            document.title = `§${this.data.groom.name2}§ ♥ §${this.data.bride.name2}§의 청첩장`;
-                        }
-
-                        // Fixed Default States
-                        const rsvpIdx = this.data.sections.findIndex(s => s.id === 'rsvp');
-                        if (rsvpIdx !== -1) {
-                            this.data.sections[rsvpIdx]._canFold = true;
-                            this.data.sections[rsvpIdx]._isFolded = true;
-                        }
-
-                        this.initCal();
-                        this.initEffects();
-
-                        // Load BBS & Join
-                        try { this.bbs = await (await fetch('bbs.json')).json(); } catch (e) { }
-                        try { this.join = await (await fetch('join.json')).json(); } catch (e) { }
-
-                        // Gallery Loop (Random start, 6s interval, preload next)
-                        if (this.data.images.gallery.length > 0) {
-                            // Random start
-                            this.galIdx = Math.floor(Math.random() * this.data.images.gallery.length);
-                            this.preloadNextGalleryImage();
-
-                            this.galleryMainLoaded = true;
-                            this.startGalleryLoop();
-                        }
-
-                        // Observer
-                        setTimeout(() => this.initObserver(), 500);
-
-                    } catch (e) {
-                        console.error('Data loading error:', e);
-                    }
-
-                    // 2. [데이터 로드 및 복호화 구간]
-                    try {
-                        const res = await fetch('./data.json?v=' + Date.now());
+                        const res = await fetch(`data.json?v=${timestamp}`);
                         if (!res.ok) throw new Error("data.json 로드 실패");
-                        
                         const rawData = await res.json();
 
-                        // 🔒 개인정보 전체(이름, 연락처, 부모님 성함, 계좌번호) 일괄 복호화
+                        // 🌟 1. 방명록/참석자 등록을 위한 암호화된 토큰 복호화
+                        const encToken = rawData.config?.secrets?.encryptedGithubToken;
+                        if (encToken && typeof WeddingCrypto !== 'undefined') {
+                            try {
+                                this.ghToken = await WeddingCrypto.decrypt(encToken);
+                            } catch (e) {
+                                console.warn('토큰 복호화 실패:', e);
+                            }
+                        }
+
+                        // 🔒 2. 개인정보 전체(이름, 연락처, 부모님 성함, 계좌번호) 일괄 복호화
                         if (typeof WeddingCrypto !== 'undefined') {
                             const fields = ['name', 'name2', 'phone', 'account'];
                             const parentFields = ['father', 'mother', 'fPhone', 'mPhone', 'fAccount', 'mAccount'];
@@ -1027,30 +919,67 @@
                             }
                         }
 
-                        // 복호화 완료된 데이터를 Alpine 상태에 할당
+                        // 복호화 완료된 데이터를 컴포넌트에 할당
                         this.data = rawData;
 
-                        // 4. 복호화된 평문 이름으로 브라우저 탭 타이틀 변경
-                        if (this.data.groom?.name2 && this.data.bride?.name2) {
-                            document.title = `${this.data.groom.name2} ♥ ${this.data.bride.name2}의 모바일 청첩장`;
+                        // Kakao Init
+                        const kKey = this.data.config?.secrets?.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
+                        if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+                            Kakao.init(kKey);
                         }
 
-                    } catch (err) {
-                        console.error("데이터 로드 및 복호화 실패:", err);
+                        // 섹션 설정
+                        if (this.data.sections) {
+                            this.data.sections.forEach(sec => {
+                                sec._canFold = !!sec.isFolded;
+                                sec._isFolded = !!sec.isFolded;
+                            });
+                            this.sortedSections = [...this.data.sections].sort((a, b) => a.order - b.order);
+
+                            if (this.data.groom?.name && this.data.bride?.name) {
+                                document.title = `${this.data.groom.name} ♥ ${this.data.bride.name}의 모바일 청첩장`;
+                            }
+                        }
+
+                        const rsvpIdx = this.data.sections.findIndex(s => s.id === 'rsvp');
+                        if (rsvpIdx !== -1) {
+                            this.data.sections[rsvpIdx]._canFold = true;
+                            this.data.sections[rsvpIdx]._isFolded = true;
+                        }
+
+                        this.initCal();
+                        this.initEffects();
+
+                        // 방명록 & 참석명단 로드
+                        try { this.bbs = await (await fetch(`bbs.json?v=${timestamp}`)).json(); } catch (e) { }
+                        try { this.join = await (await fetch(`join.json?v=${timestamp}`)).json(); } catch (e) { }
+
+                        // 갤러리 설정
+                        if (this.data.images?.gallery?.length > 0) {
+                            this.galIdx = Math.floor(Math.random() * this.data.images.gallery.length);
+                            this.preloadNextGalleryImage();
+                            this.galleryMainLoaded = true;
+                            this.startGalleryLoop();
+                        }
+
+                        setTimeout(() => this.initObserver(), 500);
+
+                    } catch (e) {
+                        console.error('초기화 에러:', e);
                     }
                 },
 
                 closeIntro() {
                     this.showIntro = false;
                     sessionStorage.setItem('visited', 'true');
-                    this.initObserver(); // Re-trigger
+                    this.initObserver();
                 },
 
                 toggleBgm() {
-                    if (!this.data.media.bgm.length) return;
+                    if (!this.data.media?.bgm?.length) return;
                     if (!this.audio) {
                         this.audio = new Audio(this.data.media.bgm[0]);
-                        this.audio.loop = true; // Simple loop 1st track for now. Logic for playlist can be added.
+                        this.audio.loop = true;
                     }
                     if (this.bgmPlaying) this.audio.pause();
                     else this.audio.play();
@@ -1058,10 +987,6 @@
                 },
 
                 t(key) { return (this.dict[this.lang] && this.dict[this.lang][key]) || key; },
-
-                processSections() {
-                    if (this.data.sections) this.sortedSections = this.data.sections.sort((a, b) => a.order - b.order);
-                },
 
                 initCal() {
                     const dateVal = this.data.config?.weddingDate;
@@ -1081,18 +1006,15 @@
                     }
                     this.calDays = arr;
 
-                    // D-Day
                     this.updateTimer();
                     setInterval(() => this.updateTimer(), 1000);
                 },
 
                 updateTimer() {
-                    if (!this.data.config.weddingDate) return;
+                    if (!this.data.config?.weddingDate) return;
 
-                    // KST (UTC+9) Calculation
                     const now = new Date();
                     const localeNow = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (9 * 3600000));
-
                     const target = new Date(this.data.config.weddingDate);
                     const localeTarget = new Date(target.getTime() + (target.getTimezoneOffset() * 60000) + (9 * 3600000));
 
@@ -1114,6 +1036,7 @@
 
                 initEffects() {
                     const canvas = document.getElementById('effect');
+                    if (!canvas) return;
                     const ctx = canvas.getContext('2d');
 
                     const resize = () => {
@@ -1123,7 +1046,7 @@
                     window.addEventListener('resize', resize);
                     resize();
 
-                    const type = this.data.theme.effect || 'petals';
+                    const type = this.data.theme?.effect || 'petals';
                     this.particles = [];
 
                     class Particle {
@@ -1133,7 +1056,7 @@
                             this.y = config.y !== undefined ? config.y : -20;
                             this.size = Math.random() * (this.isExplosion ? 4 : 10) + 6;
                             this.speedX = this.isExplosion ? (Math.random() - 0.5) * 12 : (Math.random() - 0.5) * 0.4;
-                            this.speedY = this.isExplosion ? (Math.random() - 0.5) * 12 : Math.random() * 0.7 + 0.4; // Slower
+                            this.speedY = this.isExplosion ? (Math.random() - 0.5) * 12 : Math.random() * 0.7 + 0.4;
                             this.angle = Math.random() * 360;
                             this.spin = Math.random() * 1.5 - 0.75;
                             this.sway = Math.random() * 2 * Math.PI;
@@ -1166,13 +1089,11 @@
                                 ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
                                 ctx.fill();
                             } else {
-                                // Real Petal Shape
                                 ctx.beginPath();
                                 ctx.moveTo(0, -this.size / 2);
                                 ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size / 1.5, this.size / 4, 0, this.size / 2);
                                 ctx.bezierCurveTo(this.size / 1.5, this.size / 4, this.size / 2, -this.size / 2, 0, -this.size / 2);
                                 ctx.fill();
-                                // Heart-like notch at top
                                 ctx.fillStyle = 'rgba(0,0,0,0.05)';
                                 ctx.beginPath();
                                 ctx.moveTo(0, -this.size / 2);
@@ -1184,7 +1105,7 @@
                         getColor() {
                             if (this.isExplosion) return '#fff700';
                             if (type === 'snow') return '#fff';
-                            return '#f8ccd4'; // Soft pink
+                            return '#f8ccd4';
                         }
                     }
 
@@ -1199,10 +1120,10 @@
                             this.hue = Math.random() * 360;
                         }
                         update() {
-                            this.life -= 0.008; // Slower fade
+                            this.life -= 0.008;
                             this.x += this.speedX;
                             this.y += this.speedY;
-                            this.flap += 0.12; // Slower flap
+                            this.flap += 0.12;
                             this.hue = (this.hue + 5) % 360;
                         }
                         draw() {
@@ -1215,27 +1136,24 @@
 
                             ctx.fillStyle = `hsl(${this.hue}, 90%, 75%)`;
 
-                            // Elegant Wings Shapes
-                            // Left Wings
                             ctx.beginPath();
                             ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(-w, -this.size / 2, -w, 0, 0, 0); // Upper Left
+                            ctx.bezierCurveTo(-w, -this.size / 2, -w, 0, 0, 0);
                             ctx.fill();
                             ctx.beginPath();
                             ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(-w * 0.8, this.size / 3, -w * 0.5, this.size / 2, 0, 0); // Lower Left
-                            ctx.fill();
-                            // Right Wings
-                            ctx.beginPath();
-                            ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(w, -this.size / 2, w, 0, 0, 0); // Upper Right
-                            ctx.fill();
-                            ctx.beginPath();
-                            ctx.moveTo(0, 0);
-                            ctx.bezierCurveTo(w * 0.8, this.size / 3, w * 0.5, this.size / 2, 0, 0); // Lower Right
+                            ctx.bezierCurveTo(-w * 0.8, this.size / 3, -w * 0.5, this.size / 2, 0, 0);
                             ctx.fill();
 
-                            // Body
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.bezierCurveTo(w, -this.size / 2, w, 0, 0, 0);
+                            ctx.fill();
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.bezierCurveTo(w * 0.8, this.size / 3, w * 0.5, this.size / 2, 0, 0);
+                            ctx.fill();
+
                             ctx.fillStyle = "rgba(0,0,0,0.1)";
                             ctx.beginPath();
                             ctx.ellipse(0, 0, 1, this.size / 4, 0, 0, Math.PI * 2);
@@ -1271,7 +1189,7 @@
                 handleTouchStart(e) { if (this._createExplosion) this._createExplosion(e.touches[0].clientX, e.touches[0].clientY); },
 
                 initMap() {
-                    const key = this.data.config.secrets.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
+                    const key = this.data.config?.secrets?.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
                     const container = document.getElementById('map');
                     if (!container) return;
 
@@ -1285,25 +1203,22 @@
                     };
 
                     const startEngine = () => {
-                        const venue = this.data.config.venue;
-                        // Use manual coordinates if available
+                        const venue = this.data.config?.venue;
+                        if (!venue) return;
                         if (venue.lat && venue.lng) {
                             return drawMap(venue.lat, venue.lng);
                         }
 
-                        // Fallback to Geocoder
                         const geocoder = new kakao.maps.services.Geocoder();
                         geocoder.addressSearch(venue.address, (result, status) => {
                             if (status === kakao.maps.services.Status.OK) {
                                 drawMap(result[0].y, result[0].x);
                             } else {
-                                // Hard fallback to Mariage Square if search fails
                                 drawMap(37.4819407, 126.7984955);
                             }
                         });
                     };
 
-                    // Singleton Loader Pattern
                     if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.services) {
                         startEngine();
                     } else {
@@ -1332,27 +1247,14 @@
                     document.querySelectorAll('.section-wrap').forEach(el => obs.observe(el));
                 },
 
-                getPhones(side) {
-                    const p = this.data[side];
-                    const pp = p.parents;
-                    let list = [{ label: p.name, phone: p.phone }];
-                    if (pp.father) list.push({ label: pp.father, phone: pp.fPhone });
-                    if (pp.mother) list.push({ label: pp.mother, phone: pp.mPhone });
-                    return list;
-                },
-
-                // Gallery Helper: Support both old (string) and new (object) formats
                 getGalleryImage(idx, type = 'thumbnail') {
                     if (!this.data.images || !this.data.images.gallery) return '';
                     const img = this.data.images.gallery[idx];
                     if (!img) return '';
 
-                    // New format: {thumbnail: '...', original: '...'}
                     if (typeof img === 'object' && img.thumbnail && img.original) {
                         return type === 'original' ? img.original : img.thumbnail;
                     }
-
-                    // Old format: just a string URL (backward compatible)
                     return img;
                 },
 
@@ -1360,31 +1262,23 @@
                     if (src) this.lightbox = src;
                 },
 
-                // Gallery: Select image from thumbnail grid
                 selectGalleryImage(idx) {
                     this.stopGalleryLoop();
-
-                    // Instant switch logic
                     this.galleryMainLoaded = false;
-                    this.galIdx = idx; // Switch index
-
-                    // Wait for Vue/Alpine to process update then fade in via @load or timeout
-                    // Note: If image is cached, @load might fire very fast.
-                    // We restart the loop after a delay so user can view the selected image.
+                    this.galIdx = idx;
                     this.preloadNextGalleryImage();
-
                     this.startGalleryLoop();
                 },
 
                 startGalleryLoop() {
                     this.stopGalleryLoop();
                     this.galleryTimer = setInterval(() => {
-                        if (this.data.images.gallery.length) {
+                        if (this.data.images?.gallery?.length) {
                             this.galleryMainLoaded = false;
                             setTimeout(() => {
                                 this.galIdx = (this.galIdx + 1) % this.data.images.gallery.length;
                                 this.preloadNextGalleryImage();
-                            }, 600); // Wait for fade out
+                            }, 600);
                         }
                     }, 6000);
                 },
@@ -1396,28 +1290,33 @@
                     }
                 },
 
-                // Gallery: Preload next image for smooth transitions
                 preloadNextGalleryImage() {
-                    if (!this.data.images || !this.data.images.gallery || this.data.images.gallery.length === 0) return;
-
+                    if (!this.data.images?.gallery?.length) return;
                     const nextIdx = (this.galIdx + 1) % this.data.images.gallery.length;
                     const nextImgUrl = this.getGalleryImage(nextIdx, 'original');
-
                     if (nextImgUrl) {
                         this.nextImagePreloader = new Image();
                         this.nextImagePreloader.src = nextImgUrl;
                     }
                 },
 
-
-
                 copy(txt) {
-                    navigator.clipboard.writeText(txt).then(() => {
-                        // Global copy feedback can be added here if needed,
-                        // but most specific copy functions now have their own alerts.
-                    });
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(txt);
+                    } else {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = txt;
+                        textArea.style.position = "fixed";
+                        textArea.style.left = "-999999px";
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        try { document.execCommand('copy'); } catch (e) { }
+                        textArea.remove();
+                    }
                 },
 
+                // 🌟 방명록 저장 함수
                 async saveBbs() {
                     if (!this.newPost.name || !this.newPost.message) return alert('성함과 메시지를 입력해주세요.');
                     const post = { ...this.newPost, date: new Date().toISOString() };
@@ -1425,10 +1324,11 @@
                     if (await this.pushToGithub('bbs.json', newList)) {
                         this.bbs = newList;
                         this.newPost = { name: '', message: '' };
-                        alert('메시지가 등록되었습니다!');
+                        alert('축하 메시지가 등록되었습니다! 감사합니다.');
                     }
                 },
 
+                // 🌟 참석 여부 전달 함수
                 async saveJoin() {
                     if (!this.newJoin.name) return alert('성함을 입력해주세요.');
                     const entry = { ...this.newJoin, date: new Date().toISOString() };
@@ -1437,18 +1337,19 @@
                     if (await this.pushToGithub('join.json', newList)) {
                         this.join = newList;
                         this.newJoin = { side: 'groom', name: '', count: 1, meal: true };
-                        alert('참석 정보가 전달되었습니다.');
+                        alert('참석 정보가 전달되었습니다. 감사합니다.');
                     }
                 },
 
-                async pushToGithub(filename, data) {
-                    const token = localStorage.getItem('ghToken') || this.data.config.secrets.githubToken;
+                // 🌟 복호화된 토큰(this.ghToken)으로 깃허브 커밋 푸시
+                async pushToGithub(filename, payloadData) {
+                    const token = this.ghToken || localStorage.getItem('ghToken') || this.data.config?.secrets?.githubToken;
                     if (!token) {
-                        alert('데이터 저장을 위해 GitHub 토큰이 필요합니다. 관리자 모드에서 로그인을 먼저 해주세요.');
+                        alert('서버와 보안 연결에 실패했습니다. 관리자에게 문의해주세요.');
                         return false;
                     }
 
-                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payloadData, null, 2))));
                     try {
                         const r = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${filename}`, {
                             headers: { 'Authorization': `token ${token}` }
@@ -1458,38 +1359,85 @@
 
                         const res = await fetch(`https://api.github.com/repos/jd-commit-us/wedding-firstpage/contents/${filename}`, {
                             method: 'PUT',
-                            headers: { 'Authorization': `token ${token}` },
+                            headers: { 
+                                'Authorization': `token ${token}`,
+                                'Content-Type': 'application/json'
+                            },
                             body: JSON.stringify({ message: `update ${filename}`, content, sha })
                         });
                         return res.ok;
                     } catch (e) {
-                        alert('통신 오류가 발생했습니다. 토큰 만료 여부를 확인해 주세요.');
+                        console.error(e);
+                        alert('등록 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
                         return false;
                     }
                 },
 
-                getAllAccounts(side) {
-                    const person = this.data[side];
-                    if (!person) return [];
-                    let res = [];
-                    // Parents
-                    if (person.parents.father && person.parents.fAccount) {
-                        res.push({ name: person.parents.father, bank: person.parents.fBank || '은행', num: person.parents.fAccount });
-                    }
-                    if (person.parents.mother && person.parents.mAccount) {
-                        res.push({ name: person.parents.mother, bank: person.parents.mBank || '은행', num: person.parents.mAccount });
-                    }
-                    // Self
+                getAllAccounts(type) {
+                    if (!this.data || !this.data[type]) return [];
+                    const person = this.data[type];
+                    const list = [];
+
                     if (person.account) {
-                        res.push({ name: person.name, bank: person.bank || '은행', num: person.account });
+                        list.push({
+                            relation: type === 'groom' ? '신랑' : '신부',
+                            name: person.name,
+                            bank: person.bank || '은행',
+                            num: person.account
+                        });
                     }
-                    return res;
+                    if (person.parents?.fAccount) {
+                        list.push({
+                            relation: '아버지',
+                            name: person.parents.father,
+                            bank: person.parents.fBank || '은행',
+                            num: person.parents.fAccount
+                        });
+                    }
+                    if (person.parents?.mAccount) {
+                        list.push({
+                            relation: '어머니',
+                            name: person.parents.mother,
+                            bank: person.parents.mBank || '은행',
+                            num: person.parents.mAccount
+                        });
+                    }
+                    return list;
                 },
 
                 copyAccount(acc) {
-                    const txt = `${acc.bank} ${acc.num}`;
-                    this.copy(txt);
-                    alert(`${acc.name} ${txt} 이 클립보드에 복사되었습니다.`);
+                    const textToCopy = `${acc.bank} ${acc.num}`;
+                    this.copy(acc.num);
+                    alert(`${acc.name}님의 계좌번호가 복사되었습니다.\n(${textToCopy})`);
+                },
+
+                getAllContacts(type) {
+                    if (!this.data || !this.data[type]) return [];
+                    const person = this.data[type];
+                    const list = [];
+
+                    if (person.phone) {
+                        list.push({
+                            relation: type === 'groom' ? '신랑' : '신부',
+                            name: person.name || (type === 'groom' ? '신랑' : '신부'),
+                            phone: person.phone
+                        });
+                    }
+                    if (person.parents && person.parents.fPhone) {
+                        list.push({
+                            relation: '아버지',
+                            name: person.parents.father || '아버지',
+                            phone: person.parents.fPhone
+                        });
+                    }
+                    if (person.parents && person.parents.mPhone) {
+                        list.push({
+                            relation: '어머니',
+                            name: person.parents.mother || '어머니',
+                            phone: person.parents.mPhone
+                        });
+                    }
+                    return list;
                 },
 
                 shareKakao() {
@@ -1498,9 +1446,9 @@
                             Kakao.Share.sendDefault({
                                 objectType: 'feed',
                                 content: {
-                                    title: `${this.data.groom.name2} ♥ ${this.data.bride.name2}의 결혼식에 초대합니다!`,
-                                    description: this.data.config.venue.name + ' ' + this.data.config.weddingDate,
-                                    imageUrl: this.data.images.main || 'https://jd-commit-us.github.io/wedding-firstpage/og_image.png',
+                                    title: `${this.data.groom?.name} ♥ ${this.data.bride?.name}의 결혼식에 초대합니다!`,
+                                    description: (this.data.config?.venue?.name || '') + ' ' + (this.data.config?.weddingDate || ''),
+                                    imageUrl: this.data.images?.main || 'https://jd-commit-us.github.io/wedding-firstpage/local/images/og/thumbnail.png',
                                     link: { mobileWebUrl: window.location.href, webUrl: window.location.href },
                                 },
                                 buttons: [{ title: '모바일 청첩장 보기', link: { mobileWebUrl: window.location.href, webUrl: window.location.href } }],
@@ -1516,7 +1464,7 @@
                 shareSns(type) {
                     const url = window.location.href;
                     const encodedUrl = encodeURIComponent(url);
-                    const title = `${this.data.groom.name} ♥ ${this.data.bride.name}의 결혼식에 초대합니다!`;
+                    const title = `${this.data.groom?.name} ♥ ${this.data.bride?.name}의 결혼식에 초대합니다!`;
                     const encodedTitle = encodeURIComponent(title);
 
                     let appUrl = '';
@@ -1544,7 +1492,6 @@
                     if (appUrl) {
                         const start = Date.now();
                         window.location.href = appUrl;
-
                         setTimeout(() => {
                             if (Date.now() - start < 2000) {
                                 window.open(webUrl, '_blank');
@@ -1561,124 +1508,6 @@
                         alert('클립 보드에 주소가 저장되었습니다.');
                         this.copyNotified = true;
                     }
-                },
-
-                speakAll() {
-                    if ('speechSynthesis' in window) {
-                        const txt = document.body.innerText; // Simple grab
-                        const ut = new SpeechSynthesisUtterance(txt);
-                        ut.lang = this.lang;
-                        window.speechSynthesis.speak(ut);
-                    } else alert('TTS not supported');
-                },                
-
-                // index.html의 app() 컨트롤러 내부
-
-                // 1. 신랑/신부 계좌 목록 추출 함수
-                getAllAccounts(type) {
-                    if (!this.data || !this.data[type]) return [];
-                    const person = this.data[type];
-                    const list = [];
-
-                    // 본인 계좌
-                    if (person.account) {
-                        list.push({
-                            relation: type === 'groom' ? '신랑' : '신부',
-                            name: person.name,
-                            bank: person.bank || '은행',
-                            num: person.account
-                        });
-                    }
-
-                    // 아버지 계좌
-                    if (person.parents?.fAccount) {
-                        list.push({
-                            relation: '아버지',
-                            name: person.parents.father,
-                            bank: person.parents.fBank || '은행',
-                            num: person.parents.fAccount
-                        });
-                    }
-
-                    // 어머니 계좌
-                    if (person.parents?.mAccount) {
-                        list.push({
-                            relation: '어머니',
-                            name: person.parents.mother,
-                            bank: person.parents.mBank || '은행',
-                            num: person.parents.mAccount
-                        });
-                    }
-
-                    return list;
-                },
-
-                // 2. 계좌번호 클립보드 복사 함수
-                copyAccount(acc) {
-                    const textToCopy = `${acc.bank} ${acc.num} ${acc.name}`;
-                    if (navigator.clipboard && window.isSecureContext) {
-                        navigator.clipboard.writeText(acc.num).then(() => {
-                            alert(`${acc.name}님의 계좌번호가 복사되었습니다.\n(${acc.bank} ${acc.num})`);
-                        }).catch(() => {
-                            this.fallbackCopy(acc.num, acc.name);
-                        });
-                    } else {
-                        this.fallbackCopy(acc.num, acc.name);
-                    }
-                },
-
-                // 모바일 호환용 fallback 복사
-                fallbackCopy(num, name) {
-                    const textArea = document.createElement("textarea");
-                    textArea.value = num;
-                    textArea.style.position = "fixed";
-                    textArea.style.left = "-999999px";
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        alert(`${name}님의 계좌번호가 복사되었습니다.`);
-                    } catch (err) {
-                        alert('계좌번호 복사에 실패했습니다.');
-                    }
-                    textArea.remove();
-                },
-
-                // index.html의 app() 내부
-                getAllContacts(type) {
-                    if (!this.data || !this.data[type]) return [];
-                    const person = this.data[type];
-                    const list = [];
-
-                    // 1. 본인 연락처
-                    if (person.phone) {
-                        list.push({
-                            relation: type === 'groom' ? '신랑' : '신부',
-                            name: person.name || (type === 'groom' ? '신랑' : '신부'),
-                            phone: person.phone
-                        });
-                    }
-
-                    // 2. 아버지 연락처
-                    if (person.parents && person.parents.fPhone) {
-                        list.push({
-                            relation: '아버지',
-                            name: person.parents.father || '아버지',
-                            phone: person.parents.fPhone
-                        });
-                    }
-
-                    // 3. 어머니 연락처
-                    if (person.parents && person.parents.mPhone) {
-                        list.push({
-                            relation: '어머니',
-                            name: person.parents.mother || '어머니',
-                            phone: person.parents.mPhone
-                        });
-                    }
-
-                    return list;
                 }
             }
         }
