@@ -395,12 +395,12 @@
                             id="simulation-container">
                             <!-- Hero Simulation -->
                             <div class="relative w-full overflow-hidden bg-[#fffcfc]">
-                                <img :src="data.images.main" @click="lightbox = data.images.main"
+                                <img :src="data.images?.main" @click="lightbox = data.images?.main"
                                     class="w-full h-auto object-cover block shadow-inner min-h-[200px]">
                                 <div
                                     class="absolute inset-0 flex flex-col items-center justify-center p-8 bg-black/5 pointer-events-none">
                                     <div class="eng-font text-white text-3xl mb-2 drop-shadow-lg sun-editor-common"
-                                        style="text-align: center" x-html="data.text.mainOverlay"></div>
+                                        style="text-align: center" x-html="data.text?.mainOverlay"></div>
                                     <div class="w-12 h-[1px] bg-white/40"></div>
                                 </div>
                             </div>
@@ -408,36 +408,36 @@
                             <!-- Message Simulation -->
                             <div class="p-8 text-center space-y-6">
                                 <div class="text-sm leading-relaxed lux-font text-gray-600 sun-editor-common"
-                                    :style="`font-size: ${data.theme.style.fontSize}; line-height: ${data.theme.style.lineHeight}; letter-spacing: ${data.theme.style.letterSpacing}; text-align: ${data.theme.style.textAlign}`"
-                                    x-html="data.text.mainMessage"></div>
+                                    :style="`font-size: ${data.theme?.style?.fontSize || '13.5px'}; line-height: ${data.theme?.style?.lineHeight || '1.85'}; letter-spacing: ${data.theme?.style?.letterSpacing || '-0.02em'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
+                                    x-html="data.text?.mainMessage"></div>
 
                                 <div class="w-full flex justify-center py-6">
                                     <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
                                         <!-- Groom -->
                                         <div class="flex flex-col items-center">
                                             <div class="text-[10px] text-gray-400 mb-2 lux-font">
-                                                <span x-text="data.groom.parents.father"></span>·<span
-                                                    x-text="data.groom.parents.mother"></span><span class="">의</span>
-                                                <span x-text="data.groom.rank"></span>
+                                                <span x-text="data.groom?.parents?.father"></span>·<span
+                                                    x-text="data.groom?.parents?.mother"></span><span class="">의</span>
+                                                <span x-text="data.groom?.rank"></span>
                                             </div>
                                             <div class="flex flex-col items-center">
                                                 <span class="text-sm text-blue-600 font-bold lux-font mb-1">신랑</span>
                                                 <h1 class="text-xl tracking-widest font-light lux-font"
-                                                    x-text="data.groom.name"></h1>
+                                                    x-text="data.groom?.name"></h1>
                                             </div>
                                         </div>
                                         <div class="lux-font text-pink-200 self-end pb-1">&</div>
                                         <!-- Bride -->
                                         <div class="flex flex-col items-center">
                                             <div class="text-[10px] text-gray-400 mb-2 lux-font">
-                                                <span x-text="data.bride.parents.father"></span>·<span
-                                                    x-text="data.bride.parents.mother"></span><span class="">의</span>
-                                                <span x-text="data.bride.rank"></span>
+                                                <span x-text="data.bride?.parents?.father"></span>·<span
+                                                    x-text="data.bride?.parents?.mother"></span><span class="">의</span>
+                                                <span x-text="data.bride?.rank"></span>
                                             </div>
                                             <div class="flex flex-col items-center">
                                                 <span class="text-sm text-pink-500 font-bold lux-font mb-1">신부</span>
                                                 <h1 class="text-xl tracking-widest font-light lux-font"
-                                                    x-text="data.bride.name"></h1>
+                                                    x-text="data.bride?.name"></h1>
                                             </div>
                                         </div>
                                     </div>
@@ -447,14 +447,14 @@
                             <!-- Venue Simulation -->
                             <div class="p-8 border-t border-gray-50 text-left">
                                 <div class="text-center mb-4">
-                                    <div class="font-bold text-sm text-gray-700" x-text="data.config.venue.name"></div>
-                                    <div class="text-[10px] text-gray-400" x-text="data.config.venue.address"></div>
+                                    <div class="font-bold text-sm text-gray-700" x-text="data.config?.venue?.name"></div>
+                                    <div class="text-[10px] text-gray-400" x-text="data.config?.venue?.address"></div>
                                 </div>
                                 <div id="map-simulation" class="w-full h-40 bg-gray-100 rounded mb-4"
                                     x-init="$nextTick(() => initSimulationMap())"></div>
                                 <h3 class="lux-font text-sm font-bold text-gray-700 mb-4 text-center">오시는 길</h3>
                                 <div class="p-8 bg-[#fff9f9] rounded-2xl text-xs leading-relaxed text-gray-600 sun-editor-common border border-pink-50/50 shadow-sm"
-                                    x-html="data.config.venue.guideText"></div>
+                                    x-html="data.config?.venue?.guideText"></div>
                             </div>
                         </div>
                     </div>
@@ -469,7 +469,7 @@
                     <label class="steam-label">메인 대표 이미지</label>
                     <div class="flex gap-4 items-center">
                         <div class="w-24 h-24 bg-cover bg-center rounded border border-gray-600"
-                            :style="`background-image: url(${data.images.main})`"></div>
+                            :style="`background-image: url(${data.images?.main})`"></div>
                         <div class="flex-1 space-y-2">
                             <input type="text" x-model="data.images.main" class="steam-input" placeholder="이미지 URL">
                             <button class="btn-gray" @click="triggerUpload('main')">📁 파일 업로드</button>
@@ -546,20 +546,24 @@
                 </h3>
                 <div class="grid grid-cols-2 gap-6">
                     <div class="space-y-2">
-                        <label class="label">글꼴 크기 (<span x-text="data.theme.style.fontSize"></span>)</label>
-                        <input type="range" min="10" max="24" step="1" x-model="data.theme.style.fontSize"
-                            @input="data.theme.style.fontSize = $event.target.value + 'px'"
+                        <label class="label">글꼴 크기 (<span x-text="data.theme?.style?.fontSize || '14px'"></span>)</label>
+                        <input type="range" min="10" max="24" step="1" 
+                            :value="parseInt(data.theme?.style?.fontSize || '14')"
+                            @input="if(!data.theme.style) data.theme.style={}; data.theme.style.fontSize = $event.target.value + 'px'"
                             class="w-full accent-[#66c0f4]">
                     </div>
                     <div class="space-y-2">
-                        <label class="label">줄 간격 (<span x-text="data.theme.style.lineHeight"></span>)</label>
-                        <input type="range" min="1.0" max="2.5" step="0.1" x-model="data.theme.style.lineHeight"
+                        <label class="label">줄 간격 (<span x-text="data.theme?.style?.lineHeight || '1.8'"></span>)</label>
+                        <input type="range" min="1.0" max="2.5" step="0.1" 
+                            :value="parseFloat(data.theme?.style?.lineHeight || '1.8')"
+                            @input="if(!data.theme.style) data.theme.style={}; data.theme.style.lineHeight = $event.target.value"
                             class="w-full accent-[#66c0f4]">
                     </div>
                     <div class="space-y-2">
-                        <label class="label">글자 자간 (<span x-text="data.theme.style.letterSpacing"></span>)</label>
-                        <input type="range" min="-2" max="5" step="0.5" x-model="data.theme.style.letterSpacing"
-                            @input="data.theme.style.letterSpacing = $event.target.value + 'px'"
+                        <label class="label">글자 자간 (<span x-text="data.theme?.style?.letterSpacing || '0px'"></span>)</label>
+                        <input type="range" min="-2" max="5" step="0.5" 
+                            :value="parseFloat(data.theme?.style?.letterSpacing || '0')"
+                            @input="if(!data.theme.style) data.theme.style={}; data.theme.style.letterSpacing = $event.target.value + 'px'"
                             class="w-full accent-[#66c0f4]">
                     </div>
                     <div class="space-y-2">
@@ -810,7 +814,14 @@
                     groom: { parents: {} }, bride: { parents: {} },
                     images: { gallery: [], og: {} },
                     text: {}, media: { bgm: [] },
-                    theme: { style: {} },
+                    theme: {
+                        style: {
+                            fontSize: '14px',
+                            lineHeight: '1.8',
+                            letterSpacing: '0px',
+                            textAlign: 'center'
+                        }
+                    },
                     sections: [], updates: []
                 },
                 defaultSections: [
@@ -827,7 +838,7 @@
                     { id: 'minigame', title: '미니게임(Wedding Path)', isVisible: true, isFolded: false, order: 11 }
                 ],
 
-                // 🌟 탭 전환 헬퍼 (탭이 'content'로 전환될 때 에디터 초기화/리프레시 보장)
+                // 🌟 탭 전환 헬퍼 (초대장 문구 탭 클릭 시 SunEditor 정상 렌더 보장)
                 switchTab(tabId) {
                     this.syncEditors();
                     this.tab = tabId;
@@ -841,8 +852,11 @@
                 async init() {
                     fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => this.ip = d.ip);
                     const saved = localStorage.getItem('wedding_v2_data');
-                    if (saved) this.data = JSON.parse(saved);
-                    else {
+                    if (saved) {
+                        try {
+                            this.data = JSON.parse(saved);
+                        } catch (e) { }
+                    } else {
                         try {
                             const r = await fetch('data.json');
                             if (r.ok) {
@@ -854,7 +868,18 @@
                         } catch (e) { }
                     }
 
-                    // 개인정보 전체 일괄 복호화 (화면 평문 출력)
+                    // theme.style 객체 기본값 안전 보장 (fontSize 오류 방어)
+                    if (!this.data.theme) this.data.theme = {};
+                    if (!this.data.theme.style) {
+                        this.data.theme.style = {
+                            fontSize: '14px',
+                            lineHeight: '1.8',
+                            letterSpacing: '0px',
+                            textAlign: 'center'
+                        };
+                    }
+
+                    // 개인정보 일괄 복호화 (화면 평문 노출)
                     await this.decryptAllPersonalData();
 
                     if (!this.data.sections || !this.data.sections.length) this.data.sections = this.defaultSections;
@@ -869,8 +894,6 @@
                     if (!this.data.media.bgm) this.data.media.bgm = [];
                     if (!this.data.media.youtube) this.data.media.youtube = '';
                     if (!this.data.text) this.data.text = {};
-                    if (!this.data.theme) this.data.theme = { style: {} };
-                    if (!this.data.theme.style) this.data.theme.style = {};
 
                     // Token Sync Logic
                     const localToken = localStorage.getItem('ghToken');
@@ -921,7 +944,6 @@
                     }
                 },
 
-                // 🌟 완벽하게 복구된 SunEditor 초기화 함수
                 initSunEditor() {
                     if (this.tab !== 'content') return;
 
@@ -950,7 +972,6 @@
                         const container = document.getElementById(ed.id);
                         if (!container) return;
 
-                        // 이미 에디터가 정상 생성되어 있다면 내용만 동기화
                         if (this._editors[ed.key]) {
                             const val = _.get(this, ed.key) || '';
                             if (this._editors[ed.key].getContents() !== val) {
@@ -973,11 +994,9 @@
                             placeholder: '내용을 입력해주세요...'
                         });
 
-                        // 초기 데이터 세팅
                         const initial = _.get(this, ed.key) || '';
                         editor.setContents(initial);
 
-                        // 실시간 Alpine.js 데이터 양방향 바인딩
                         editor.onChange = (content) => {
                             _.set(this, ed.key, content);
                         };
@@ -1007,10 +1026,20 @@
                             const cloudData = await r3.json();
                             this.data = cloudData;
 
+                            if (!this.data.theme) this.data.theme = {};
+                            if (!this.data.theme.style) {
+                                this.data.theme.style = {
+                                    fontSize: '14px',
+                                    lineHeight: '1.8',
+                                    letterSpacing: '0px',
+                                    textAlign: 'center'
+                                };
+                            }
+
                             // 개인정보 일괄 복호화
                             await this.decryptAllPersonalData();
 
-                            // 에디터 데이터 리프레시
+                            // 에디터 내용 리프레시
                             this.$nextTick(() => {
                                 if (this._editors) {
                                     Object.keys(this._editors).forEach(key => {
@@ -1312,7 +1341,8 @@
                     };
 
                     const startEngine = () => {
-                        const venue = this.data.config.venue;
+                        const venue = this.data.config?.venue;
+                        if (!venue) return;
                         if (venue.lat && venue.lng) {
                             return drawMap(venue.lat, venue.lng);
                         }
