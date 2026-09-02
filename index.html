@@ -266,65 +266,59 @@
 
                     <!-- Body -->
                     <div class="content-body" :class="section._isFolded ? 'folded' : ''">
+                        
+                        <template x-if="section.id === 'greeting'">
+                            <section class="w-full bg-[#fdfcfb] py-14 px-6 border-b border-gray-100">
+                                <div class="max-w-md mx-auto text-center space-y-6">
+                                    
+                                    <div class="inline-block">
+                                        <span class="text-[11px] font-semibold tracking-[0.35em] text-gray-400 uppercase">INVITATION</span>
+                                        <div class="w-6 h-[1.5px] bg-gray-300 mx-auto mt-2"></div>
+                                    </div>
 
-                        <!-- 1. Names/Hero -->
+                                    <div class="text-sm leading-relaxed text-gray-700 sun-editor-common break-keep px-2"
+                                        :style="`font-size: ${data.theme?.style?.fontSize || '13.5px'}; line-height: ${data.theme?.style?.lineHeight || '1.85'}; letter-spacing: ${data.theme?.style?.letterSpacing || '-0.02em'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
+                                        x-html="data.text?.mainMessage">
+                                    </div>
+
+                                </div>
+                            </section>
+                        </template>
+
                         <template x-if="section.id === 'names'">
-                            <div class="text-center pb-12 bg-white">
-                                <div class="relative w-full overflow-hidden bg-[#fffcfc] h-[75vh]">
-                                    <img :src="data.images.main" class="w-full h-full object-cover block shadow-inner">
-                                    <div
-                                        class="absolute inset-0 flex flex-col items-center justify-center p-12 bg-black/5 pointer-events-none">
-                                        <div class="eng-font text-white text-5xl md:text-7xl mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sun-editor-common"
-                                            style="text-align: center" x-html="data.text.mainOverlay"></div>
-                                        <div class="w-16 h-[1px] bg-white/50"></div>
-                                    </div>
-                                </div>
-
-                                <div class="max-w-md mx-auto space-y-8 mt-12 mb-12">
-                                    <div class="text-sm md:text-base leading-relaxed lux-font sun-editor-common px-8"
-                                        :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '1.8'}; letter-spacing: ${data.theme?.style?.letterSpacing || '0px'}; text-align: ${data.theme?.style?.textAlign || 'center'}`"
-                                        x-html="data.text.mainMessage">
-                                    </div>
-                                </div>
-
-                                <!-- Names Section UI Restoration & Improvement -->
-                                <div class="max-w-lg mx-auto px-8 pt-10 pb-12 bg-white flex justify-center">
-                                    <div
-                                        class="grid grid-cols-[auto_auto_auto] items-end gap-x-4 sm:gap-x-12 text-center">
-                                        <!-- Groom Column -->
-                                        <div class="flex flex-col items-center min-w-[100px]">
-                                            <div class="text-[12px] text-gray-500 mb-4 lux-font whitespace-nowrap">
-                                                <span x-text="data.groom.parents.father"></span>·<span
-                                                    x-text="data.groom.parents.mother"></span><span class="">의</span>
-                                                <span x-text="data.groom.rank"></span>
+                            <section class="w-full bg-white py-12 px-6 border-b border-gray-100">
+                                <div class="max-w-md mx-auto">
+                                    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
+                                        
+                                        <div class="flex flex-col items-center">
+                                            <div class="text-[11px] text-gray-400 mb-2 whitespace-nowrap">
+                                                <span x-text="data.groom?.parents?.father || ''"></span> · 
+                                                <span x-text="data.groom?.parents?.mother || ''"></span>의 
+                                                <span class="text-gray-500 font-medium" x-text="data.groom?.rank || '장남'"></span>
                                             </div>
                                             <div class="flex flex-col items-center">
-                                                <span class="text-lg text-blue-600 font-bold mb-1 lux-font">신랑</span>
-                                                <h1 class="text-3xl tracking-[0.1em] font-light lux-font"
-                                                    x-text="data.groom.name"></h1>
+                                                <span class="text-xs text-blue-600 font-bold mb-1">신랑</span>
+                                                <h1 class="text-xl tracking-widest font-light text-gray-800" x-text="data.groom?.name"></h1>
                                             </div>
                                         </div>
 
-                                        <!-- Divider -->
-                                        <div class="lux-font text-2xl text-pink-200 pb-2 flex items-center h-full">&
-                                        </div>
+                                        <div class="text-pink-300 text-lg self-center">&</div>
 
-                                        <!-- Bride Column -->
-                                        <div class="flex flex-col items-center min-w-[100px]">
-                                            <div class="text-[12px] text-gray-500 mb-4 lux-font whitespace-nowrap">
-                                                <span x-text="data.bride.parents.father"></span>·<span
-                                                    x-text="data.bride.parents.mother"></span><span class="">의</span>
-                                                <span x-text="data.bride.rank"></span>
+                                        <div class="flex flex-col items-center">
+                                            <div class="text-[11px] text-gray-400 mb-2 whitespace-nowrap">
+                                                <span x-text="data.bride?.parents?.father || ''"></span> · 
+                                                <span x-text="data.bride?.parents?.mother || ''"></span>의 
+                                                <span class="text-gray-500 font-medium" x-text="data.bride?.rank || '장녀'"></span>
                                             </div>
                                             <div class="flex flex-col items-center">
-                                                <span class="text-lg text-pink-500 font-bold mb-1 lux-font">신부</span>
-                                                <h1 class="text-3xl tracking-[0.1em] font-light lux-font"
-                                                    x-text="data.bride.name"></h1>
+                                                <span class="text-xs text-pink-500 font-bold mb-1">신부</span>
+                                                <h1 class="text-xl tracking-widest font-light text-gray-800" x-text="data.bride?.name"></h1>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
-                            </div>
+                            </section>
                         </template>
 
                         <!-- 2. Calendar & D-Day Countdown -->
