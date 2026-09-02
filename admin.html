@@ -11,12 +11,11 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- Dependencies: Lodash & SunEditor -->
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">        
 
-    <!-- 변경 후 (전체 플러그인 포함된 풀버전) -->
-    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins.js"></script>
+    <!-- 변경 후 (all.min.js 하나로 교체) -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
@@ -950,16 +949,7 @@
                     }
                 },
 
-                initSunEditor() {
-                    const buttonList = [
-                        ['undo', 'redo'],
-                        ['fontSize', 'formatBlock'],
-                        ['bold', 'underline', 'italic', 'strike'],
-                        ['fontColor', 'hiliteColor'],
-                        ['align', 'list', 'lineHeight'],
-                        ['link', 'image'],
-                        ['codeView']
-                    ];
+                initSunEditor() {                    
 
                     const editors = [
                         { id: 'editor-mainOverlay', key: 'data.text.mainOverlay' },
@@ -978,7 +968,15 @@
                         // 🌟 수정: ed.id 문자열 대신 container DOM 요소를 직접 전달
                         const editor = SUNEDITOR.create(container, {
                             lang: SUNEDITOR_LANG['ko'],
-                            buttonList: buttonList,
+                            buttonList: [
+                                ['undo', 'redo'],
+                                ['font', 'fontSize', 'formatBlock'],
+                                ['bold', 'underline', 'italic', 'strike'],
+                                ['fontColor', 'hiliteColor'],
+                                ['align', 'list', 'lineHeight'],
+                                ['link', 'image'],
+                                ['codeView']
+                            ],
                             width: '100%',
                             height: ed.id === 'editor-venueGuide' ? '260px' : '180px',
                             minHeight: '160px',
