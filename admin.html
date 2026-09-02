@@ -366,21 +366,23 @@
             </div>
 
             <!-- TAB: CONTENT (Advanced Rich Text) -->
-            <div x-show="tab === 'content'" class="space-y-8">
-                <div class="space-y-2">
-                    <label class="label text-[#66c0f4]">메인 상단 문구 (Hero Overlay)</label>
-                    <div id="editor-mainOverlay"></div>
+            <template x-if="tab === 'content'">
+                <div class="space-y-8" x-init="$nextTick(() => initSunEditor())">
+                    <div class="space-y-2">
+                        <label class="label text-[#66c0f4]">메인 상단 문구 (Hero Overlay)</label>
+                        <div id="editor-mainOverlay"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="label text-[#66c0f4]">인사말 본문 (Main Message)</label>
+                        <div id="editor-mainMessage"></div>
+                        <p class="text-xs text-gray-500">정렬, 폰트 색상, 이미지 등을 자유롭게 편집하세요.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="label text-[#66c0f4]">오시는 길 안내 (Venue Guide)</label>
+                        <div id="editor-venueGuide"></div>
+                    </div>
                 </div>
-                <div class="space-y-2">
-                    <label class="label text-[#66c0f4]">인사말 본문 (Main Message)</label>
-                    <div id="editor-mainMessage"></div>
-                    <p class="text-xs text-gray-500">정렬, 폰트 색상, 이미지 등을 자유롭게 편집하세요.</p>
-                </div>
-                <div class="space-y-2">
-                    <label class="label text-[#66c0f4]">오시는 길 안내 (Venue Guide)</label>
-                    <div id="editor-venueGuide"></div>
-                </div>
-            </div>
+            </template>
 
             <!-- TAB: PREVIEW (Simulation) -->
             <div x-show="tab === 'preview'" class="space-y-8 animate__animated animate__fadeIn">
@@ -945,64 +947,56 @@
                 },
 
                 initSunEditor() {
-                    if (this.tab !== 'content') return;
+                    initSunEditor() {
+                        const buttonList = [
+                            ['undo', 'redo'],
+                            ['font', 'fontSize', 'formatBlock'],
+                            ['bold', 'underline', 'italic', 'strike'],
+                            ['fontColor', 'hiliteColor'],
+                            ['align', 'list', 'lineHeight'],
+                            ['link', 'image', 'video'],
+                            ['codeView']
+                        ];
 
-                    const buttonList = [
-                        ['undo', 'redo'],
-                        ['font', 'fontSize', 'formatBlock'],
-                        ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-                        ['fontColor', 'hiliteColor'],
-                        ['removeFormat'],
-                        ['outdent', 'indent'],
-                        ['align', 'horizontalRule', 'list', 'lineHeight'],
-                        ['link', 'image', 'video'],
-                        ['fullScreen', 'showBlocks', 'codeView'],
-                        ['preview', 'print']
-                    ];
+                        const editors = [
+                            { id: 'editor-mainOverlay', key: 'data.text.mainOverlay' },
+                            { id: 'editor-mainMessage', key: 'data.text.mainMessage' },
+                            { id: 'editor-venueGuide', key: 'data.config.venue.guideText' }
+                        ];
 
-                    const editors = [
-                        { id: 'editor-mainOverlay', key: 'data.text.mainOverlay' },
-                        { id: 'editor-mainMessage', key: 'data.text.mainMessage' },
-                        { id: 'editor-venueGuide', key: 'data.config.venue.guideText' }
-                    ];
+                        if (!this._editors) this._editors = {};
 
-                    if (!this._editors) this._editors = {};
+                        editors.forEach(ed => {
+                            const container = document.getElementById(ed.id);
+                            if (!container) return;
 
-                    editors.forEach(ed => {
-                        const container = document.getElementById(ed.id);
-                        if (!container) return;
+                            // 기존 에디터 잔여물 정리 후 생성
+                            container.innerHTML = '';
 
-                        if (this._editors[ed.key]) {
-                            const val = _.get(this, ed.key) || '';
-                            if (this._editors[ed.key].getContents() !== val) {
-                                this._editors[ed.key].setContents(val);
-                            }
-                            return;
-                        }
+                            const editor = SUNEDITOR.create(ed.id, {
+                                lang: SUNEDITOR_LANG['ko'],
+                                buttonList: buttonList,
+                                width: '100%',
+                                height: ed.id === 'editor-venueGuide' ? '260px' : '180px',
+                                minHeight: '160px',
+                                stickyToolbar: 0,
+                                font: ['Nanum Myeongjo', 'Gowun Batang', 'Noto Sans KR', 'Arial'],
+                                fontSize: [10, 12, 14, 16, 18, 20, 24, 28],
+                                placeholder: '내용을 입력해주세요...'
+                            });
 
-                        container.innerHTML = '';
+                            // 초기 데이터 세팅
+                            const initial = _.get(this, ed.key) || '';
+                            editor.setContents(initial);
 
-                        const editor = SUNEDITOR.create(ed.id, {
-                            lang: SUNEDITOR_LANG['ko'],
-                            buttonList: buttonList,
-                            width: '100%',
-                            height: ed.id === 'editor-venueGuide' ? '260px' : '180px',
-                            minHeight: '160px',
-                            stickyToolbar: 0,
-                            font: ['Nanum Myeongjo', 'Gowun Batang', 'Noto Sans KR', 'Arial', 'tahoma', 'Courier New,courier'],
-                            fontSize: [8, 10, 12, 14, 16, 18, 20, 24, 28, 36],
-                            placeholder: '내용을 입력해주세요...'
+                            // 변경 이벤트 바인딩
+                            editor.onChange = (content) => {
+                                _.set(this, ed.key, content);
+                            };
+
+                            this._editors[ed.key] = editor;
                         });
-
-                        const initial = _.get(this, ed.key) || '';
-                        editor.setContents(initial);
-
-                        editor.onChange = (content) => {
-                            _.set(this, ed.key, content);
-                        };
-
-                        this._editors[ed.key] = editor;
-                    });
+                    }
                 },
 
                 syncEditors() {
