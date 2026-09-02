@@ -46,9 +46,16 @@ const WeddingCrypto = {
         return btoa(String.fromCharCode(...combined));
     },
 
-    // 복호화 (index에서 사용)
+    // 복호화 (index에서 사용)    
     async decrypt(cipherTextBase64, keyStr = this.DEFAULT_KEY) {
-        if (!cipherTextBase64) return "";
+        if (!cipherTextBase64 || typeof cipherTextBase64 !== 'string') return "";
+
+        // 🌟 한글 등 Base64가 아닌 일반 평문이면 atob 실행 안 하고 그대로 반환
+        const base64Regex = /^[A-Za-z0-9+/]+={0,2}$/;
+        if (!base64Regex.test(cipherTextBase64) || cipherTextBase64.length % 4 !== 0) {
+            return cipherTextBase64;
+        }
+
         try {
             const rawCipher = Uint8Array.from(atob(cipherTextBase64), c => c.charCodeAt(0));
             const iv = rawCipher.slice(0, 12);
@@ -62,7 +69,7 @@ const WeddingCrypto = {
             );
             return new TextDecoder().decode(decrypted);
         } catch (e) {
-            console.error("복호화 실패:", e);
+            // 복호화 실패 시(또는 일반 영문 평문일 때) 에러 대신 원본 텍스트 반환
             return cipherTextBase64;
         }
     }
