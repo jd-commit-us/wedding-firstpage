@@ -224,13 +224,13 @@
         </div>
         <nav class="flex-1 overflow-y-auto py-2">
             <template x-for="t in tabs" :key="t.id">
-                <div class="nav-item" :class="tab === t.id ? 'active' : ''" @click="tab = t.id">
+                <div class="nav-item" :class="tab === t.id ? 'active' : ''" @click="switchTab(t.id)">
                     <span x-text="t.icon"></span>
                     <span x-text="t.name"></span>
                 </div>
             </template>
             <div class="nav-item border-t border-white/5 mt-2 pt-2" :class="tab === 'preview' ? 'active' : ''"
-                @click="tab = 'preview'">
+                @click="switchTab('preview')">
                 <span>📱</span>
                 <span>사이트 시뮬레이션 (Preview)</span>
             </div>
@@ -248,7 +248,7 @@
             <!-- HEADER -->
             <div class="flex justify-between items-end border-b border-[#3d4450] pb-4">
                 <div>
-                    <h1 class="text-3xl text-white font-light" x-text="tabs.find(t=>t.id===tab).name"></h1>
+                    <h1 class="text-3xl text-white font-light" x-text="tabs.find(t=>t.id===tab)?.name || '설정'"></h1>
                     <p class="text-xs text-gray-500 mt-1">모바일 초대장의 데이터를 설정합니다.</p>
                 </div>
                 <div class="text-right">
@@ -461,6 +461,7 @@
                     <p class="mt-4 text-xs text-gray-500 italic">※ 실제 모바일 화면을 시뮬레이션한 예시입니다.</p>
                 </div>
             </div>
+
             <!-- TAB: VISUALS (Uploads) -->
             <div x-show="tab === 'visuals'" class="space-y-8">
                 <!-- Main Image -->
@@ -572,212 +573,211 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB: LOGISTICS -->
-        <div x-show="tab === 'logistics'" class="space-y-8">
-            <div class="grid grid-cols-2 gap-8">
-                <div class="space-y-2">
-                    <label class="steam-label">예식 일시</label>
-                    <input type="datetime-local" x-model="data.config.weddingDate" class="steam-input">
-                </div>
-                <div class="space-y-2">
-                    <label class="steam-label">예식장 이름</label>
-                    <input x-model="data.config.venue.name" class="steam-input">
-                </div>
-            </div>
-
-            <div class="space-y-4">
-                <div class="space-y-2">
-                    <label class="steam-label">예식장 주소</label>
-                    <div class="flex gap-2">
-                        <input x-model="data.config.venue.address" class="steam-input" readonly>
-                        <button class="btn-gray whitespace-nowrap" @click="searchAddr">🔍 주소 검색</button>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
+            <!-- TAB: LOGISTICS -->
+            <div x-show="tab === 'logistics'" class="space-y-8">
+                <div class="grid grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] text-gray-400 mb-1 uppercase">위도 (Lat)</label>
-                        <input type="number" x-model.number="data.config.venue.lat" step="0.000001"
-                            class="steam-input w-full" placeholder="37.xxxxxx">
+                        <label class="steam-label">예식 일시</label>
+                        <input type="datetime-local" x-model="data.config.weddingDate" class="steam-input">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] text-gray-400 mb-1 uppercase">경도 (Lng)</label>
-                        <input type="number" x-model.number="data.config.venue.lng" step="0.000001"
-                            class="steam-input w-full" placeholder="127.xxxxxx">
+                        <label class="steam-label">예식장 이름</label>
+                        <input x-model="data.config.venue.name" class="steam-input">
                     </div>
                 </div>
-                <p class="text-[10px] text-gray-500 italic">※ 주소 검색이 정확하지 않을 경우 위도/경도를 직접 입력할 수 있습니다.</p>
-            </div>
 
-            <div class="space-y-4 pt-4 border-t border-[#3d4450]">
-                <div class="flex justify-between items-center">
-                    <label class="steam-label">지도 다운로드용 이미지</label>
-                    <button class="btn-gray text-[10px]" @click="triggerUpload('mapImg')">📁 업로드</button>
-                </div>
-                <input type="file" id="file-mapImg" class="hidden" @change="handleFile($event, 'mapImg')">
-                <input x-model="data.config.venue.mapImage" placeholder="지도 이미지 URL (업로드 시 자동 입력)" class="steam-input">
-            </div>
-
-            <div class="p-4 bg-[#12151a] rounded space-y-4">
-                <label class="steam-label">지도/길찾기 링크</label>
-                <div class="grid grid-cols-2 gap-4">
-                    <input x-model="data.config.venue.mapLinks.naver" placeholder="네이버 지도 URL" class="steam-input">
-                    <input x-model="data.config.venue.mapLinks.kakao" placeholder="카카오 맵 URL" class="steam-input">
-                    <input x-model="data.config.venue.mapLinks.tmap" placeholder="티맵 URL" class="steam-input">
-                    <input x-model="data.config.venue.mapLinks.google" placeholder="구글 지도 URL" class="steam-input">
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: DATA MANAGEMENT -->
-        <div x-show="tab === 'data_mgmt'" class="space-y-6">
-            <div class="flex gap-4 mb-4">
-                <button @click="loadExternalData" class="btn-blue text-xs">🔄 데이터 새로고침</button>
-            </div>
-
-            <!-- Guestbook -->
-            <div class="card p-6 rounded-lg">
-                <h3 class="text-[#66c0f4] font-bold mb-4 flex items-center gap-2">📝 방명록 메시지 (<span
-                        x-text="bbs.length"></span>)</h3>
-                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
-                    <template x-for="(b, idx) in bbs" :key="idx">
-                        <div
-                            class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
-                            <div class="flex-1">
-                                <div class="text-sm font-bold text-white" x-text="b.name"></div>
-                                <div class="text-xs text-gray-400 mt-1" x-text="b.message"></div>
-                                <div class="text-[9px] text-gray-600 mt-1" x-text="b.date"></div>
-                            </div>
-                            <button @click="deleteItem('bbs', idx)"
-                                class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <label class="steam-label">예식장 주소</label>
+                        <div class="flex gap-2">
+                            <input x-model="data.config.venue.address" class="steam-input" readonly>
+                            <button class="btn-gray whitespace-nowrap" @click="searchAddr">🔍 주소 검색</button>
                         </div>
-                    </template>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="text-[10px] text-gray-400 mb-1 uppercase">위도 (Lat)</label>
+                            <input type="number" x-model.number="data.config.venue.lat" step="0.000001"
+                                class="steam-input w-full" placeholder="37.xxxxxx">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] text-gray-400 mb-1 uppercase">경도 (Lng)</label>
+                            <input type="number" x-model.number="data.config.venue.lng" step="0.000001"
+                                class="steam-input w-full" placeholder="127.xxxxxx">
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-gray-500 italic">※ 주소 검색이 정확하지 않을 경우 위도/경도를 직접 입력할 수 있습니다.</p>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-[#3d4450]">
+                    <div class="flex justify-between items-center">
+                        <label class="steam-label">지도 다운로드용 이미지</label>
+                        <button class="btn-gray text-[10px]" @click="triggerUpload('mapImg')">📁 업로드</button>
+                    </div>
+                    <input type="file" id="file-mapImg" class="hidden" @change="handleFile($event, 'mapImg')">
+                    <input x-model="data.config.venue.mapImage" placeholder="지도 이미지 URL (업로드 시 자동 입력)" class="steam-input">
+                </div>
+
+                <div class="p-4 bg-[#12151a] rounded space-y-4">
+                    <label class="steam-label">지도/길찾기 링크</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input x-model="data.config.venue.mapLinks.naver" placeholder="네이버 지도 URL" class="steam-input">
+                        <input x-model="data.config.venue.mapLinks.kakao" placeholder="카카오 맵 URL" class="steam-input">
+                        <input x-model="data.config.venue.mapLinks.tmap" placeholder="티맵 URL" class="steam-input">
+                        <input x-model="data.config.venue.mapLinks.google" placeholder="구글 지도 URL" class="steam-input">
+                    </div>
                 </div>
             </div>
 
-            <!-- RSVP -->
-            <div class="card p-6 rounded-lg">
-                <h3 class="text-pink-400 font-bold mb-4 flex items-center gap-2">📋 참석자 명단 (<span
-                        x-text="joins.length"></span>)</h3>
-                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
-                    <template x-for="(j, idx) in joins" :key="idx">
-                        <div
-                            class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
-                            <div class="flex-1">
-                                <div class="text-sm font-bold text-white"><span x-text="j.name"></span> (<span
-                                        x-text="j.side === 'groom' ? '신랑측' : '신부측'"></span>)</div>
-                                <div class="text-xs text-gray-400 mt-1">인원: <span x-text="j.count"></span>명 / 식사:
-                                    <span x-text="j.meal ? '예' : '아니오'"></span>
+            <!-- TAB: DATA MANAGEMENT -->
+            <div x-show="tab === 'data_mgmt'" class="space-y-6">
+                <div class="flex gap-4 mb-4">
+                    <button @click="loadExternalData" class="btn-blue text-xs">🔄 데이터 새로고침</button>
+                </div>
+
+                <!-- Guestbook -->
+                <div class="card p-6 rounded-lg">
+                    <h3 class="text-[#66c0f4] font-bold mb-4 flex items-center gap-2">📝 방명록 메시지 (<span
+                            x-text="bbs.length"></span>)</h3>
+                    <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                        <template x-for="(b, idx) in bbs" :key="idx">
+                            <div
+                                class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold text-white" x-text="b.name"></div>
+                                    <div class="text-xs text-gray-400 mt-1" x-text="b.message"></div>
+                                    <div class="text-[9px] text-gray-600 mt-1" x-text="b.date"></div>
                                 </div>
+                                <button @click="deleteItem('bbs', idx)"
+                                    class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
                             </div>
-                            <button @click="deleteItem('joins', idx)"
-                                class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- RSVP -->
+                <div class="card p-6 rounded-lg">
+                    <h3 class="text-pink-400 font-bold mb-4 flex items-center gap-2">📋 참석자 명단 (<span
+                            x-text="joins.length"></span>)</h3>
+                    <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                        <template x-for="(j, idx) in joins" :key="idx">
+                            <div
+                                class="p-3 bg-[#0e141b] border border-[#2a475e] rounded flex justify-between items-center group">
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold text-white"><span x-text="j.name"></span> (<span
+                                            x-text="j.side === 'groom' ? '신랑측' : '신부측'"></span>)</div>
+                                    <div class="text-xs text-gray-400 mt-1">인원: <span x-text="j.count"></span>명 / 식사:
+                                        <span x-text="j.meal ? '예' : '아니오'"></span>
+                                    </div>
+                                </div>
+                                <button @click="deleteItem('joins', idx)"
+                                    class="btn-gray text-[10px] text-red-500 hover:bg-red-900/20">삭제</button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: SETTINGS & SECRETS -->
+            <div x-show="tab === 'settings'" class="space-y-6">
+                <div class="p-4 border border-red-900 bg-red-900/10 rounded">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="steam-label text-red-400">GITHUB 토큰 (필수)</label>
+                        <button @click="showTokenGuide = true" class="text-[10px] text-blue-400 underline">토큰 발급 방법
+                            보기</button>
+                    </div>
+                    <input type="password" x-model="data.config.secrets.githubToken"
+                        @input="localStorage.setItem('ghToken', $event.target.value)" class="steam-input"
+                        placeholder="ghp_...">
+                    <p class="text-[10px] text-gray-500 mt-2">※ 파일을 수정하거나 업로드하려면 이 토큰이 반드시 필요합니다.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div><label class="steam-label">카카오 API 키 (JavaScript)</label><input
+                            x-model="data.config.secrets.kakaoApiKey" class="steam-input"></div>
+                    <div><label class="steam-label">관리자 비밀번호</label><input x-model="data.config.secrets.adminPassword"
+                            class="steam-input" placeholder="비밀번호 변경">
+                    </div>
+                </div>
+
+                <!-- OG Images -->
+                <div class="space-y-4 pt-4 border-t border-[#3d4450]">
+                    <label class="steam-label">공유용 메타 데이터 (OG Image)</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input x-model="data.images.og.kakao" placeholder="카카오톡 공유 이미지" class="steam-input">
+                        <input x-model="data.images.og.facebook" placeholder="페이스북 공유 이미지" class="steam-input">
+                        <input x-model="data.images.og.insta" placeholder="인스타그램 공유 이미지" class="steam-input">
+                        <input x-model="data.images.og.x" placeholder="X(트위터) 공유 이미지" class="steam-input">
+                    </div>
+                </div>
+
+                <!-- Kakao Implementation Guide -->
+                <div class="p-6 bg-blue-900/10 border border-blue-900/50 rounded-lg space-y-4">
+                    <h3 class="text-blue-400 font-bold flex items-center gap-2">📍 Kakao API 설정 가이드</h3>
+                    <div class="text-xs text-gray-400 space-y-3 leading-relaxed">
+                        <div class="p-3 bg-black/40 rounded">
+                            <p class="text-white font-bold mb-1">1. 카카오 개발자 콘솔 접속</p>
+                            <p><a href="https://developers.kakao.com/console/app" target="_blank"
+                                    class="text-blue-400 underline">카카오 디벨로퍼스</a>에서 애플리케이션을 생성하세요.</p>
                         </div>
-                    </template>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: SETTINGS & SECRETS -->
-        <div x-show="tab === 'settings'" class="space-y-6">
-            <div class="p-4 border border-red-900 bg-red-900/10 rounded">
-                <div class="flex justify-between items-center mb-2">
-                    <label class="steam-label text-red-400">GITHUB 토큰 (필수)</label>
-                    <button @click="showTokenGuide = true" class="text-[10px] text-blue-400 underline">토큰 발급 방법
-                        보기</button>
-                </div>
-                <input type="password" x-model="data.config.secrets.githubToken"
-                    @input="localStorage.setItem('ghToken', $event.target.value)" class="steam-input"
-                    placeholder="ghp_...">
-                <p class="text-[10px] text-gray-500 mt-2">※ 파일을 수정하거나 업로드하려면 이 토큰이 반드시 필요합니다.</p>
-            </div>
-            <div class="grid grid-cols-2 gap-6">
-                <div><label class="steam-label">카카오 API 키 (JavaScript)</label><input
-                        x-model="data.config.secrets.kakaoApiKey" class="steam-input"></div>
-                <div><label class="steam-label">관리자 비밀번호</label><input x-model="data.config.secrets.adminPassword"
-                        class="steam-input" placeholder="비밀번호 변경">
-                </div>
-            </div>
-
-            <!-- OG Images -->
-            <div class="space-y-4 pt-4 border-t border-[#3d4450]">
-                <label class="steam-label">공유용 메타 데이터 (OG Image)</label>
-                <div class="grid grid-cols-2 gap-2">
-                    <input x-model="data.images.og.kakao" placeholder="카카오톡 공유 이미지" class="steam-input">
-                    <input x-model="data.images.og.facebook" placeholder="페이스북 공유 이미지" class="steam-input">
-                    <input x-model="data.images.og.insta" placeholder="인스타그램 공유 이미지" class="steam-input">
-                    <input x-model="data.images.og.x" placeholder="X(트위터) 공유 이미지" class="steam-input">
-                </div>
-            </div>
-
-            <!-- Kakao Implementation Guide -->
-            <div class="p-6 bg-blue-900/10 border border-blue-900/50 rounded-lg space-y-4">
-                <h3 class="text-blue-400 font-bold flex items-center gap-2">📍 Kakao API 설정 가이드</h3>
-                <div class="text-xs text-gray-400 space-y-3 leading-relaxed">
-                    <div class="p-3 bg-black/40 rounded">
-                        <p class="text-white font-bold mb-1">1. 카카오 개발자 콘솔 접속</p>
-                        <p><a href="https://developers.kakao.com/console/app" target="_blank"
-                                class="text-blue-400 underline">카카오 디벨로퍼스</a>에서 애플리케이션을 생성하세요.</p>
-                    </div>
-                    <div class="p-3 bg-black/40 rounded">
-                        <p class="text-white font-bold mb-1">2. 플랫폼 등록 (중요)</p>
-                        <p><b>[내 애플리케이션] > [플랫폼] > [Web]</b>에서 아래 도메인을 등록해야 기능이 동작합니다:</p>
-                        <code class="block mt-1 text-[#66c0f4]">https://jd-commit-us.github.io</code>
-                    </div>
-                    <div class="p-3 bg-black/40 rounded">
-                        <p class="text-white font-bold mb-1">3. 키 입력</p>
-                        <p><b>[앱 키]</b> 메뉴에서 <b class="text-white">JavaScript 키</b>를 복사하여 위 '카카오 API 키' 란에 입력하세요.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Update Log -->
-            <div class="space-y-4 pt-6 border-t border-[#3d4450]">
-                <div class="flex justify-between items-center">
-                    <label class="steam-label text-gray-400">업데이트 기록 (Update Log)</label>
-                    <button
-                        @click="data.updates.push({version: '', date: new Date().toISOString().split('T')[0], notes: ''})"
-                        class="text-[10px] text-[#66c0f4]">+ 기록 추가</button>
-                </div>
-                <div class="space-y-2">
-                    <template x-for="(upd, idx) in data.updates" :key="idx">
-                        <div class="flex gap-2 items-start">
-                            <input x-model="upd.version" placeholder="Ver" class="input w-20">
-                            <input x-model="upd.date" type="date" class="input w-36">
-                            <input x-model="upd.notes" placeholder="변경 내용" class="input flex-1">
-                            <button @click="data.updates.splice(idx, 1)" class="text-red-400 p-2">✕</button>
+                        <div class="p-3 bg-black/40 rounded">
+                            <p class="text-white font-bold mb-1">2. 플랫폼 등록 (중요)</p>
+                            <p><b>[내 애플리케이션] > [플랫폼] > [Web]</b>에서 아래 도메인을 등록해야 기능이 동작합니다:</p>
+                            <code class="block mt-1 text-[#66c0f4]">https://jd-commit-us.github.io</code>
                         </div>
-                    </template>
+                        <div class="p-3 bg-black/40 rounded">
+                            <p class="text-white font-bold mb-1">3. 키 입력</p>
+                            <p><b>[앱 키]</b> 메뉴에서 <b class="text-white">JavaScript 키</b>를 복사하여 위 '카카오 API 키' 란에 입력하세요.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update Log -->
+                <div class="space-y-4 pt-6 border-t border-[#3d4450]">
+                    <div class="flex justify-between items-center">
+                        <label class="steam-label text-gray-400">업데이트 기록 (Update Log)</label>
+                        <button
+                            @click="data.updates.push({version: '', date: new Date().toISOString().split('T')[0], notes: ''})"
+                            class="text-[10px] text-[#66c0f4]">+ 기록 추가</button>
+                    </div>
+                    <div class="space-y-2">
+                        <template x-for="(upd, idx) in data.updates" :key="idx">
+                            <div class="flex gap-2 items-start">
+                                <input x-model="upd.version" placeholder="Ver" class="input w-20">
+                                <input x-model="upd.date" type="date" class="input w-36">
+                                <input x-model="upd.notes" placeholder="변경 내용" class="input flex-1">
+                                <button @click="data.updates.splice(idx, 1)" class="text-red-400 p-2">✕</button>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB: MINI GAME -->
-        <div x-show="tab === 'mini_game'" class="space-y-4">
-            <div class="card p-6 rounded-lg text-center bg-[#0e141b] border border-[#2a475e]">
-                <h3 class="text-xl font-bold text-[#66c0f4] mb-4">Wedding Path Game Test</h3>
-                <p class="text-sm text-gray-400 mb-6 font-mono">
-                    <span class="text-white">Groom (Left):</span> W, A, S, D &nbsp;|&nbsp;
-                    <span class="text-white">Bride (Right):</span> Arrows
-                </p>
-                <div id="game-container"
-                    class="relative mx-auto border-4 border-[#2a475e] shadow-[0_0_20px_rgba(0,0,0,0.5)]"
-                    style="width: 800px; height: 400px; background: black;">
-                    <canvas id="gameCanvas" width="800" height="400"></canvas>
-                </div>
-                <div class="mt-6 flex justify-center gap-4">
-                    <button class="btn-blue px-8 py-2 text-lg font-bold"
-                        onclick="if(!window.gameInstance) window.gameInstance = new HighHighGame('gameCanvas'); window.gameInstance.start();">
-                        🎮 GAME START
-                    </button>
-                    <button class="btn-gray px-6 py-2" onclick="if(window.gameInstance) window.gameInstance.reset();">
-                        Restart
-                    </button>
+            <!-- TAB: MINI GAME -->
+            <div x-show="tab === 'mini_game'" class="space-y-4">
+                <div class="card p-6 rounded-lg text-center bg-[#0e141b] border border-[#2a475e]">
+                    <h3 class="text-xl font-bold text-[#66c0f4] mb-4">Wedding Path Game Test</h3>
+                    <p class="text-sm text-gray-400 mb-6 font-mono">
+                        <span class="text-white">Groom (Left):</span> W, A, S, D &nbsp;|&nbsp;
+                        <span class="text-white">Bride (Right):</span> Arrows
+                    </p>
+                    <div id="game-container"
+                        class="relative mx-auto border-4 border-[#2a475e] shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                        style="width: 800px; height: 400px; background: black;">
+                        <canvas id="gameCanvas" width="800" height="400"></canvas>
+                    </div>
+                    <div class="mt-6 flex justify-center gap-4">
+                        <button class="btn-blue px-8 py-2 text-lg font-bold"
+                            onclick="if(!window.gameInstance) window.gameInstance = new HighHighGame('gameCanvas'); window.gameInstance.start();">
+                            🎮 GAME START
+                        </button>
+                        <button class="btn-gray px-6 py-2" onclick="if(window.gameInstance) window.gameInstance.reset();">
+                            Restart
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-
+            
         </div>
     </main>
 
@@ -810,8 +810,8 @@
                     groom: { parents: {} }, bride: { parents: {} },
                     images: { gallery: [], og: {} },
                     text: {}, media: { bgm: [] },
-                    theme: {},
-                    sections: []
+                    theme: { style: {} },
+                    sections: [], updates: []
                 },
                 defaultSections: [
                     { id: 'names', title: '청첩장 상단(Names)', isVisible: true, isFolded: false, order: 1 },
@@ -827,6 +827,17 @@
                     { id: 'minigame', title: '미니게임(Wedding Path)', isVisible: true, isFolded: false, order: 11 }
                 ],
 
+                // 🌟 탭 전환 헬퍼 (탭이 'content'로 전환될 때 에디터 초기화/리프레시 보장)
+                switchTab(tabId) {
+                    this.syncEditors();
+                    this.tab = tabId;
+                    if (tabId === 'content') {
+                        this.$nextTick(() => {
+                            this.initSunEditor();
+                        });
+                    }
+                },
+
                 async init() {
                     fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => this.ip = d.ip);
                     const saved = localStorage.getItem('wedding_v2_data');
@@ -836,21 +847,18 @@
                             const r = await fetch('data.json');
                             if (r.ok) {
                                 this.data = await r.json();
-                                // Clean up navigation if exists
-                                this.data.sections = this.data.sections.filter(s => s.id !== 'navigation' && s.id !== 'navlinks' && s.id !== 'maplinks');
-                                // Ensure location section title is correct
+                                this.data.sections = (this.data.sections || []).filter(s => s.id !== 'navigation' && s.id !== 'navlinks' && s.id !== 'maplinks');
                                 const loc = this.data.sections.find(s => s.id === 'location');
                                 if (loc) loc.title = '오시는 길(Location)';
                             }
                         } catch (e) { }
                     }
 
-                    // 계좌 데이터 복호화 수행 (화면에 평문으로 표시)
-                    await this.decryptAllAccounts();
+                    // 개인정보 전체 일괄 복호화 (화면 평문 출력)
+                    await this.decryptAllPersonalData();
 
                     if (!this.data.sections || !this.data.sections.length) this.data.sections = this.defaultSections;
                     else {
-                        // Merge missing default sections
                         this.defaultSections.forEach(def => {
                             if (!this.data.sections.find(s => s.id === def.id)) {
                                 this.data.sections.push(def);
@@ -860,23 +868,22 @@
                     if (!this.data.media) this.data.media = { bgm: [], youtube: '' };
                     if (!this.data.media.bgm) this.data.media.bgm = [];
                     if (!this.data.media.youtube) this.data.media.youtube = '';
+                    if (!this.data.text) this.data.text = {};
+                    if (!this.data.theme) this.data.theme = { style: {} };
+                    if (!this.data.theme.style) this.data.theme.style = {};
 
                     // Token Sync Logic
                     const localToken = localStorage.getItem('ghToken');
-                    const dataToken = this.data.config.secrets.githubToken;
+                    const dataToken = this.data.config?.secrets?.githubToken;
 
                     if (dataToken) {
                         localStorage.setItem('ghToken', dataToken);
                     } else if (localToken) {
+                        if (!this.data.config.secrets) this.data.config.secrets = {};
                         this.data.config.secrets.githubToken = localToken;
                     }
 
                     this.loadExternalData();
-
-                    // Initialize SunEditor
-                    this.$nextTick(() => {
-                        this.initSunEditor();
-                    });
 
                     // Map Simulator Watcher
                     this.$watch('data.config.venue.address', () => {
@@ -889,7 +896,6 @@
                         this.initSimulationMap();
                     });
                 },
-
 
                 async decryptAllPersonalData() {
                     if (typeof WeddingCrypto === 'undefined') return;
@@ -915,26 +921,10 @@
                     }
                 },
 
-                // 계좌 복호화 헬퍼 (로컬/서버 데이터 로드 시 호출)
-                async decryptAllAccounts() {
-                    if (typeof WeddingCrypto === 'undefined') return;
-                    if (this.data.groom) {
-                        if (this.data.groom.account) this.data.groom.account = await WeddingCrypto.decrypt(this.data.groom.account);
-                        if (this.data.groom.parents) {
-                            if (this.data.groom.parents.fAccount) this.data.groom.parents.fAccount = await WeddingCrypto.decrypt(this.data.groom.parents.fAccount);
-                            if (this.data.groom.parents.mAccount) this.data.groom.parents.mAccount = await WeddingCrypto.decrypt(this.data.groom.parents.mAccount);
-                        }
-                    }
-                    if (this.data.bride) {
-                        if (this.data.bride.account) this.data.bride.account = await WeddingCrypto.decrypt(this.data.bride.account);
-                        if (this.data.bride.parents) {
-                            if (this.data.bride.parents.fAccount) this.data.bride.parents.fAccount = await WeddingCrypto.decrypt(this.data.bride.parents.fAccount);
-                            if (this.data.bride.parents.mAccount) this.data.bride.parents.mAccount = await WeddingCrypto.decrypt(this.data.bride.parents.mAccount);
-                        }
-                    }
-                },
-
+                // 🌟 완벽하게 복구된 SunEditor 초기화 함수
                 initSunEditor() {
+                    if (this.tab !== 'content') return;
+
                     const buttonList = [
                         ['undo', 'redo'],
                         ['font', 'fontSize', 'formatBlock'],
@@ -954,36 +944,44 @@
                         { id: 'editor-venueGuide', key: 'data.config.venue.guideText' }
                     ];
 
+                    if (!this._editors) this._editors = {};
+
                     editors.forEach(ed => {
                         const container = document.getElementById(ed.id);
                         if (!container) return;
 
-                        // Clear existing content to prevent double menu
+                        // 이미 에디터가 정상 생성되어 있다면 내용만 동기화
+                        if (this._editors[ed.key]) {
+                            const val = _.get(this, ed.key) || '';
+                            if (this._editors[ed.key].getContents() !== val) {
+                                this._editors[ed.key].setContents(val);
+                            }
+                            return;
+                        }
+
                         container.innerHTML = '';
 
                         const editor = SUNEDITOR.create(ed.id, {
                             lang: SUNEDITOR_LANG['ko'],
                             buttonList: buttonList,
                             width: '100%',
-                            height: ed.id === 'editor-venueGuide' ? '300px' : 'auto',
-                            minHeight: '200px',
+                            height: ed.id === 'editor-venueGuide' ? '260px' : '180px',
+                            minHeight: '160px',
                             stickyToolbar: 0,
                             font: ['Nanum Myeongjo', 'Gowun Batang', 'Noto Sans KR', 'Arial', 'tahoma', 'Courier New,courier'],
                             fontSize: [8, 10, 12, 14, 16, 18, 20, 24, 28, 36],
                             placeholder: '내용을 입력해주세요...'
                         });
 
-                        // Set Initial Content
+                        // 초기 데이터 세팅
                         const initial = _.get(this, ed.key) || '';
                         editor.setContents(initial);
 
-                        // Sync to Alpine
+                        // 실시간 Alpine.js 데이터 양방향 바인딩
                         editor.onChange = (content) => {
                             _.set(this, ed.key, content);
                         };
 
-                        // Store editor instance for manual sync
-                        if (!this._editors) this._editors = {};
                         this._editors[ed.key] = editor;
                     });
                 },
@@ -991,8 +989,10 @@
                 syncEditors() {
                     if (!this._editors) return;
                     Object.keys(this._editors).forEach(key => {
-                        const content = this._editors[key].getContents();
-                        _.set(this, key, content);
+                        if (this._editors[key]) {
+                            const content = this._editors[key].getContents();
+                            _.set(this, key, content);
+                        }
                     });
                 },
 
@@ -1002,17 +1002,15 @@
                         const r1 = await fetch('bbs.json?v=' + timestamp); if (r1.ok) this.bbs = await r1.json();
                         const r2 = await fetch('join.json?v=' + timestamp); if (r2.ok) this.joins = await r2.json();
 
-                        // Load Main Data
                         const r3 = await fetch('data.json?v=' + timestamp);
                         if (r3.ok) {
                             const cloudData = await r3.json();
                             this.data = cloudData;
 
-                            // 계좌 복호화 수행
-                            //await this.decryptAllAccounts();
-                            await this.decryptAllPersonalData()
+                            // 개인정보 일괄 복호화
+                            await this.decryptAllPersonalData();
 
-                            // Re-init editors with new data
+                            // 에디터 데이터 리프레시
                             this.$nextTick(() => {
                                 if (this._editors) {
                                     Object.keys(this._editors).forEach(key => {
@@ -1021,7 +1019,6 @@
                                     });
                                 }
                             });
-                            alert('서버에서 데이터를 불러왔습니다.');
                         }
                     } catch (e) { console.error(e); }
                 },
@@ -1059,13 +1056,13 @@
                 login() {
                     if (this.pass === 'admin1234!' || (this.data.config.secrets && this.pass === this.data.config.secrets.adminPassword)) {
                         this.auth = true;
-                        if (this.data.config.secrets.githubToken) localStorage.setItem('ghToken', this.data.config.secrets.githubToken);
+                        if (this.data.config.secrets?.githubToken) localStorage.setItem('ghToken', this.data.config.secrets.githubToken);
                     }
                     else alert('비밀번호가 틀렸습니다.');
                 },
 
                 get sortedSections() {
-                    return this.data.sections.sort((a, b) => a.order - b.order);
+                    return (this.data.sections || []).sort((a, b) => a.order - b.order);
                 },
 
                 // Drag & Drop
@@ -1088,7 +1085,7 @@
                 async handleFile(e, target) {
                     const file = e.target.files[0];
                     if (!file) return;
-                    if (!this.data.config.secrets.githubToken) return alert('GitHub Token required for upload');
+                    if (!this.data.config.secrets?.githubToken) return alert('GitHub Token required for upload');
 
                     if (target === 'gallery' && file.type.startsWith('image/')) {
                         await this.uploadGalleryWithThumbnail(file);
@@ -1212,7 +1209,7 @@
                     const token = this.data.config.secrets?.githubToken || localStorage.getItem('ghToken');
                     if (!token) {
                         if (!silent) {
-                            this.tab = 'settings';
+                            this.switchTab('settings');
                             alert('GitHub 토큰이 설정되지 않았습니다. 고급 설정 탭에서 토큰을 먼저 입력해주세요.');
                         }
                         return;
@@ -1234,13 +1231,11 @@
 
                             for (const side of ['groom', 'bride']) {
                                 if (cleanData[side]) {
-                                    // 본인 정보 암호화
                                     for (const f of fields) {
                                         if (cleanData[side][f]) {
                                             cleanData[side][f] = await WeddingCrypto.encrypt(cleanData[side][f]);
                                         }
                                     }
-                                    // 부모님 정보 암호화
                                     if (cleanData[side].parents) {
                                         for (const pf of parentFields) {
                                             if (cleanData[side].parents[pf]) {
@@ -1303,7 +1298,7 @@
                 },
 
                 initSimulationMap() {
-                    const key = this.data.config.secrets.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
+                    const key = this.data.config?.secrets?.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
                     const container = document.getElementById('map-simulation');
                     if (!container) return;
 
