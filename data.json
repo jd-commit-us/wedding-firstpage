@@ -5,7 +5,7 @@
       "name": "소사 MJ 컨벤션",
       "phone": "02-541-5007",
       "address": "경기도 부천시 소사구 경인로 386",
-      "guideText": "<p style=\"text-align: center\"><span style=\"font-family: Nanum Myeongjo\"><u>[5층 그랜드볼룸]</u></span></p>",
+      "guideText": "<p style=\"text-align: center\"><span style=\"font-size: 18px\"><strong>5층 그랜드볼룸</strong></span></p><p style=\"text-align: center\"><span style=\"font-size: 18px\"><strong>​</strong></span></p><ul><li><span style=\"font-size: 12px\">지하철 이용 시</span><ul><li style=\"font-size: 12px\">1호선, 서해선 &gt; 소사역 1번출구 건너편 좌측(70m)</li></ul></li><li><span style=\"font-size: 12px\">일반 버스 이용 시</span><ul><li style=\"font-size: 12px\">소사어울마당삼거리 · MJ 컨벤션 : 19, 83, 88, 88-1</li><li style=\"font-size: 12px\">소사어울마당 삼거리 : 53, 60-1</li><li style=\"font-size: 12px\">소사역 · 소사지구대 : 19, 53, 83, 88</li><li style=\"font-size: 12px\">소사 푸르지오&nbsp;: 56, 56-1, 60</li></ul></li><li><span style=\"font-size: 12px\">자가용 이용 시</span><ul><li style=\"font-size: 12px\">네비게이션 입력 - 부천시 소사구 소사본동 65-7번지</li><li style=\"font-size: 12px\">서울외곽순환고속도로(시흥IC) - 소사본3동 - 소사구청 옆</li></ul></li></ul>",
       "mapLinks": {
         "naver": "https://map.naver.com/p/entry/place/37537597",
         "kakao": "https://map.kakao.com/?map_type=TYPE_MAP&itemId=27339651",
@@ -23,43 +23,43 @@
     "secrets": {
       "kakaoApiKey": "9b4c537d082fc090a13d6081148c7d83",
       "githubToken": "",
-      "encryptedGithubToken": "2IcTHqKbqmkl8OD66rnSlrDF3EthHt0T3zCPMD82UAotP56Ha7KjzE71/jROgT00+AUV0V1dvO17N7gm5yAB8AFHy3rySX+Rcl/iEZGeUSKS4PYw1FoSN3RJYEqJo9e0isOCNomc2BBmW/YRosPaso5iobcs22A8ng=="
+      "encryptedGithubToken": "md9GTx+diiDyVklEnESl7VKboGVDRrSpBAYakMwGA3NhtkCRZUuec3o3kaXEElT0ougBeHh5EfRn4fQOUHsOVZrSQBAM9rpCfQih9wdpUPSJEqgfJ39Mul7TJZJkysLwdpzAB4m5yXxin45nrJhjHryf9Am2jVdCaw=="
     }
   },
   "groom": {
-    "name": "m6e1V0j4uZYUHxnnmV10D4m1GXfERgToOn+32WMoM6P0cZSONg==",
-    "name2": "kF2dJfOlWia6i3JWqY+QerLO9cHPeODeh6k3tAbtDCmgcw==",
+    "name": "CCEY8w10z2m7Uda5SB8y+HBDe3f5enoXfR5fPx7dNAagEVilnw==",
+    "name2": "cjtMZoU9WpwJBk6vM3IGkZR5hTqZ/3/VngNns3h5cXRsyA==",
     "rank": "차남",
-    "phone": "hjsUHWICBty18+eolnDATPgoqn16NNDRiDqtB7uJ0X5A/PFkKTZDgFU=",
+    "phone": "W9AS3AkdtavgqEqkeYX70rjgBKHVFZ9hL0aTAUhM0dom/SiFju5cWo4=",
     "bank": "국민",
-    "account": "f/Wg4WmNzLR4+ujpRrDlFcuhkOEOz1r+66MzhhFc6oZADw==",
+    "account": "1OQzHfjkJRcGDe9Rt7aD87nytmqS7y60wPS4tKqWdkszbQ==",
     "parents": {
-      "father": "xdtuOFecWdQv606H6ygCT20KVszEjTxbbnCkWrKzSdJu",
-      "mother": "EYpuTjKXcbN72y3b4d2R+HYHvxZUzZYp6S/oiUoPCvYd",
-      "fPhone": "Hbk+mFzFUgM/llyoPEbvaoAI4S/Cpkp73k/1lXMFx9tJOmK/dYcgC0k=",
-      "mPhone": "oq6+p/4HfU//TSctFb8FFz1MA8CmkZfBj/Kl9vGdg7P5BAg/FnsV2JI=",
+      "father": "zq6hZaesEMQDB+3uOhUNma3oRSAtkLPyT2iuy9FbnL9B",
+      "mother": "iLkR6IIXpSYve3ZKxrvYbUrBk2vhHqHDCxVoDcUs6AMI",
+      "fPhone": "aBQLPZCoa1QGkXxQlWuBRsRE7nsE1oiJy5Iv+eqX8fbYqoXA06zkp5o=",
+      "mPhone": "c+lBQOyl8NF0aoxoAV1D04X4wS5iDxJN8wnOQJ3HNy8Qunr0+JZ9eP4=",
       "fBank": "우리",
-      "fAccount": "ZRfeYdAcrDaiDFjz92+l/9Qd0kQwtFSimYDR71bzwToY7w==",
+      "fAccount": "209RMlZS//+rCyaeVVfyhuVe7CaJdsJmsZijd4j5VaZK9w==",
       "mBank": "신한",
-      "mAccount": "sGJYuIs3yT1qBFl0BS/NxHelRFhlFcudbRBJh+KHu6Eggg=="
+      "mAccount": "2Gsd0snoFo4ZlhebOSFr5O+/a27IUBmBISbQE8HPmL9b2A=="
     }
   },
   "bride": {
-    "name": "JaPdNQpYliKWAgQn1FGu0/dsdLZ8+zAFEgWcGhvjW+hOfHEqnA==",
-    "name2": "45GBlKSTKEsU++kQVCytHlI4sRIeXLFMWIf2qGFOLWz5vw==",
+    "name": "aBnEl3egctC7iNEmFa19HQbwwLPB3ewqqDvOgRBQiT6ZapylLw==",
+    "name2": "9PGSd/thuysnjyEZFwu9QaIcp8OWT0kNjvvyeZfnoTAh7Q==",
     "rank": "장녀",
-    "phone": "ad5KwS3rXkw5+9X/yDJDa2WvkIFHaebeQTs97gySwy2rD/qtt9f9K9s=",
+    "phone": "Qh3vj+QOa+TP43CmJnXAUuBnufrK1kuQ4xUh07iRFP5EfSoDAzy5Zos=",
     "bank": "국민",
-    "account": "Wn3afzfyhcNeBeaEi/t60D/lV3WzgdeOlT932EKwm4ZdVw==",
+    "account": "7cTl6FMghG7a6KtcD5UC7X0Bw6LbpU00AsWRXeYsg+5hEw==",
     "parents": {
-      "father": "D91B1A631t8VTOafg6GnUJZGoHJGXjWkrRoM81LS6GIr",
-      "mother": "M4VceE7JLg6MR9BsT9rwIfM2yMDbtjRXrLObAODW/5te",
-      "fPhone": "+OyIXxalU+xGs2hWq4R5EDanEPM7sLWXdouDPaDxL98nNjGaCI6jS1w=",
-      "mPhone": "pIORQndeBgNBSjCvh6WDGTgpLbT+APIgho+bkTQjbVC4zw8d+LrXib8=",
+      "father": "KguHWA9QsufJ7x18/flBVJ2/XD7uHjwdx67ZY0iR/KCj",
+      "mother": "Od47S6aGQfvQXcA/KWS5Mz14bTcSZByDtQr4lX76QBpS",
+      "fPhone": "GosZmYQy8knq0Ryo/PDR4o70woWCjfw3YcVPlhQLlZMiMwEvpfaWPeg=",
+      "mPhone": "joDOL72fyjNqGn9ownJW8co1DdoCNovg5WD60qPOxiBlz8W9nqz99fU=",
       "fBank": "농협",
-      "fAccount": "26djhXTPywSWtParAUrOcqqY7fx8drvs+IMSRYDjMp4xJw==",
+      "fAccount": "iO1BVRBH3owIYitEFDkZdG+4fxz3ukQ1ji1XEHl+1biLCQ==",
       "mBank": "신한",
-      "mAccount": "Q6SUPPIC2mTjg30zDfP4xTM30XVsz1duOTMC9ydjfxloHHk="
+      "mAccount": "6w+7JaLpVudEw1DndXXPXF3ngNR+PXMCozx+1daTZT2elrc="
     }
   },
   "images": {
@@ -196,7 +196,7 @@
   },
   "text": {
     "mainOverlay": "<p><br></p><p><br></p><p>Wedding Invitation</p>",
-    "mainMessage": "<p style=\"text-align: center\">이재석 그리고 임동희2222</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">2027년 01월 30일 토요일 AM 11시 00분</p>"
+    "mainMessage": "<p style=\"text-align: center\">이재석 그리고 임동희</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">2027년 01월 30일 토요일 AM 11시 00분</p><p style=\"text-align: center\"><br></p><p style=\"text-align: center\">새로운 한 해가 시작되는 1월,<br>저희도 새로운 시작을 맞이합니다.</p><p style=\"text-align: center\">차가운 겨울 속 따뜻한 마음으로<br>서로의 곁을 평생 지키겠습니다.</p><p style=\"text-align: center\">저희의 첫걸음에<br>소중한 마음으로 함께해 주세요.</p>"
   },
   "media": {
     "youtube": "XvSkuFcqEhI",
