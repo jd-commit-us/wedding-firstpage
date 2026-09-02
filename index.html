@@ -270,13 +270,7 @@
                         <!-- 1. 최상단 메인 대표 사진 섹션 (hero) -->
                         <template x-if="section.id === 'hero'">
                             <section class="relative w-full overflow-hidden bg-[#fffcfc] h-[75vh]">
-                                <img :src="data.images?.main" class="w-full h-full object-cover block shadow-inner">
-                                <div class="absolute inset-0 flex flex-col items-center justify-center p-12 bg-black/5 pointer-events-none">
-                                    <div class="eng-font text-white text-5xl md:text-7xl mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sun-editor-common"
-                                        style="text-align: center" 
-                                        x-html="data.text?.mainOverlay"></div>
-                                    <div class="w-16 h-[1px] bg-white/50"></div>
-                                </div>
+                                <img :src="data.images?.main" class="w-full h-full object-cover block shadow-inner">                                
                             </section>
                         </template>
                         
