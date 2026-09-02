@@ -370,23 +370,21 @@
             </div>
 
             <!-- TAB: CONTENT (Advanced Rich Text) -->
-            <template x-if="tab === 'content'">
-                <div class="space-y-8" x-init="$nextTick(() => initSunEditor())">
-                    <div class="space-y-2">
-                        <label class="label text-[#66c0f4]">메인 상단 문구 (Hero Overlay)</label>
-                        <div id="editor-mainOverlay"></div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="label text-[#66c0f4]">인사말 본문 (Main Message)</label>
-                        <div id="editor-mainMessage"></div>
-                        <p class="text-xs text-gray-500">정렬, 폰트 색상, 이미지 등을 자유롭게 편집하세요.</p>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="label text-[#66c0f4]">오시는 길 안내 (Venue Guide)</label>
-                        <div id="editor-venueGuide"></div>
-                    </div>
+            <div x-show="tab === 'content'" class="space-y-8">
+                <div class="space-y-2">
+                    <label class="label text-[#66c0f4]">메인 상단 문구 (Hero Overlay)</label>
+                    <div id="editor-mainOverlay"></div>
                 </div>
-            </template>
+                <div class="space-y-2">
+                    <label class="label text-[#66c0f4]">인사말 본문 (Main Message)</label>
+                    <div id="editor-mainMessage"></div>
+                    <p class="text-xs text-gray-500">정렬, 폰트 색상, 이미지 등을 자유롭게 편집하세요.</p>
+                </div>
+                <div class="space-y-2">
+                    <label class="label text-[#66c0f4]">오시는 길 안내 (Venue Guide)</label>
+                    <div id="editor-venueGuide"></div>
+                </div>
+            </div>
 
             <!-- TAB: PREVIEW (Simulation) -->
             <div x-show="tab === 'preview'" class="space-y-8 animate__animated animate__fadeIn">
