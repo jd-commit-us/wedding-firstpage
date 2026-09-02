@@ -1024,8 +1024,8 @@
 
                     this.dDay = `${prefix}${daysStr}${timeStr} ${suffix}`;
                 },
-
-                // ❄️ 아름다운 겨울 눈 내리는 효과 (Winter Snowflakes)
+                
+                // ❄️ 아름다운 겨울 눈 내리는 효과 (Winter Snowflakes - Slow & Elegant)
                 initSnowEffects() {
                     const canvas = document.getElementById('effect');
                     if (!canvas) return;
@@ -1045,21 +1045,24 @@
                             this.isTouchExplosion = config.isExplosion || false;
                             this.x = config.x !== undefined ? config.x : Math.random() * canvas.width;
                             this.y = config.y !== undefined ? config.y : Math.random() * -canvas.height;
-                            this.radius = this.isTouchExplosion ? Math.random() * 3 + 2 : Math.random() * 3 + 1.5;
-                            this.speedX = this.isTouchExplosion ? (Math.random() - 0.5) * 8 : (Math.random() - 0.5) * 0.8;
-                            this.speedY = this.isTouchExplosion ? (Math.random() - 0.5) * 8 : Math.random() * 1.0 + 0.6;
+                            this.radius = this.isTouchExplosion ? Math.random() * 3 + 2 : Math.random() * 2.5 + 1;
+                            
+                            // 🌟 속도를 대폭 줄여서 아주 천천히 떨어지도록 수정
+                            this.speedX = this.isTouchExplosion ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.3;
+                            this.speedY = this.isTouchExplosion ? (Math.random() - 0.5) * 6 : Math.random() * 0.4 + 0.2; // 기존보다 속도 반 이상 감소
+                            
                             this.sway = Math.random() * Math.PI * 2;
-                            this.swaySpeed = 0.02 + Math.random() * 0.02;
-                            this.opacity = Math.random() * 0.5 + 0.4;
+                            this.swaySpeed = 0.01 + Math.random() * 0.015; // 흔들림도 부드럽게
+                            this.opacity = Math.random() * 0.4 + 0.3;
                             this.life = 1.0;
                         }
                         update() {
                             this.sway += this.swaySpeed;
-                            this.x += this.speedX + Math.sin(this.sway) * 0.7;
+                            this.x += this.speedX + Math.sin(this.sway) * 0.4;
                             this.y += this.speedY;
 
                             if (this.isTouchExplosion) {
-                                this.life -= 0.03;
+                                this.life -= 0.02;
                                 this.opacity = Math.max(0, this.life);
                             } else if (this.y > canvas.height + 10) {
                                 this.y = -10;
@@ -1078,8 +1081,8 @@
                         }
                     }
 
-                    // 눈송이 45개 생성
-                    for (let i = 0; i < 45; i++) {
+                    // 눈송이 개수 (너무 산만하지 않도록 40개 유지)
+                    for (let i = 0; i < 40; i++) {
                         this.particles.push(new Snowflake({ y: Math.random() * canvas.height }));
                     }
 
@@ -1092,7 +1095,7 @@
                     loop();
 
                     this._createSnowExplosion = (x, y) => {
-                        for (let i = 0; i < 16; i++) {
+                        for (let i = 0; i < 14; i++) {
                             this.particles.push(new Snowflake({ isExplosion: true, x, y }));
                         }
                     };
