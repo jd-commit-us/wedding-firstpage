@@ -213,74 +213,88 @@
   },
   "sections": [
     {
-      "id": "names",
-      "title": "청첩장 상단(Names)",
+      "id": "hero",
+      "title": "메인 배너 사진(Hero)",
       "isVisible": true,
       "isFolded": false,
       "order": 1
+    },
+    {
+      "id": "greeting",
+      "title": "초대 인사말(Greeting)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 2
+    },
+    {
+      "id": "names",
+      "title": "신랑 신부 성함(Names)",
+      "isVisible": true,
+      "isFolded": false,
+      "order": 3
     },
     {
       "id": "calendar",
       "title": "결혼식 날(Calendar)",
       "isVisible": true,
       "isFolded": false,
-      "order": 2
-    },
+      "order": 4
+    },    
     {
       "id": "youtube",
       "title": "영상(Video)",
       "isVisible": true,
       "isFolded": false,
-      "order": 3
+      "order": 5
     },
     {
       "id": "gallery",
       "title": "사진 앨범(Gallery)",
       "isVisible": true,
       "isFolded": false,
-      "order": 4
+      "order": 6
     },
     {
       "id": "phone",
       "title": "연락처(Contact)",
       "isVisible": true,
       "isFolded": false,
-      "order": 5
+      "order": 7
     },
     {
       "id": "accounts",
       "title": "마음 전하실 곳(Accounts)",
       "isVisible": true,
       "isFolded": false,
-      "order": 6
+      "order": 8
     },
     {
       "id": "location",
       "title": "오시는 길(Location)",
       "isVisible": true,
       "isFolded": false,
-      "order": 7
+      "order": 9
     },
     {
       "id": "guestbook",
       "title": "방명록(Guestbook)",
       "isVisible": true,
       "isFolded": false,
-      "order": 8
+      "order": 10
     },
     {
       "id": "rsvp",
       "title": "참석여부(RSVP)",
       "isVisible": false,
       "isFolded": false,
-      "order": 9
+      "order": 11
     },
     {
       "id": "share",
       "title": "공유(Share)",
       "isVisible": true,
       "isFolded": false,
-      "order": 10
+      "order": 12
     }
   ],
   "guestbook": [],
