@@ -476,12 +476,11 @@
                             </div>
                         </template>
                                             
-                        <!-- 5. Contact (Layer Modal Type: Side-by-Side White Buttons) -->
+                        <!-- 5. Phone Section -->
                         <template x-if="section.id === 'phone'">
                             <div class="px-8 pb-10" x-data="{ openContactModal: null }">                                
-                                <!-- 1. 신랑측 / 신부측 축하 연락처 버튼 (가로 2분할, 화이트 배경) -->
+                                <!-- 1. 신랑측 / 신부측 축하 연락처 버튼 -->
                                 <div class="grid grid-cols-2 gap-3">
-                                    <!-- 신랑측 버튼 -->
                                     <button 
                                         type="button"
                                         @click="openContactModal = 'groom'"
@@ -492,7 +491,6 @@
                                         <span class="text-blue-500 text-[10px] font-medium">열기 →</span>
                                     </button>
 
-                                    <!-- 신부측 버튼 -->
                                     <button 
                                         type="button"
                                         @click="openContactModal = 'bride'"
@@ -514,10 +512,11 @@
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100"
                                         x-transition:leave-end="opacity-0"
-                                        @touchmove.self.prevent
+                                        @touchmove.prevent
+                                        @wheel.prevent
                                         @click.self="openContactModal = null"
-                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-                                        style="display: none;">
+                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overscroll-contain select-none"
+                                        style="display: none; touch-action: none;">
 
                                         <!-- 팝업 본문 카드 -->
                                         <div 
@@ -541,8 +540,12 @@
                                                 </button>
                                             </div>
 
-                                            <!-- 연락처 목록 렌더링 -->
-                                            <div class="space-y-3 max-h-72 overflow-y-auto pr-0.5">
+                                            <!-- 연락처 목록 렌더링 (내부 스크롤 허용 & 체이닝 차단) -->
+                                            <div 
+                                                @touchmove.stop
+                                                @wheel.stop
+                                                class="space-y-3 max-h-72 overflow-y-auto pr-0.5 overscroll-contain"
+                                                style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
                                                 <template x-for="(contact, idx) in (openContactModal === 'groom' ? getAllContacts('groom') : (openContactModal === 'bride' ? getAllContacts('bride') : []))" :key="idx">
                                                     <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl border border-gray-100">
                                                         <div class="space-y-0.5">
@@ -553,13 +556,11 @@
                                                             <div class="text-xs text-gray-600 font-mono tracking-tight" x-text="contact.phone"></div>
                                                         </div>
                                                         <div class="flex items-center gap-1.5 shrink-0">
-                                                            <!-- 전화 걸기 버튼 -->
                                                             <a :href="`tel:${contact.phone}`" 
                                                             class="p-2 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
                                                             title="전화 걸기">
                                                                 📞
                                                             </a>
-                                                            <!-- 문자 보내기 버튼 -->
                                                             <a :href="`sms:${contact.phone}`" 
                                                             class="p-2 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 rounded-lg text-xs transition shadow-xs" 
                                                             title="문자 보내기">
@@ -572,8 +573,8 @@
 
                                             <!-- 닫기 버튼 -->
                                             <button 
-                                                type="button"
-                                                @click="openContactModal = null"
+                                                type="button" 
+                                                @click="openContactModal = null" 
                                                 class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
                                                 닫기
                                             </button>
@@ -619,10 +620,11 @@
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100"
                                         x-transition:leave-end="opacity-0"
-                                        @touchmove.self.prevent
+                                        @touchmove.prevent
+                                        @wheel.prevent
                                         @click.self="openModal = null"
-                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-                                        style="display: none;">
+                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overscroll-contain select-none"
+                                        style="display: none; touch-action: none;">
 
                                         <!-- 팝업 본문 카드 -->
                                         <div 
@@ -646,8 +648,12 @@
                                                 </button>
                                             </div>
 
-                                            <!-- 계좌 목록 렌더링 -->
-                                            <div class="space-y-3 max-h-72 overflow-y-auto pr-0.5">
+                                            <!-- 계좌 목록 렌더링 (내부 스크롤 허용 & 체이닝 차단) -->
+                                            <div 
+                                                @touchmove.stop
+                                                @wheel.stop
+                                                class="space-y-3 max-h-72 overflow-y-auto pr-0.5 overscroll-contain"
+                                                style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
                                                 <template x-for="acc in (openModal ? getAllAccounts(openModal) : [])" :key="acc.name + acc.relation">
                                                     <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-xl border border-gray-100">
                                                         <div class="space-y-0.5">
@@ -659,7 +665,7 @@
                                                             <div class="text-xs text-gray-700 font-mono tracking-tight font-medium" x-text="acc.num"></div>
                                                         </div>
                                                         <button 
-                                                            type="button"
+                                                            type="button" 
                                                             @click="copyAccount(acc)"
                                                             class="px-3 py-1.5 bg-white border border-gray-200 hover:bg-gray-100 active:scale-95 text-[11px] rounded-lg shadow-xs font-semibold text-gray-700 transition-all shrink-0">
                                                             복사
@@ -670,8 +676,8 @@
 
                                             <!-- 닫기 버튼 -->
                                             <button 
-                                                type="button"
-                                                @click="openModal = null"
+                                                type="button" 
+                                                @click="openModal = null" 
                                                 class="w-full mt-5 py-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
                                                 닫기
                                             </button>
