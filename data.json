@@ -23,43 +23,43 @@
     "secrets": {
       "kakaoApiKey": "9b4c537d082fc090a13d6081148c7d83",
       "githubToken": "",
-      "encryptedGithubToken": "p6QdLBIgTdtGh+j7gyG89N3YNDaiyI7AFPzdLpoq9m5LlSUXkU0weGIAjqAzpbIb2LoeotLylUDRHr9UidU/WYuot2QwOYqmzsTzTqItmHsj9EcXMSNODkZ6LhsjJzqYPbx2UdHcSXnCCbyeYn8eRuXE0Qdw/lN4jA=="
+      "encryptedGithubToken": "Z4zHvL/mk7bdTJVvooCVvJKfhO3ovaBP30U3DT4UK4aNDjiCkJZ0dTWBa/EymTISf85cJigPT0YayLldWdkdR78f5lnf8FfV1erLzkccNKoSLQdMDRgy2jDM9gnWgdoTg0hIm/GF30rdpgv7kk+mLOi4vv2hx20z/Q=="
     }
   },
   "groom": {
-    "name": "L68bpjqrU6K+5erBjTNpRsOscX5cDOfaO2JDDT+oeZVYFgys1A==",
-    "name2": "3/CU2z51etE46q80hQDUxdiUThwMnt9Db/xcVrIg5WGJTw==",
+    "name": "nFxt2gjXyZa5DrpcpCLJ1hsXU0bx3zIIRwlDSu599AHsnSfFOA==",
+    "name2": "2FuzIHiDbIC68orA6LpdMoDsvz6bFSY+8XZwJmIYpCvjPQ==",
     "rank": "차남",
-    "phone": "1pWGCI2jASthaq7tHTiQ2G60C79fJQYedFZEpXtX0oEmcCrHh0O+L4c=",
+    "phone": "aItmqBGCrE5NfWw9oe1RmIreULQ7No2X9Wwm978JXV+7eisaWa3+A7w=",
     "bank": "국민",
-    "account": "ptyWOCQ1Smd6w96cjkUvy+kC+4pyBuyKsNmq3GPqSoGiew==",
+    "account": "BT0mQz0WLbrR9lUeTS8ym0uaEikZ/vjvL7zYJC9XR8z0Jg==",
     "parents": {
-      "father": "ZNNXivqRlGrmpsdRVwvFxgs1dil41Ti07p1Pj1EplNTo",
-      "mother": "Ps/aQ32iZ8g5565vFfJpdWWbL1/8WKxQRU7jiD8cqWSz",
-      "fPhone": "MYnR4iCN/+fKuE9aE3zXG7Eg3axlJAZBucgUoKyZAqQ992w6Pof8W2g=",
-      "mPhone": "FtA+q/Osi7yHyuu0nBSqpgWEkC0GCtiyoMxy6jGMp6ItVGG7pQq5RUI=",
+      "father": "FcB8R53bFV2EO6hRKPZ5NgkE537zwheRSZhhX99GUkAp",
+      "mother": "QAqkbnYmsRmOWRcXK8fzDqyxC+JDnyMJZTAWkTy8/+N4",
+      "fPhone": "n3n37jOrYL/yyx151myQpARcTFe6hvdawmt61t7k4fX6tZUatBv48Qk=",
+      "mPhone": "v5u6F/h5VPGlviZMOS5h8FdU8+/18cP66bKBzDJXtxlGh+3OCZdspaA=",
       "fBank": "우리",
-      "fAccount": "7bt0ubzUb9x6oEJdCRpigBhqBRc8aZ55NLP8Zc1dX+idAw==",
+      "fAccount": "8+dzUMWg88TuyIhuYf+78e0t2FTlcjzUJTsl4tO7gHT1WA==",
       "mBank": "신한",
-      "mAccount": "WR56hZ2/xT87pAbIuSECbaHE7Kwvcp8eVe7GoVvn0Jfxsw=="
+      "mAccount": "k3FzW6oZfFgV5/pFhzPRKjQKqcvJH8p7kDsDHxOvlY6t+g=="
     }
   },
   "bride": {
-    "name": "9gfrHUOClUvRa90B59NxngvaI0f3YYgcGiYAHSx9G5dqxyVmZA==",
-    "name2": "3rApjJUy6Fh9kTVEAiVHkou8jTa0WcVgvzAzA36KlUJrUg==",
+    "name": "HzAEwZJ5VI7D034/SRFJ8771yrPgCe2PPHLXWL0ZdXGjY5dHFw==",
+    "name2": "QVGMj/8jDbkEnkfveuvveH+UOlaOwtjh8ozxPb2MCDHKqA==",
     "rank": "장녀",
-    "phone": "ORTBLoyo73sEcqqQcss1S0Uu5T2bSLla+qURsBrunLsNX8c6Y1Gndak=",
+    "phone": "9uAE8tVpm5DCS9PAyRh9qsjA2g3LkLo6VWplT0sbwDW/ul2Nlbjfxng=",
     "bank": "국민",
-    "account": "pE49xEHnZbSkOXj4DZ/1xvC8AENLtbr7UYxSWBCra/LGFQ==",
+    "account": "jGwggNeOpxc/s30aAwefk2lu2m8MuVqCEBusEtqseZ689A==",
     "parents": {
-      "father": "XVfGumDT7KvLsUyt3eFhLg1a/jXjTORJd7kQRyo8NtME",
-      "mother": "1165B96YQc8ILw3dTHQlxPlMg8ZG2PZqBXduVdRNJDtk",
-      "fPhone": "Z5oUwJQSgT7trvWQXuiBOr136zxT5YHouoqu2rckONgushI0O1Xk23o=",
-      "mPhone": "/ttPzaQ7OIPr6XMsZjA/6K7iluSKGhgeGbtpOZuW/Z3fgQMtpo2AWRk=",
+      "father": "RLqYFNVi5YCJ3mdSquodF7qLBGQGxJoPLceger3gYxjA",
+      "mother": "YGngtPA1pGfW8S6joAY2fg1uAbrLUk5MWgLpp572lkHU",
+      "fPhone": "1Q9JwYU4CDG+ZK0XIlO43Z/7KO7TTzHzzaeTqJUdmwyBA18/I/c0X5s=",
+      "mPhone": "yPWKwtUe/7/bL23k8oc2JT/6TCmjR67utCxNR9Rj3YmmUuBuwoMfWSM=",
       "fBank": "농협",
-      "fAccount": "QcEvAzfp5iuS9rH8IsxYlrdOrMkKkfL1FBafvICgKDt8zA==",
+      "fAccount": "NVS9dd57oWnlR7llGQSsOM8jrHmJiA+vy0FNxy9ot3VVcg==",
       "mBank": "신한",
-      "mAccount": "pPkAI1YY2qMt1YwQT0Xz7/3XI9ZRGdtTML/bJ2xMz3ZkVGA="
+      "mAccount": "RPFrmlFpqDXDxhImzGVe/3ed+LzUVs5Yo9Ua54fIZwgYPG0="
     }
   },
   "images": {
@@ -216,7 +216,7 @@
     {
       "id": "hero",
       "title": "메인 배너 사진(Hero)",
-      "isVisible": false,
+      "isVisible": true,
       "isFolded": false,
       "order": 1
     },
