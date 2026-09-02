@@ -791,40 +791,14 @@
                         <!-- 13. Share -->
                         <template x-if="section.id === 'share'">
                             <div class="px-8 pb-10 flex flex-col items-center gap-6">
-                                <div class="flex flex-wrap justify-center gap-6 w-full">
+                                <div class="flex justify-center gap-8 w-full">
                                     <button @click="shareKakao" class="flex flex-col items-center gap-2">
-                                        <div
-                                            class="w-12 h-12 bg-[#FEE500] rounded-full flex items-center justify-center text-xl shadow-sm">
+                                        <div class="w-12 h-12 bg-[#FEE500] rounded-full flex items-center justify-center text-xl shadow-sm">
                                             💬</div>
                                         <span class="text-[10px] text-slate-500">카카오톡</span>
                                     </button>
-                                    <button @click="shareSns('facebook')" class="flex flex-col items-center gap-2">
-                                        <div
-                                            class="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center text-white text-xl shadow-sm font-bold">
-                                            f</div>
-                                        <span class="text-[10px] text-slate-500">페이스북</span>
-                                    </button>
-                                    <button @click="shareSns('x')" class="flex flex-col items-center gap-2">
-                                        <div
-                                            class="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-lg shadow-sm">
-                                            𝕏</div>
-                                        <span class="text-[10px] text-slate-500">X</span>
-                                    </button>
-                                    <button @click="shareSns('line')" class="flex flex-col items-center gap-2">
-                                        <div
-                                            class="w-12 h-12 bg-[#00B900] rounded-full flex items-center justify-center text-white text-xl shadow-sm font-bold">
-                                            L</div>
-                                        <span class="text-[10px] text-slate-500">라인</span>
-                                    </button>
-                                    <button @click="shareSns('telegram')" class="flex flex-col items-center gap-2">
-                                        <div
-                                            class="w-12 h-12 bg-[#0088CC] rounded-full flex items-center justify-center text-white text-xl shadow-sm">
-                                            ✈</div>
-                                        <span class="text-[10px] text-slate-500">텔레그램</span>
-                                    </button>
                                     <button @click="copyLink" class="flex flex-col items-center gap-2">
-                                        <div
-                                            class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-xl shadow-sm">
+                                        <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-xl shadow-sm">
                                             🔗</div>
                                         <span class="text-[10px] text-slate-500">링크 복사</span>
                                     </button>
