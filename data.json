@@ -22,7 +22,8 @@
     },
     "secrets": {
       "kakaoApiKey": "9b4c537d082fc090a13d6081148c7d83",
-      "githubToken": ""
+      "githubToken": "",
+      "encryptedGithubToken": ""
     }
   },
   "groom": {
