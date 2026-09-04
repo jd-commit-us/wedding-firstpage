@@ -2,7 +2,7 @@ name: Deploy Mobile Wedding Invitation
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # 사용 중인 브랜치명이 다르면 수정하세요 (예: master)
 
 permissions:
   contents: read
@@ -16,11 +16,15 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 🌟 GitHub Secrets에 등록한 ENCRYPTION_KEY를 JS 파일에 안전하게 주입
+      # 🌟 파일 경로를 local/js/crypto-util.js로 정확히 반영
       - name: Inject Secret Key into JS
         run: |
           sed -i 's/__ENCRYPTION_KEY__/${{ secrets.ENCRYPTION_KEY }}/g' ./local/js/crypto-util.js
