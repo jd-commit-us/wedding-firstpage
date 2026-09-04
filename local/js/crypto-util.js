@@ -1,7 +1,7 @@
 // js/crypto-util.js
 const WeddingCrypto = {
-    DEFAULT_KEY: "wedding_20270130_secure_key",
-    SALT: new TextEncoder().encode("wedding-salt-fixed-2027"),
+    DEFAULT_KEY: "__ENCRYPTION_KEY__",
+    SALT: new TextEncoder().encode("__SALT__"),
 
     async deriveKey(passphrase) {
         const enc = new TextEncoder();
