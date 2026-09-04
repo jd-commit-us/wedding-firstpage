@@ -23,169 +23,48 @@
     "secrets": {
       "kakaoApiKey": "9b4c537d082fc090a13d6081148c7d83",
       "githubToken": "",
-      "encryptedGithubToken": "XyusyWLHJP41zwx0w8QrGYEJ1kSImWBUBN2TCI83tnov+rsbQ7RnOUOXUZQNjop/LRAZXuUOnzKSwALHNPlOClqpaIhqIjfOE6vzzRHIR8ut6JQ6XgFnIIBDJXvfphozbjfoKk/39N7TTh4Z+kpgRa3u73zZeK00Gw=="
+      "encryptedGithubToken": "nfGmo3BNkVv+zB33i9kVj2QRgmeZBFV3yY2Ehi/0YW4ytNuYYtevciP2MvuPMSrOJqn/kHeO2WqKElq29ATsIz/apUk5QGRsqs0TYm/dr0PymBTdtGfJJX9vYOgsNOLXFt673e3SOX7Ih2zkFtdACV552URbR+yZWg=="
     }
   },
   "groom": {
-    "name": "gEJc5c4tGaXO9yFFRDf7UbN8Ws6sSW+eIhE11eCO0pCPJizvuQ==",
-    "name2": "xgoXSCBmepcrMWCi/oDdPZxOUmiXCpMd3WLiYGxlwcLHVg==",
+    "name": "MPNIFAa/yijMouXmFbmAkVtEEUKgYALOh2DVd2XtbuPuoX90wA==",
+    "name2": "bzsUx+gVKT9cA0dzqMECRyvVPMFCphCm92RLdn94MCTKeg==",
     "rank": "차남",
-    "phone": "c07dx3s8g/bOVlmdml+v2SR/fyQgOlPIkPV4SrVppmPp+5hYvJtVL5w=",
+    "phone": "leDJ0Tw5h4K8SlDmNvzxclxi1tJjPCYTwYRuqreXX2W3OMtlSVB7njU=",
     "bank": "국민",
-    "account": "l2sVqPACDxlkQIO2ONmOfHXuRHKh4DXzt9XJ2oLsGks4mA==",
+    "account": "gicXqz9bwUCDH9oTNqIRyZgGbx99j5Mq67012TmX+9qP/A==",
     "parents": {
-      "father": "8C/gOtMVCMShbVi9rf0vLKW7ch6bo9gcQ+W2SYZ5VitZ",
-      "mother": "rE0P6dsUaL+PlcS2F+Y4YeETTsNL97Qr7IdA6HgSCX4J",
-      "fPhone": "ajFvtiw1HSOKI3c+Y/0nNy17sPm9Hla+YLKV5XQwXKQSlaw8ii5LAhQ=",
-      "mPhone": "/EJ/jF9OzlaGqXWtXQV7koyUPC7WtEiOQOsjJTGdwbdtdwDbmNZgTI4=",
+      "father": "/N+m3htiaTvV85yPNlDQCbfTpX4apC+am7auEzdfT3qI",
+      "mother": "zsgTEzeRiwZROHlSesXMMXPb5m4SW15eUwQRV/QGbQuj",
+      "fPhone": "xZ5Ztd4Af99dmE2Q6Zxcct3AdesQtvPIOzjrlw3s4NP32XWDSDlTP2g=",
+      "mPhone": "h3aOW7Av9Xb5wY+z5YDAVESbWh0AfD4kMB3wB+wBX7SvedjxPdC7S/Y=",
       "fBank": "우리",
-      "fAccount": "0TTyhOQSSKkKO9PQMqLplGx6/4yVZMOgmWfJhKFyaIyprw==",
+      "fAccount": "2zRNKOie8U9/MXaGMEyp2N9i4gEGzspmrZF8uqOerXMufA==",
       "mBank": "신한",
-      "mAccount": "0tPhtKKsgjRbH9Nw27OkOMyzV6aTSSgfgCGwBKc3Lj3rOA=="
+      "mAccount": "4T0c/lKwciD82JfawiF0WKJHwiMAsjNY1LRbllwgblHnxg=="
     }
   },
   "bride": {
-    "name": "gr/PMnvFCN17URkZkQsgflMk+W9e6uqw4xwv2tOw5yjSm+RwQw==",
-    "name2": "dhN+GbrRf0ynMA8L9Y3AufVBnAccZSw28rlsU4JJYnxChA==",
+    "name": "ZWs5boUwLZH0GKL/srq8Ic9SI6JP1xScmNmGBwuNZpQKXDPL9A==",
+    "name2": "FpmmKROsZCkUmjaXY1fUcdvgAS1tdc75qSk8q+XzKbJidg==",
     "rank": "장녀",
-    "phone": "dF/GM2yOUpwKO6+3wJuCR+KwiViOBoVne2i85jQgFKfhIG+86v5dbRk=",
+    "phone": "HhX+V//gnhZjUNC73UYYBbFj9oo1oajE8Yt3y7ae3kNXb5qyww/GbOw=",
     "bank": "국민",
-    "account": "oXlzS606NkvcKxGebNVB3ukLj8XHusm4sUjTEJeHZ6rYfA==",
+    "account": "Tx5UnhSAvFDV9p+9ztzmLSqGDpH7WW/2IA3W8ASI/4NXOA==",
     "parents": {
-      "father": "MHT30WRe0BuvCHZWTPlpuhpJZZnqjY+WoaKYpIzS7UwJ",
-      "mother": "CMPcDtB/sxoKajXV2lieqehuc6MrByHGyWgZwuQq8lid",
-      "fPhone": "35c4x9cFz5Q5iIT74Hlgf05VjN1Vze7zvMBoy+i9u+JQ+yNg8vyuebU=",
-      "mPhone": "tcTpdDuXMeCvoettLncMBhYz8vNKxW7pUN0c2DV9prIhSTDrec/+yHA=",
+      "father": "NZAL7Yu6Q9q6myI9FYEz3FLsKFJUU+Z2TRyk7l9Et4HJ",
+      "mother": "1U78Pk8ngVRYSGzfXflM6uOE43ranR3FEBCdwGrxltEh",
+      "fPhone": "0KcSEHWEarLwzbdMtQhs/cRwJdjHxMn6ePt+sZHgIecHiNTmeFordO8=",
+      "mPhone": "1Hjdv52lDurEqiABb755Jmh83dADhYFS5esK6XxsedqUXJ60WH0XuMk=",
       "fBank": "농협",
-      "fAccount": "FhmO/lnJ5XN6B7GxLIraTMzuPCVRrtYAGEgVjJQSgAyfAg==",
+      "fAccount": "IZnJNprf+b2YKNcQ4vYfj12ns0MGHxUEfGgTePylKmDUfQ==",
       "mBank": "신한",
-      "mAccount": "wMLhbuM5GoYIocrjOXbj68wzPKiCNHNON29jhmJ8+KBZS84="
+      "mAccount": "FizbgvohvqLSjNg2QqSA3gKFONDnhpCoJIHFIx9rXlBVZbk="
     }
   },
   "images": {
     "main": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/bg/1788334260859_headermain.png",
-    "gallery": [
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981867787_thumb_221A0963.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981867787_221A0963.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981880930_thumb_221A1051.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981880930_221A1051.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981893154_thumb_221A1115.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981893154_221A1115.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981939304_thumb_221A1148.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981939304_221A1148.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981951345_thumb_221A1153.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772981951345_221A1153.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982039113_thumb_221A1181.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982039113_221A1181.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982057126_thumb_221A1247.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982057126_221A1247.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982068905_thumb_221A1267.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982068905_221A1267.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982081857_thumb_221A1319.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982081857_221A1319.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982119906_thumb_KakaoTalk_20260309_000129413.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982119906_KakaoTalk_20260309_000129413.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982140437_thumb_221A1359.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982140437_221A1359.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982154364_thumb_221A1372.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982154364_221A1372.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982170370_thumb_221A1401.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982170370_221A1401.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982186951_thumb_221A1422.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982186951_221A1422.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982198344_thumb_221A1443.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982198344_221A1443.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982214023_thumb_221A1478.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982214023_221A1478.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982607439_thumb_image-1771768751971.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982607439_image-1771768751971.png"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982889205_thumb_221A1582.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982889205_221A1582.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982901291_thumb_221A1602.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982901291_221A1602.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982912686_thumb_221A1617.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982912686_221A1617.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982923610_thumb_221A1672.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982923610_221A1672.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982936349_thumb_221A1699.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982936349_221A1699.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982957987_thumb_221A1717.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982957987_221A1717.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982968196_thumb_221A1750.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982968196_221A1750.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982980312_thumb_221A1783.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982980312_221A1783.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982997011_thumb_221A1811.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772982997011_221A1811.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983011590_thumb_221A1853.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983011590_221A1853.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983023423_thumb_221A1920.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983023423_221A1920.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983034895_thumb_221A1928.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983034895_221A1928.jpg"
-      },
-      {
-        "thumbnail": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983045879_thumb_221A1947.jpg",
-        "original": "https://raw.githubusercontent.com/highhighcouple/Wedding_Invitation/main/local/images/gallery/1772983045879_221A1947.jpg"
-      }
-    ],
+    "gallery": [],
     "og": {
       "kakao": "",
       "facebook": "",
@@ -200,7 +79,9 @@
   },
   "media": {
     "youtube": "XvSkuFcqEhI",
-    "bgm": []
+    "bgm": [
+      "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/bgm/1788484780711_1000032561.png"
+    ]
   },
   "theme": {
     "effect": "petals",
