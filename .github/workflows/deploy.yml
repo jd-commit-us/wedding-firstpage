@@ -1,1 +1,38 @@
+name: Deploy Mobile Wedding Invitation
 
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 🌟 GitHub Secrets에 등록한 ENCRYPTION_KEY를 JS 파일에 안전하게 주입
+      - name: Inject Secret Key into JS
+        run: |
+          sed -i 's/__ENCRYPTION_KEY__/${{ secrets.ENCRYPTION_KEY }}/g' ./crypto-util.js
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
