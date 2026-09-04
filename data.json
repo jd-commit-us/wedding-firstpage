@@ -23,43 +23,43 @@
     "secrets": {
       "kakaoApiKey": "9b4c537d082fc090a13d6081148c7d83",
       "githubToken": "",
-      "encryptedGithubToken": "zOaxp8PR0o5zCYaGVUIZ4spZwGSa22dwtVNirCytX8mCLtyS3B9tHxijIkj66bkvwUpXADhh0fj9D3jST1heDZKf0OmvuCBmGazwVsUdBlklrPoJ1ghJgqDpZWqsML11OhcaC6eFIAjs/NYWs3AIp6VwDB+GwL5cWQ=="
+      "encryptedGithubToken": "OJUeCAx1g5e8zcFMcZTZ24ku450BoZspXrNHmi5dYGhJ/tcKt89g+5oxWZTJ4uLGq0ousM8Zwe4oiZjA6nLJGaohse3mOsaamBh6jY7Z69b5Adtllyr5UMfwvbl1g6QRH/w5ShSuckPw7+R+9Mv0VfHw6fsYFwEGYA=="
     }
   },
   "groom": {
-    "name": "JRAdLWD0wZDM2a7SC+74yBVjN1KCMnSqX8H5uWj0zJlk7baJTw==",
-    "name2": "gY75nmE5at0mornE8HiE7mTsOAnTvBjNipO6BDA7thCZMw==",
+    "name": "G4yLkxnEtKzJ0lMLElnU7qxTAQVerT/PELvUvo6J7MAwdWlmUw==",
+    "name2": "/1/Auu+vRY08okGC0mznCoyfvPnri4TWy5iJ5uTwknwfUw==",
     "rank": "차남",
-    "phone": "cMaGvxic7MRbOwwVZ3OnkrgGraqWu1hhw8TQXJv2v62dUmWZfFwmrco=",
+    "phone": "H7wzzHiU1lokaGwf7xu7a3IEXXPTvysNscvtu1JOVdKKe2pZ2u9nZWU=",
     "bank": "국민",
-    "account": "l2o0Msqna39DQe/iis2xbdIJhRrP660jCvZF8ksIL0wdlg==",
+    "account": "mDb9g/fOLGeQFCg791RI2SYPXzdR49q7MxN2n2UwYptLqg==",
     "parents": {
-      "father": "uMiGSB2GmgF8wJ9LzrbdtDCefy+rNLW6aekYc3JhnA8i",
-      "mother": "bcdgy/OCFMr/zw69mmXU8LBIDICUQKdYiwtapFyvUoZ3",
-      "fPhone": "ThT6ZId3OGmvR8ewVQeOOi1SvnG12rYzgUQDPStosVWlKdCdvgu6Rao=",
-      "mPhone": "kmJRz2kjeZRFR/CdGqYphO5Tfw99c+ShhmNQG6XpNXukMws1INReco8=",
+      "father": "kusev3lwUA+EauZmjeb/1LBMc5Lx+AN7quVRfHXQNoL1",
+      "mother": "HgsKv6QziEmW3aFCrjgOpD7zzjnx74Puk3MZ5BXm2Quo",
+      "fPhone": "2Ol1GQm3eYPUDHfSMi7Ilj1ExF2w9ClOajdKu3TrT6R0iC9NAUFn8gw=",
+      "mPhone": "4IapvLZRZPJ0KQFFWxqaOpcmz+QswH8w3bAY2QacItbgvBfvYRIsJbo=",
       "fBank": "우리",
-      "fAccount": "LH48QhlAla1O9NgLDf2mb1/g9UqpxX5xhNyV5/WRsAFQWw==",
+      "fAccount": "PfLjem+z4B46kys8n9I8vpcP6NbEUhRCQYhed2jf6KU1Dw==",
       "mBank": "신한",
-      "mAccount": "1/F2WUjfnpFoUBxpZ5utdakvGqF4I6GA2p2CM3VVVnMozQ=="
+      "mAccount": "y5/gk87RMRyyGLqb12iWsblCdUhYa8sdVQoedxVyDyioyg=="
     }
   },
   "bride": {
-    "name": "lmWfYQvJWCJUv5b7QFoIy+TWO5qEikSwK+v+liiQ/1UpTXKKpw==",
-    "name2": "N/F/UTow3zSRmOfhktM2cOQEcxV/QbqLhyR6d8Za8G15Hw==",
+    "name": "dHDSXdqhd3nWp3qfFwZiRnqamzKgl5SFkbduTepUpiAAyvnrbQ==",
+    "name2": "LpYivC/Al5ogm0g7is6wNeZO1jaV1y+exgJO0Zxx5AM3ow==",
     "rank": "장녀",
-    "phone": "IcdwmOI7jEItgkoYEZbinS2DKsUJ0VyssQiTDOR6Y6mm9Hfjy/Xe8TE=",
+    "phone": "Aa2tc5UBH4fEbKx7d1CmDza5JQBpQbK7w/jgDAxN4+cUCXrr62IJHoM=",
     "bank": "국민",
-    "account": "WAIQ5iWraFXcHPVqX8MB600I/H7KabCBZfV5bPlAsdn1zA==",
+    "account": "lZ6TjYnMv51h2ILXERvqXoyjEPqssnLwDKHAw2WWQ17nBQ==",
     "parents": {
-      "father": "Cl2hhfD/DQ3sYlVfbdgzAsPW3U+Al0UQlWRORmPBhzCN",
-      "mother": "+KreWuOAGjIhoJQCn0zxVMrAKHR9el0a9VglWg76Y620",
-      "fPhone": "SWQwYAJbXlyetjtvOf717TH8tdlfhVpptOuQJlyrH5dPkXaDNJukSkI=",
-      "mPhone": "5DJS2AS/n6Gt6xqnBJ12ZGoG6onJb3Oxek04DlXDvjlkjjVUkr64tkk=",
+      "father": "WuuK8f934KMk87QqNYcsBI5Ndopcp23YafJeLgvXq4S0",
+      "mother": "H8CnMGTp0XGoVX1t5cFnzjkcbih5ZaqxT/eWjVYtq9p9",
+      "fPhone": "ekjnYuqH9TorsjhkISe+WfGK93q+ppgNWoYDZdWAVBeIErHDlwT5c5M=",
+      "mPhone": "9Q4ZeqeImQH70Uc4NTZZIQ4UCw18r/b9jmBCquM3VGU/qy4z3IyRwDw=",
       "fBank": "농협",
-      "fAccount": "yoM5fp882nI2l0y8rB19fGz15srGbBbmoIENXNmgl2r2Qg==",
+      "fAccount": "NZendXYHpB5aENPj4zIN0BAyCWihg2RmKBa3v7LJoMAScg==",
       "mBank": "신한",
-      "mAccount": "u49IldW0HRlQnF6wSBVjntN3woVGp1+vaz/LVDST0wTTDKA="
+      "mAccount": "xUOwcJahWdbJT7VZdkvPfsbJ2mTkXuuFJpvLx5ohhb7qhLI="
     }
   },
   "images": {
@@ -68,6 +68,10 @@
       {
         "thumbnail": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1788484902922_thumb_1000026309.jpg",
         "original": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1788484902922_1000026309.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1788484922032_thumb_1000032561.jpg",
+        "original": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1788484922032_1000032561.png"
       }
     ],
     "og": {
