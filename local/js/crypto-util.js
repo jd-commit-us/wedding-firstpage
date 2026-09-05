@@ -1,9 +1,9 @@
 // js/crypto-util.js
 const WeddingCrypto = {
     DEFAULT_KEY: "__ENCRYPTION_KEY__",
-    SALT: new TextEncoder().encode("__SALT__"),
+    SALT: "__SALT__",
 
-    
+
     async deriveKey(passphrase) {
         const enc = new TextEncoder();
         const keyMaterial = await crypto.subtle.importKey(
