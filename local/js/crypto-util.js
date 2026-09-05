@@ -1,7 +1,7 @@
 // js/crypto-util.js
 const WeddingCrypto = {
     DEFAULT_KEY: "__ENCRYPTION_KEY__",
-    SALT: "__SALT__",
+    SALT: new TextEncoder().encode("__SALT__"), // 🌟 이 부분을 다시 TextEncoder로 감싸주세요
 
 
     async deriveKey(passphrase) {
