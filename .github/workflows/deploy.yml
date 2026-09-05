@@ -28,6 +28,7 @@ jobs:
       - name: Inject Secret Key into JS
         run: |
           sed -i 's/__ENCRYPTION_KEY__/${{ secrets.ENCRYPTION_KEY }}/g' ./local/js/crypto-util.js
+          sed -i 's/__SALT__/${{ secrets.SALT }}/g' ./local/js/crypto-util.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
