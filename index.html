@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>모바일 청첩장</title>
 
     <!-- Open Graph / Facebook / KakaoTalk -->
@@ -888,12 +888,29 @@
         </div>
     </div>
 
-    <!-- Lightbox Modal -->
-    <div x-show="lightbox" class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-0" x-cloak
-        @click="lightbox=null">
-        <button @click="lightbox = null"
-            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-slate-300 transition-colors z-50">✕</button>
-        <img :src="lightbox" class="w-full h-full object-contain" @click.stop>
+    <!-- Lightbox Modal (확대 줌 기능 제거 및 고정) -->
+    <div x-show="lightbox" 
+        class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-0 select-none overflow-hidden touch-none" 
+        style="touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; overscroll-behavior: none;"
+        x-cloak
+        @click="closeLightbox()"
+        @wheel.prevent
+        @touchmove.prevent
+        @dblclick.prevent.stop
+        @keydown.escape.window="if(lightbox) closeLightbox()">
+        <button @click.stop="closeLightbox()"
+            type="button"
+            aria-label="닫기"
+            class="absolute top-6 right-6 text-white text-3xl font-light hover:text-slate-300 transition-colors z-50 p-2 cursor-pointer">✕</button>
+        <img :src="lightbox" 
+            draggable="false"
+            alt="웨딩 사진 확대보기"
+            class="w-full h-full object-contain select-none" 
+            style="touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; pointer-events: auto;"
+            @click.stop
+            @dblclick.prevent.stop
+            @touchmove.prevent
+            @touchstart="(e) => { if (e.touches && e.touches.length > 1) e.preventDefault(); }">
     </div>
 
     <!-- Scripts -->
@@ -1100,6 +1117,15 @@
                         }
 
                         setTimeout(() => this.initObserver(), 500);
+
+                        // 확대보기 모달 내 핀치 줌 및 제스처 줌 방지 (iOS Safari & 모바일 브라우저)
+                        ['gesturestart', 'gesturechange', 'gestureend'].forEach(evtType => {
+                            document.addEventListener(evtType, (e) => {
+                                if (this.lightbox) {
+                                    e.preventDefault();
+                                }
+                            }, { passive: false });
+                        });
 
                     } catch (e) {
                         console.error('초기화 에러:', e);
@@ -1353,7 +1379,15 @@
                 },
 
                 openLightbox(src) {
-                    if (src) this.lightbox = src;
+                    if (src) {
+                        this.lightbox = src;
+                        document.body.style.overflow = 'hidden';
+                    }
+                },
+
+                closeLightbox() {
+                    this.lightbox = null;
+                    document.body.style.overflow = '';
                 },
 
                 selectGalleryImage(idx) {
