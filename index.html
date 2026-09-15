@@ -272,7 +272,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            cursor: pointer;
+            cursor: default;
             background-color: transparent;
             margin-bottom: 0.75rem;
         }
@@ -286,11 +286,7 @@
             box-shadow: 0 4px 20px rgba(148, 163, 184, 0.15);
             border: 1px solid rgba(226, 232, 240, 0.8);
             background-color: #ffffff;
-            transition: opacity 0.4s ease-in-out, transform 0.3s ease;
-        }
-
-        .gal-main:hover .gal-main-img {
-            transform: scale(1.008);
+            transition: opacity 0.4s ease-in-out;
         }
 
         /* Guestbook Scrollbar */
@@ -493,17 +489,12 @@
                         <!-- 6. Gallery -->
                         <template x-if="section.id === 'gallery'">
                             <div class="px-4 pb-10">
-                                <div class="gal-main group"
-                                    @click="openLightbox(getGalleryImage(galIdx, 'original'))">
+                                <div class="gal-main">
                                     <div class="relative max-w-full inline-block overflow-hidden rounded-xl">
                                         <img :src="getGalleryImage(galIdx, 'original')"
                                             class="gal-main-img"
                                             :class="galleryMainLoaded ? 'opacity-100' : 'opacity-0'"
                                             @load="galleryMainLoaded = true">
-                                        <div class="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-full bg-slate-900/50 backdrop-blur-xs text-white text-[11px] font-medium flex items-center gap-1 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity">
-                                            <span>확대보기</span>
-                                            <span class="text-xs">🔍</span>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-5 gap-1.5">
