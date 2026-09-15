@@ -360,16 +360,16 @@
 
                         <!-- 3. 신랑 · 신부 성함 (names) -->
                         <template x-if="section.id === 'names'">
-                            <section class="w-full pb-16 pt-4 px-6 bg-white border-b border-slate-100">
-                                <div class="max-w-md mx-auto flex justify-center">
-                                    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-x-6 sm:gap-x-12 text-center">
+                            <section class="w-full py-14 sm:py-16 px-6 bg-white border-b border-slate-100 flex flex-col items-center justify-center">
+                                <div class="max-w-md w-full mx-auto flex items-center justify-center">
+                                    <div class="grid grid-cols-[1fr_auto_1fr] items-center justify-center gap-x-6 sm:gap-x-12 text-center">
                                         <!-- 신랑측 -->
-                                        <div class="flex flex-col items-center min-w-[110px]">
+                                        <div class="flex flex-col items-center justify-center min-w-[110px]">
                                             <div class="text-[12px] text-slate-500 mb-3 lux-font whitespace-nowrap">
                                                 <span x-text="data.groom?.parents?.father"></span> · <span x-text="data.groom?.parents?.mother"></span>의 
                                                 <span class="text-slate-600 font-medium" x-text="data.groom?.rank"></span>
                                             </div>
-                                            <div class="flex flex-col items-center">
+                                            <div class="flex flex-col items-center justify-center">
                                                 <span class="text-sm text-sky-600 font-bold mb-1 lux-font">신랑</span>
                                                 <h1 class="text-2xl sm:text-3xl tracking-[0.15em] font-light lux-font text-slate-800"
                                                     x-text="data.groom?.name"></h1>
@@ -377,15 +377,15 @@
                                         </div>
 
                                         <!-- 구분 기호 -->
-                                        <div class="lux-font text-2xl text-sky-200 self-center pb-2">&</div>
+                                        <div class="lux-font text-2xl text-sky-200 self-center flex items-center justify-center leading-none">&</div>
 
                                         <!-- 신부측 -->
-                                        <div class="flex flex-col items-center min-w-[110px]">
+                                        <div class="flex flex-col items-center justify-center min-w-[110px]">
                                             <div class="text-[12px] text-slate-500 mb-3 lux-font whitespace-nowrap">
                                                 <span x-text="data.bride?.parents?.father"></span> · <span x-text="data.bride?.parents?.mother"></span>의 
                                                 <span class="text-slate-600 font-medium" x-text="data.bride?.rank"></span>
                                             </div>
-                                            <div class="flex flex-col items-center">
+                                            <div class="flex flex-col items-center justify-center">
                                                 <span class="text-sm text-sky-500 font-bold mb-1 lux-font">신부</span>
                                                 <h1 class="text-2xl sm:text-3xl tracking-[0.15em] font-light lux-font text-slate-800"
                                                     x-text="data.bride?.name"></h1>
