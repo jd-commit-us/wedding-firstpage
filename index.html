@@ -321,16 +321,12 @@
                         class="sec-header pt-16 pb-5 px-6 flex flex-col items-center justify-center text-center bg-white z-10 relative select-none"
                         :class="section._canFold ? 'cursor-pointer group' : ''">
                         
-                        <!-- 영어 서브타이틀 (우리의 색감인 파란 계열) -->
-                        <span class="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-sky-600 uppercase mb-2 lux-font"
-                            x-text="getSectionSub(section.id)"></span>
-                            
-                        <!-- 한글 메인 타이틀 (가운데 정렬 명조) -->
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-800 tracking-wider lux-font"
+                        <!-- 한글 챕터 타이틀 (기존 영어 서브타이틀 위치에 한글 타이틀 적용, 검정색 타이틀 및 중복 제거) -->
+                        <h2 class="text-base sm:text-lg font-bold tracking-[0.12em] text-sky-600 lux-font mb-1"
                             x-text="getSectionTitle(section)"></h2>
                             
                         <!-- 세련된 파란 계열 미니 디바이더 라인 -->
-                        <div class="w-7 h-[2px] bg-sky-300 rounded-full mt-3.5 mb-1"></div>
+                        <div class="w-7 h-[2px] bg-sky-300 rounded-full mt-2 mb-1"></div>
 
                         <!-- 접기/펼치기 토글 배지 (접기 가능한 섹션일 때) -->
                         <div x-show="section._canFold" 
