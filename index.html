@@ -9,32 +9,47 @@
     <!-- Open Graph / Facebook / KakaoTalk -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jd-commit-us.github.io/wedding-firstpage/">
-    <meta property="og:title" content="재석 ♥ 동희의 모바일 청첩장">
-    <meta property="og:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
+    <meta property="og:title" content="모바일 청첩장">
+    <meta property="og:description" content="영원히 함께할 사랑의 맹세, 같이 축복해주세요">
     <meta property="og:image"
         content="https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/bg/1788334260859_headermain.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="ko_KR">
-    <meta property="og:site_name" content="재석 ♥ 동희 결혼식">
+    <meta property="og:site_name" content="모바일 청첩장">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://jd-commit-us.github.io/wedding-firstpage/">
-    <meta name="twitter:title" content="재석 ♥ 동희 모바일 청첩장">
-    <meta name="twitter:description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 영원히 함께할 사랑의 맹세, 같이 축복해주세요">
+    <meta name="twitter:title" content="모바일 청첩장">
+    <meta name="twitter:description" content="영원히 함께할 사랑의 맹세, 같이 축복해주세요">
     <meta name="twitter:image"
         content="https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/bg/1788334260859_headermain.png">
 
     <!-- Additional Meta Tags -->
-    <meta name="description" content="2027년 1월 30일 토요일 AM 11시 | 소사 MJ 컨벤션 | 이재석과 임동희의 결혼식에 초대합니다">
-    <meta name="keywords" content="결혼식, 청첩장, 모바일청첩장, 이재석, 임동희, 소사 MJ 컨벤션">
-    <meta name="author" content="이재석, 임동희">
+    <meta name="description" content="결혼식에 초대합니다">
+    <meta name="keywords" content="결혼식, 청첩장, 모바일청첩장">
+    <meta name="author" content="">
     <meta name="theme-color" content="#b8d5f2">
     
     <!-- Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Binggrae';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae.woff') format('woff');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Binggrae';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae-Bold.woff') format('woff');
+            font-weight: 700;
+            font-display: swap;
+        }
+    </style>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -42,8 +57,8 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Nanum Myeongjo"', '"Gowun Batang"', 'serif'],
-                        serif: ['"Nanum Myeongjo"', '"Gowun Batang"', 'serif'],
+                        sans: ['"Binggrae"', 'sans-serif'],
+                        serif: ['"Binggrae"', 'serif'],
                     }
                 }
             }
@@ -66,7 +81,7 @@
         }
 
         html, body, button, input, textarea, select {
-            font-family: 'Nanum Myeongjo', 'Gowun Batang', serif !important;
+            font-family: 'Binggrae', sans-serif !important;
         }
 
         .eng-font {
@@ -74,7 +89,7 @@
         }
 
         .lux-font {
-            font-family: 'Nanum Myeongjo', 'Gowun Batang', serif;
+            font-family: 'Binggrae', sans-serif;
         }
 
         [x-cloak] {
@@ -335,7 +350,7 @@
                                 <div class="max-w-md mx-auto text-center">
                                     <div class="text-[13.5px] leading-[2.2] text-slate-700 font-light break-keep px-4 sun-editor-common"
                                         :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '2.1'}; letter-spacing: ${data.theme?.style?.letterSpacing || '-0.02em'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
-                                        x-html="data.text?.mainMessage">
+                                        x-html="getGreetingMessage()">
                                     </div>
                                 </div>
                             </section>
@@ -384,8 +399,6 @@
                             <div class="px-8 pb-12 text-center" 
                                 x-data="{
                                     days: 0,
-                                    groomName: (data && data.groom && data.groom.name) || '시훈',
-                                    brideName: (data && data.bride && data.bride.name) || '미정',
                                     initTimer() {
                                         const rawDate = (this.data && this.data.config && this.data.config.weddingDate) || '2027-01-30T11:00:00';
                                         const safeDateStr = String(rawDate).replace(' ', 'T');
@@ -422,9 +435,9 @@
                                 <!-- 이미지 스타일 D-Day 문구 영역 -->
                                 <div class="pt-6 text-center">
                                     <p class="text-[15px] sm:text-base text-[#4a4a4a] tracking-tight font-normal">
-                                        <span x-text="data.groom?.name || groomName"></span>
+                                        <span x-text="data.groom?.name2 || ''"></span>
                                         <span class="text-[#e27d73] mx-1 text-xs">♥</span>
-                                        <span x-text="data.bride?.name || brideName"></span>의 결혼식이 
+                                        <span x-text="data.bride?.name2 || ''"></span>의 결혼식이 
                                         <template x-if="days > 0">
                                             <span><span class="text-[#e27d73] font-normal" x-text="days + '일'"></span> 남았습니다.</span>
                                         </template>
@@ -823,7 +836,7 @@
                         <!-- 12. Mini Game -->
                         <template x-if="section.id === 'minigame'">
                             <div class="px-4 pb-10 text-center bg-[#0b1329] text-white py-12">
-                                <h2 class="text-2xl font-bold mb-6 font-[Nanum Myeongjo] text-sky-200">Wedding Path</h2>
+                                <h2 class="text-2xl font-bold mb-6 font-['Binggrae'] text-sky-200">Wedding Path</h2>
                                 <p class="text-xs text-slate-400 mb-4">PC: WASD / 방향키 | Mobile: 터치하여 시작</p>
                                 <div class="relative w-full max-w-[800px] mx-auto aspect-[2/1] border-4 border-slate-800 rounded-xl overflow-hidden shadow-2xl"
                                     x-init="$nextTick(() => { if (typeof HighHighGame !== 'undefined') window.publicGame = new HighHighGame('publicGameCanvas'); })">
@@ -860,7 +873,7 @@
 
     <footer
         class="py-12 text-center text-[11px] text-slate-400 font-medium tracking-widest bg-white border-t border-slate-100">
-        Copyright (c) 이재석 All Right Reserved
+        Copyright (c) <span x-text="data.groom?.name || ''"></span> All Right Reserved
     </footer>
 
     <!-- Video Modal -->
@@ -962,6 +975,23 @@
                     return '';
                 },
 
+                getGreetingMessage() {
+                    let msg = this.data?.text?.mainMessage || '';
+                    if (this.data?.groom?.name) {
+                        msg = msg.replaceAll('이재석', this.data.groom.name);
+                    }
+                    if (this.data?.groom?.name2) {
+                        msg = msg.replaceAll('재석', this.data.groom.name2);
+                    }
+                    if (this.data?.bride?.name) {
+                        msg = msg.replaceAll('임동희', this.data.bride.name);
+                    }
+                    if (this.data?.bride?.name2) {
+                        msg = msg.replaceAll('동희', this.data.bride.name2);
+                    }
+                    return msg;
+                },
+
                 async init() {
                     if (sessionStorage.getItem('visited')) this.showIntro = false;
 
@@ -1000,6 +1030,11 @@
                                             }
                                         }
                                     }
+                                    // name2 안전 보정 (name2가 없거나 복호화되지 않은 경우 name 기반 설정)
+                                    if (!rawData[side].name2 || rawData[side].name2.length > 8) {
+                                        const fullName = rawData[side].name || '';
+                                        rawData[side].name2 = fullName.length > 2 ? fullName.slice(1) : fullName;
+                                    }
                                 }
                             }
                         }
@@ -1021,7 +1056,23 @@
                             this.sortedSections = [...this.data.sections].sort((a, b) => a.order - b.order);
 
                             if (this.data.groom?.name && this.data.bride?.name) {
-                                document.title = `${this.data.groom.name} ♥ ${this.data.bride.name}의 모바일 청첩장`;
+                                const gName = this.data.groom.name;
+                                const bName = this.data.bride.name;
+                                const dateStr = this.data.config?.weddingDate ? this.data.config.weddingDate.replace('T', ' ') : '2027년 1월 30일 토요일 AM 11시';
+                                const venueStr = this.data.config?.venue?.name || '소사 MJ 컨벤션';
+
+                                document.title = `${gName} ♥ ${bName}의 모바일 청첩장`;
+
+                                const setMeta = (attr, val, content) => {
+                                    const el = document.querySelector(`meta[${attr}="${val}"]`);
+                                    if (el) el.setAttribute('content', content);
+                                };
+                                setMeta('property', 'og:title', `${gName} ♥ ${bName}의 모바일 청첩장`);
+                                setMeta('property', 'og:site_name', `${gName} ♥ ${bName} 결혼식`);
+                                setMeta('name', 'twitter:title', `${gName} ♥ ${bName} 모바일 청첩장`);
+                                setMeta('name', 'description', `${dateStr} | ${venueStr} | ${gName}과 ${bName}의 결혼식에 초대합니다`);
+                                setMeta('name', 'keywords', `결혼식, 청첩장, 모바일청첩장, ${gName}, ${bName}, ${venueStr}`);
+                                setMeta('name', 'author', `${gName}, ${bName}`);
                             }
                         }
 
