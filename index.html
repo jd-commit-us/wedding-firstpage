@@ -320,36 +320,22 @@
                         <template x-if="section.id === 'calendar'">
                             <div class="px-8 pb-12 text-center" 
                                 x-data="{
-                                    days: '0', hours: '00', minutes: '00', seconds: '00', dDayText: '',
+                                    days: 0,
+                                    groomName: (data && data.groom && data.groom.name) || '시훈',
+                                    brideName: (data && data.bride && data.bride.name) || '미정',
                                     initTimer() {
-                                        const update = () => {
-                                            const rawDate = (this.data && this.data.config && this.data.config.weddingDate) || '2027-01-30T11:00:00';
-                                            const safeDateStr = String(rawDate).replace(' ', 'T');
-                                            const target = new Date(safeDateStr).getTime();
-                                            const now = new Date().getTime();
-                                            const diff = target - now;
-
-                                            if (!isNaN(diff) && diff > 0) {
-                                                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                                                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                                                const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                                                this.days = String(d);
-                                                this.hours = String(h).padStart(2, '0');
-                                                this.minutes = String(m).padStart(2, '0');
-                                                this.seconds = String(s).padStart(2, '0');
-                                                this.dDayText = `결혼식이 ${d}일 남았습니다.`;
-                                            } else if (diff <= 0) {
-                                                this.days = '0';
-                                                this.hours = '00';
-                                                this.minutes = '00';
-                                                this.seconds = '00';
-                                                this.dDayText = '오늘 우리의 결혼식이 시작됩니다! ❄️';
-                                            }
-                                        };
-                                        update();
-                                        setInterval(update, 1000);
+                                        const rawDate = (this.data && this.data.config && this.data.config.weddingDate) || '2027-01-30T11:00:00';
+                                        const safeDateStr = String(rawDate).replace(' ', 'T');
+                                        
+                                        // 날짜 단위(자정 기준) D-Day 계산
+                                        const targetDate = new Date(safeDateStr);
+                                        const targetMidnight = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate()).getTime();
+                                        
+                                        const now = new Date();
+                                        const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+                                        
+                                        const diff = targetMidnight - todayMidnight;
+                                        this.days = Math.ceil(diff / (1000 * 60 * 60 * 24));
                                     }
                                 }"
                                 x-init="initTimer()">
@@ -370,30 +356,22 @@
                                     </template>
                                 </div>
 
-                                <!-- 카운트다운 박스 -->
-                                <div class="p-6 bg-sky-50/50 rounded-2xl border border-sky-100 shadow-sm">
-                                    <div class="text-[11px] font-semibold text-sky-500 tracking-widest uppercase mb-4">D-Day</div>
-                                    
-                                    <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto mb-4">
-                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
-                                            <div class="text-lg font-bold text-slate-800 font-mono tracking-tight" x-text="days"></div>
-                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">DAYS</div>
-                                        </div>
-                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
-                                            <div class="text-lg font-bold text-slate-800 font-mono tracking-tight" x-text="hours"></div>
-                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">HOUR</div>
-                                        </div>
-                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
-                                            <div class="text-lg font-bold text-slate-800 font-mono tracking-tight" x-text="minutes"></div>
-                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">MIN</div>
-                                        </div>
-                                        <div class="bg-white/95 backdrop-blur-sm rounded-xl py-2.5 px-1 border border-sky-100 shadow-xs">
-                                            <div class="text-lg font-bold text-sky-500 font-mono tracking-tight" x-text="seconds"></div>
-                                            <div class="text-[9px] text-slate-400 font-semibold mt-0.5">SEC</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-xs font-semibold text-slate-700 tracking-tight" x-text="dDayText"></div>
+                                <!-- 이미지 스타일 D-Day 문구 영역 -->
+                                <div class="pt-6 border-t border-[#e8ded8] text-center">
+                                    <p class="text-[15px] sm:text-base text-[#4a4a4a] tracking-tight font-normal">
+                                        <span x-text="groomName"></span>
+                                        <span class="text-[#e27d73] mx-1 text-xs">♥</span>
+                                        <span x-text="brideName"></span>의 결혼식이 
+                                        <template x-if="days > 0">
+                                            <span><span class="text-[#e27d73] font-normal" x-text="days + '일'"></span> 남았습니다.</span>
+                                        </template>
+                                        <template x-if="days === 0">
+                                            <span class="text-[#e27d73] font-medium">오늘</span>입니다.
+                                        </template>
+                                        <template x-if="days < 0">
+                                            <span><span class="text-[#e27d73] font-normal" x-text="Math.abs(days) + '일'"></span> 지났습니다.</span>
+                                        </template>
+                                    </p>
                                 </div>
                             </div>
                         </template>
