@@ -34,9 +34,21 @@
     
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Nanum Myeongjo"', '"Gowun Batang"', 'serif'],
+                        serif: ['"Nanum Myeongjo"', '"Gowun Batang"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <script src="./local/js/crypto-util.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
@@ -53,12 +65,16 @@
             --text: #334155;
         }
 
+        html, body, button, input, textarea, select {
+            font-family: 'Nanum Myeongjo', 'Gowun Batang', serif !important;
+        }
+
         .eng-font {
             font-family: 'Great Vibes', cursive;
         }
 
         .lux-font {
-            font-family: 'Nanum Myeongjo', serif;
+            font-family: 'Nanum Myeongjo', 'Gowun Batang', serif;
         }
 
         [x-cloak] {
@@ -137,11 +153,12 @@
             }
         }
 
-        /* Layout */
+        /* Layout & Smooth Scroll Reveal */
         .section-wrap {
             opacity: 0;
-            transform: translateY(50px);
-            transition: 1s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateY(40px);
+            transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
             margin-bottom: 2px;
             background: white;
             box-shadow: 0 4px 20px rgba(148, 163, 184, 0.08);
@@ -152,14 +169,45 @@
             transform: translateY(0);
         }
 
-        .content-body {
-            transition: max-height 0.8s ease-in-out;
+        /* 내부 헤더 및 콘텐츠의 부드러운 스윽 애니메이션 */
+        .section-wrap .sec-header {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .section-wrap.active .sec-header {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-wrap .content-body {
+            transition: opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, max-height 0.8s ease-in-out;
             overflow: hidden;
-            max-height: 3000px;
+            max-height: 4000px;
+            opacity: 0;
+            transform: translateY(22px);
+            will-change: opacity, transform;
+        }
+
+        .section-wrap.active .content-body {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .content-body.folded {
-            max-height: 0;
+            max-height: 0 !important;
+            opacity: 0 !important;
+            transform: translateY(-10px) !important;
+        }
+
+        /* Hero 첫 메인 배너는 즉시 표시 */
+        #hero.section-wrap,
+        #hero.section-wrap .content-body {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
         }
 
         /* Gallery Grid */
@@ -237,18 +285,32 @@
     <main class="pb-32 w-full">
         <template x-for="section in sortedSections" :key="section.id">
             <template x-if="section.isVisible">
-                <div class="section-wrap relative" :id="section.id"
-                    :class="section.id === 'names' ? 'pt-0 w-full mb-0 shadow-none' : 'max-w-lg mx-auto'">
+                <div class="section-wrap relative max-w-lg mx-auto" :id="section.id">
 
-                    <!-- 헤더 영역 (hero, greeting, names 숨김) -->
-                    <div x-show="!['names', 'hero', 'greeting'].includes(section.id)"
+                    <!-- 중앙 정렬된 프리미엄 블루톤 헤더 영역 (hero 제외) -->
+                    <div x-show="section.id !== 'hero'"
                         @click="if(section._canFold) section._isFolded = !section._isFolded"
-                        class="p-6 flex justify-between items-center bg-white z-10 relative"
-                        :class="section._canFold ? 'cursor-pointer' : ''">
-                        <h2 class="text-lg lux-font font-bold text-slate-700 tracking-wide"
-                            x-text="t(section.id) === section.id ? section.title : t(section.id)"></h2>
-                        <span x-show="section._canFold" class="text-slate-400 text-xs"
-                            x-text="section._isFolded ? '▼' : '▲'"></span>
+                        class="sec-header pt-16 pb-5 px-6 flex flex-col items-center justify-center text-center bg-white z-10 relative select-none"
+                        :class="section._canFold ? 'cursor-pointer group' : ''">
+                        
+                        <!-- 영어 서브타이틀 (우리의 색감인 파란 계열) -->
+                        <span class="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-sky-600 uppercase mb-2 lux-font"
+                            x-text="getSectionSub(section.id)"></span>
+                            
+                        <!-- 한글 메인 타이틀 (가운데 정렬 명조) -->
+                        <h2 class="text-xl sm:text-2xl font-bold text-slate-800 tracking-wider lux-font"
+                            x-text="getSectionTitle(section)"></h2>
+                            
+                        <!-- 세련된 파란 계열 미니 디바이더 라인 -->
+                        <div class="w-7 h-[2px] bg-sky-300 rounded-full mt-3.5 mb-1"></div>
+
+                        <!-- 접기/펼치기 토글 배지 (접기 가능한 섹션일 때) -->
+                        <div x-show="section._canFold" 
+                            class="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-medium border border-sky-100 group-hover:bg-sky-100 transition-all">
+                            <span x-text="section._isFolded ? '상세내용 보기' : '접기'"></span>
+                            <span class="text-[9px] transform transition-transform duration-300 inline-block" 
+                                :class="section._isFolded ? '' : 'rotate-180'">▼</span>
+                        </div>
                     </div>
 
                     <!-- Body -->
@@ -262,14 +324,8 @@
                         
                         <!-- 2. 초대 인사말 (Greeting) -->
                         <template x-if="section.id === 'greeting'">
-                            <section class="w-full py-20 px-6 bg-[#fbfdff] border-b border-sky-50">
+                            <section class="w-full pb-16 pt-2 px-6 bg-white border-b border-sky-50">
                                 <div class="max-w-md mx-auto text-center">
-                                    <div class="mb-10 flex flex-col items-center">
-                                        <span class="font-serif italic text-2xl text-sky-800/80 tracking-wide select-none">
-                                            Invitation
-                                        </span>
-                                    </div>
-
                                     <div class="text-[13.5px] leading-[2.2] text-slate-700 font-light break-keep px-4 sun-editor-common"
                                         :style="`font-size: ${data.theme?.style?.fontSize || '14px'}; line-height: ${data.theme?.style?.lineHeight || '2.1'}; letter-spacing: ${data.theme?.style?.letterSpacing || '-0.02em'}; text-align: ${data.theme?.style?.textAlign || 'center'};`"
                                         x-html="data.text?.mainMessage">
@@ -280,8 +336,8 @@
 
                         <!-- 3. 신랑 · 신부 성함 (names) -->
                         <template x-if="section.id === 'names'">
-                            <section class="w-full py-16 px-6 bg-white border-b border-slate-100">
-                                <div class="max-w-lg mx-auto flex justify-center">
+                            <section class="w-full pb-16 pt-4 px-6 bg-white border-b border-slate-100">
+                                <div class="max-w-md mx-auto flex justify-center">
                                     <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-x-6 sm:gap-x-12 text-center">
                                         <!-- 신랑측 -->
                                         <div class="flex flex-col items-center min-w-[110px]">
@@ -357,11 +413,11 @@
                                 </div>
 
                                 <!-- 이미지 스타일 D-Day 문구 영역 -->
-                                <div class="pt-6 border-t border-[#e8ded8] text-center">
+                                <div class="pt-6 text-center">
                                     <p class="text-[15px] sm:text-base text-[#4a4a4a] tracking-tight font-normal">
-                                        <span x-text="groomName"></span>
+                                        <span x-text="data.groom?.name || groomName"></span>
                                         <span class="text-[#e27d73] mx-1 text-xs">♥</span>
-                                        <span x-text="brideName"></span>의 결혼식이 
+                                        <span x-text="data.bride?.name || brideName"></span>의 결혼식이 
                                         <template x-if="days > 0">
                                             <span><span class="text-[#e27d73] font-normal" x-text="days + '일'"></span> 남았습니다.</span>
                                         </template>
@@ -722,8 +778,8 @@
                         <template x-if="section.id === 'rsvp'">
                             <div class="px-8 pb-10">
                                 <div class="p-6 bg-[#f0f7ff] rounded-2xl border border-sky-100 space-y-4">
-                                    <div class="text-center font-bold text-sky-800 mb-2">
-                                        참석 여부 전달
+                                    <div class="text-center text-xs text-sky-800/80 mb-1">
+                                        소중한 날, 함께해 주실 마음을 전해주세요.
                                     </div>
                                     <div class="grid grid-cols-2 gap-2">
                                         <button @click="newJoin.side='groom'"
@@ -833,18 +889,64 @@
 
                 dict: {
                     ko: {
-                        names: '초대합니다',
+                        greeting: '소중한 분들을 초대합니다',
+                        names: '신랑 · 신부',
                         calendar: '결혼식 날',
-                        youtube: '영상',
+                        youtube: '웨딩 영상',
                         gallery: '사진 앨범',
-                        phone: '연락처',
+                        phone: '연락처 안내',
                         accounts: '마음 전하실 곳',
                         location: '오시는 길',
-                        guestbook: '방명록',
+                        guestbook: '축하 메시지',
                         rsvp: '참석 여부 전달',
-                        share: '공유'
+                        minigame: '미니 게임',
+                        share: '청첩장 공유'
                     },
-                    en: { names: 'Names', calendar: 'Calendar', of: 'of' }
+                    en: {
+                        greeting: 'INVITATION',
+                        names: 'GROOM & BRIDE',
+                        calendar: 'CALENDAR',
+                        youtube: 'VIDEO',
+                        gallery: 'GALLERY',
+                        phone: 'CONTACT',
+                        accounts: 'ACCOUNT',
+                        location: 'LOCATION',
+                        guestbook: 'GUESTBOOK',
+                        rsvp: 'RSVP',
+                        minigame: 'EVENT',
+                        share: 'SHARE'
+                    }
+                },
+
+                sectionEnSubs: {
+                    hero: '',
+                    greeting: 'INVITATION',
+                    names: 'GROOM & BRIDE',
+                    calendar: 'CALENDAR',
+                    youtube: 'WEDDING VIDEO',
+                    gallery: 'GALLERY',
+                    phone: 'CONTACT',
+                    accounts: 'ACCOUNT',
+                    location: 'LOCATION',
+                    guestbook: 'GUESTBOOK',
+                    rsvp: 'RSVP',
+                    minigame: 'SPECIAL EVENT',
+                    share: 'SHARE'
+                },
+
+                getSectionSub(id) {
+                    return this.sectionEnSubs[id] || 'WEDDING';
+                },
+
+                getSectionTitle(section) {
+                    if (!section) return '';
+                    if (this.dict[this.lang] && this.dict[this.lang][section.id]) {
+                        return this.dict[this.lang][section.id];
+                    }
+                    if (section.title) {
+                        return section.title.replace(/\s*\([^)]*\)/g, '').trim();
+                    }
+                    return '';
                 },
 
                 async init() {
@@ -1132,13 +1234,45 @@
                     }
                 },
 
+                _observer: null,
                 initObserver() {
-                    const obs = new IntersectionObserver(entries => {
-                        entries.forEach(e => {
-                            if (e.isIntersecting) e.target.classList.add('active');
+                    if (this._observer) {
+                        this._observer.disconnect();
+                    }
+                    this._observer = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                                obs.unobserve(entry.target);
+                            }
                         });
-                    }, { threshold: 0.1 });
-                    document.querySelectorAll('.section-wrap').forEach(el => obs.observe(el));
+                    }, { 
+                        threshold: 0.05,
+                        rootMargin: '0px 0px -40px 0px' 
+                    });
+
+                    const activateElements = () => {
+                        const sections = document.querySelectorAll('.section-wrap');
+                        sections.forEach(el => {
+                            if (el.id === 'hero') {
+                                el.classList.add('active');
+                                return;
+                            }
+                            if (!el.classList.contains('active')) {
+                                const rect = el.getBoundingClientRect();
+                                if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
+                                    el.classList.add('active');
+                                } else {
+                                    this._observer.observe(el);
+                                }
+                            }
+                        });
+                    };
+
+                    activateElements();
+                    setTimeout(activateElements, 300);
+                    setTimeout(activateElements, 800);
+                    setTimeout(activateElements, 1500);
                 },
 
                 getGalleryImage(idx, type = 'thumbnail') {
