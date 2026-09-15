@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
     <title>모바일 청첩장</title>
 
     <!-- Open Graph / Facebook / KakaoTalk -->
@@ -74,6 +74,17 @@
             --text: #334155;
         }
 
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            touch-action: pan-y;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            overscroll-behavior-x: none;
+            -webkit-user-drag: none;
+        }
+
         html, body, button, input, textarea, select {
             font-family: 'Binggrae', sans-serif !important;
             -webkit-font-smoothing: antialiased;
@@ -81,6 +92,15 @@
             text-rendering: optimizeLegibility;
             font-synthesis: none;
             letter-spacing: -0.015em;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            -webkit-touch-callout: none;
         }
 
         /* 폰트가 과도하게 굵어 보이지 않도록 전반적인 굵기 완화 */
@@ -151,14 +171,14 @@
         }
 
         /* Effects */
-        canvas {
+        #effect {
             position: fixed;
             top: 0;
             left: 0;
             pointer-events: none;
             z-index: 50;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
         }
 
         /* Responsive */
@@ -1118,14 +1138,34 @@
 
                         setTimeout(() => this.initObserver(), 500);
 
-                        // 확대보기 모달 내 핀치 줌 및 제스처 줌 방지 (iOS Safari & 모바일 브라우저)
+                        // 모바일 브라우저 제스처 줌 및 핀치 줌 방지 (iOS Safari & Android Chrome)
                         ['gesturestart', 'gesturechange', 'gestureend'].forEach(evtType => {
                             document.addEventListener(evtType, (e) => {
-                                if (this.lightbox) {
-                                    e.preventDefault();
-                                }
+                                e.preventDefault();
                             }, { passive: false });
                         });
+
+                        // 2개 이상의 터치(핀치 드래그 등)로 인한 화면 확대/축소 방지
+                        document.addEventListener('touchstart', (e) => {
+                            if (e.touches && e.touches.length > 1) {
+                                e.preventDefault();
+                            }
+                        }, { passive: false });
+
+                        // 더블 탭 확대 방지 (입력 폼 제외)
+                        let lastTouchEnd = 0;
+                        document.addEventListener('touchend', (e) => {
+                            const now = Date.now();
+                            if (now - lastTouchEnd <= 300) {
+                                const target = e.target;
+                                if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+                                    // 입력 폼은 정상 탭 허용
+                                } else {
+                                    e.preventDefault();
+                                }
+                            }
+                            lastTouchEnd = now;
+                        }, { passive: false });
 
                     } catch (e) {
                         console.error('초기화 에러:', e);
