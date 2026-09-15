@@ -315,8 +315,8 @@
             <template x-if="section.isVisible">
                 <div class="section-wrap relative max-w-lg mx-auto" :id="section.id">
 
-                    <!-- 중앙 정렬된 프리미엄 블루톤 헤더 영역 (hero 제외) -->
-                    <div x-show="section.id !== 'hero'"
+                    <!-- 중앙 정렬된 프리미엄 블루톤 헤더 영역 (hero, names 제외) -->
+                    <div x-show="section.id !== 'hero' && section.id !== 'names'"
                         @click="if(section._canFold) section._isFolded = !section._isFolded"
                         class="sec-header pt-16 pb-5 px-6 flex flex-col items-center justify-center text-center bg-white z-10 relative select-none"
                         :class="section._canFold ? 'cursor-pointer group' : ''">
@@ -918,10 +918,10 @@
                 dict: {
                     ko: {
                         greeting: '소중한 분들을 초대합니다',
-                        names: '신랑 · 신부',
-                        calendar: '결혼식 날',
+                        names: '',
+                        calendar: '오시는 날',
                         youtube: '웨딩 영상',
-                        gallery: '사진 앨범',
+                        gallery: '갤러리',
                         phone: '연락처 안내',
                         accounts: '마음 전하실 곳',
                         location: '오시는 길',

@@ -124,7 +124,7 @@
     },
     {
       "id": "calendar",
-      "title": "결혼식 날(Calendar)",
+      "title": "오시는 날(Calendar)",
       "isVisible": true,
       "isFolded": false,
       "order": 4
@@ -138,7 +138,7 @@
     },
     {
       "id": "gallery",
-      "title": "사진 앨범(Gallery)",
+      "title": "갤러리(Gallery)",
       "isVisible": true,
       "isFolded": false,
       "order": 6
