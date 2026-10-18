@@ -23,43 +23,43 @@
     "secrets": {
       "kakaoApiKey": "9b4c537d082fc090a13d6081148c7d83",
       "githubToken": "",
-      "encryptedGithubToken": "Z5/Jh4g3M7lM4TF6XFVLWROPIEgyRlod/ffIaL+sjx8WD2+jQDwBmPDc9+w8Lc/H2lZu+lZTO2DS9a+PUsIGwpEyxMtdK+vBnZwcBfqo7QSG4N5csFPKPymZE7aEQk7HNLN6JoioG0R9hSzLmQjbfqIg6m/JRJiusg=="
+      "encryptedGithubToken": "ytDvnsOwsz2r8DbxFCRI+flvdgsECG3q7EojYcIdtzwhYTyIUIARr1Xb2aSXlfM9bxm0x/AtuRBs1o4YzxyZDdLFnz8Paa0Xaj0j6T6FdjETWnLjBRcSOegqNdHh4kra0k9+yfkfBwQlwkeQj5EsIaClXkIECAbr7Q=="
     }
   },
   "groom": {
-    "name": "i6KOnaABqLAo7Yqhtp923T/iJMcelLmtKBYC9Fx2KIbP9cLJJQ==",
-    "name2": "jleapxjN54y/nXMqyRH6/FqMnykzU3AXza03VYDLEKgktw==",
+    "name": "Do2tAofmrVrTr1nKDf8MlUIHhPu1QTTtbdBUtCrN4kIm8dQKeg==",
+    "name2": "VENBq0YvvY8hgr/OhJsbX+YIuafURIdWaNrxQpPwynLw8A==",
     "rank": "차남",
-    "phone": "9g84FIZkIzb0G339qr23xFohA7xzEghVK11i6fZ0A8w1vXy66giZpXY=",
+    "phone": "hkY4jA2MJRK/oEWvSXTgeQjLj6Lrz4P9f6lHomm8gqiOxxURZGO9Zi4=",
     "bank": "국민",
-    "account": "blyI8Oqf7Z3yfocGMY1eS0FoZ56EaNaMVEYPTy24ytidZdE=",
+    "account": "VyLPKPg9ArEk5QA0NNQbpQNo+02lylcfvpIObhU5/MDDW2o=",
     "parents": {
-      "father": "6U7ezd1xJwN9v8nayzyh/NxTCV1GStqNWevN4Qi7gBcr",
-      "mother": "I93p4H5vcAoi/c8/t5PvqWjykMAo0mwJilIZAaNIpMwJ",
-      "fPhone": "/IqHROTFzfr3qXihs7xhyEl+3w0Qr96QYxByDeB8lXBfntMXQ6Qd62E=",
-      "mPhone": "W1qwrDhHmy5cXStmzZ5wLIyjzsqfx4cOYOZTzYbu7PT+7fybTY+2yVc=",
+      "father": "1PzH0jVU0ltgkBXEeXUsbXd3o11VVg3SJdggdnEzshTQ",
+      "mother": "llZKPbGPX+ILEBdcQFrDvgmyaLGgsjF2iOmq73HWxZlk",
+      "fPhone": "pUfYxo8FGV237/ed2dpx2cfTHV1zqkQkNdXpnVQquWzSUxs+MSh7iYg=",
+      "mPhone": "4GAsQ/KPi56ElvbgrJs9RI2johMIi7PHuiD8rbyaxBjJ1KywESdH3nk=",
       "fBank": "우리",
-      "fAccount": "TDTnDXDNnpCJr2a+DA9fwQcf5y6eIg5rYhyyQBU85XLBYqA=",
+      "fAccount": "l5mbyLA67JxaLuEOw6OoYIcERA4Uy4u4mkkX2NJwHvyKs08=",
       "mBank": "신한",
-      "mAccount": "mRrupxWlFNiwSZL+96jztoslhuZo+j/pL7S16K4nZHT7uP1lLifZ"
+      "mAccount": "m4nPFsadZWkgiRDP23rC6qGCrPTuMKsR3w9WfK6eYzjW09bWpryL"
     }
   },
   "bride": {
-    "name": "b8h+ACvHB6xg6/kI2yXIeQt38rctj3/t9yK/ZUWsM2DMTxmCaw==",
-    "name2": "kvenIWFkQfGvqMMIyURvDr1SwdKyK/89EqlYLTk9q/hxXg==",
+    "name": "Be1FjUbF3iZDzuxcfJL+B5mzPVjQyuh0mV/McoLa1uaQWNOy0A==",
+    "name2": "OSKHlxzvp0XILe8xdKimjP3U9vVU1QCJlTKC+jGWezDLDw==",
     "rank": "장녀",
-    "phone": "2HD6gcPNG/DCGxUIl4xCmW9qxQ5rCAIswCQe/ydlElgXrP7Jq0+l5J4=",
+    "phone": "AsQaP55cXId0vFaMtDdQCpSbYj+7NTLOqtIY+dJt/OzQqSMjNmHR7ug=",
     "bank": "국민",
-    "account": "eaTvsW9Hupz9W/Nx8SdXuipoHtg5ojmKF7BaJ8T4A6TJlw==",
+    "account": "HnKATxazpVCkP95QSvMrKPNvRTx6rwcGi2VLi/x4yJpK1A==",
     "parents": {
-      "father": "7i6uvy6dt9n4CzHrQO9eRTpeEHK3BHftX7syi7ozwYXm",
-      "mother": "SYajAh3Z/S1FNE8FjgLmyamoQtcCcq1yw1/xBOOCW21q",
-      "fPhone": "J8vlmWOLWW9DeoXyZw5sTIU/Pbbmd/BpyFrsLWDSc+Rdms+cvoAC95s=",
-      "mPhone": "5xFDLAXTUscDYYccb9gyQFUa8hZuokPO+tkjimU1m0TmeQ7Gps2SdM8=",
+      "father": "94rkWwl1dqZGGjfFV+lh1zUO8UOOMzni70ka0lUzuNlK",
+      "mother": "YQvmn/DwZtE+qjy/koYZPF866Wvbxlv/D+ndwuBcKZ7p",
+      "fPhone": "ORYCFSaC0ewLzTNEXPpJmSE0NRjsaq0+RrLIgJz5sqSOZquKzFcmWv8=",
+      "mPhone": "WZTZ3jn+4nPgz0qIkldnRwFX7xhOrNKC92KyGJ7/9hSeX0Ddkd1yMPs=",
       "fBank": "농협",
-      "fAccount": "xavE3lAHX1TXYy5kh9rqZkOvb5trfTJBCnyYz0GFpY5qPvMEHYzhMg==",
+      "fAccount": "v7cZv+LcvR0yEeqSGYWRUbsLCHWjGw+BJZoDkBPN5vqzWlVkoe4leQ==",
       "mBank": "신한",
-      "mAccount": "CIn7QqoIbn+tT0TxZWfOmmigLl2RBx/PSb074g7aX8GPYNYZcFJEew=="
+      "mAccount": "GU1ShtBCQ5zULZRPrYo3XwUNINT4pfHiQT5VWCfQT1kb/ht18S3Vnw=="
     }
   },
   "images": {
@@ -77,6 +77,10 @@
       {
         "thumbnail": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1792296562586_thumb_CHOI0654uc.jpg",
         "original": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1792296562586_CHOI0654uc.jpg"
+      },
+      {
+        "thumbnail": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1792296578539_thumb_CHOI0748uc.jpg",
+        "original": "https://raw.githubusercontent.com/jd-commit-us/wedding-firstpage/main/local/images/gallery/1792296578539_CHOI0748uc.jpg"
       }
     ],
     "og": {
