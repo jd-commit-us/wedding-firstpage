@@ -673,7 +673,7 @@
                                             <div 
                                                 @touchmove.stop
                                                 @wheel.stop
-                                                class="space-y-3 max-h-72 overflow-y-auto pr-0.5 overscroll-contain"
+                                                class="space-y-3 max-h-72 overflow-y-auto pr-0.5 overscroll-contain text-left"
                                                 style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
                                                 <template x-for="acc in (openModal ? getAllAccounts(openModal) : [])" :key="acc.name + acc.relation">
                                                     <div class="flex justify-between items-center p-3.5 bg-slate-50 rounded-xl border border-slate-100">
@@ -1070,7 +1070,7 @@
                         this.data = rawData;
 
                         // Kakao Init
-                        const kKey = this.data.config?.secrets?.kakaoApiKey || '9b4c537d082fc090a13d6081148c7d83';
+                        const kKey = this.data.config?.secrets?.kakaoApiKey || '456bba7bba81762ef6186fdf7f1c2f11';
                         if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
                             Kakao.init(kKey);
                         }
