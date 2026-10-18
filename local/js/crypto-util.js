@@ -1,8 +1,8 @@
-// js/crypto-util.js
+// local/js/crypto-util.js
 const WeddingCrypto = {
-    DEFAULT_KEY: "__ENCRYPTION_KEY__",
-    SALT: new TextEncoder().encode("__SALT__"), // 🌟 이 부분을 다시 TextEncoder로 감싸주세요
-
+    // ⚠️ 두 값이 admin.html과 index.html에서 완전히 동일해야 합니다.
+    DEFAULT_KEY: "wedding-secret-fixed-key", 
+    SALT: new TextEncoder().encode("wedding-salt-fixed-unique-bytes"),
 
     async deriveKey(passphrase) {
         const enc = new TextEncoder();
@@ -27,13 +27,12 @@ const WeddingCrypto = {
         );
     },
 
-    // 암호화 (admin에서 사용)
     async encrypt(plainText, keyStr = this.DEFAULT_KEY) {
         if (!plainText) return "";
         const enc = new TextEncoder();
         const iv = crypto.getRandomValues(new Uint8Array(12));
         const key = await this.deriveKey(keyStr);
-        
+
         const encrypted = await crypto.subtle.encrypt(
             { name: "AES-GCM", iv: iv },
             key,
@@ -47,11 +46,10 @@ const WeddingCrypto = {
         return btoa(String.fromCharCode(...combined));
     },
 
-    // 복호화 (index에서 사용)    
     async decrypt(cipherTextBase64, keyStr = this.DEFAULT_KEY) {
         if (!cipherTextBase64 || typeof cipherTextBase64 !== 'string') return "";
 
-        // 🌟 한글 등 Base64가 아닌 일반 평문이면 atob 실행 안 하고 그대로 반환
+        // Base64 형식 검사
         const base64Regex = /^[A-Za-z0-9+/]+={0,2}$/;
         if (!base64Regex.test(cipherTextBase64) || cipherTextBase64.length % 4 !== 0) {
             return cipherTextBase64;
@@ -59,6 +57,12 @@ const WeddingCrypto = {
 
         try {
             const rawCipher = Uint8Array.from(atob(cipherTextBase64), c => c.charCodeAt(0));
+
+            // IV(12바이트) + AuthTag(16바이트) = 최소 28바이트 이상이어야 정상 암호문
+            if (rawCipher.length < 28) {
+                return cipherTextBase64;
+            }
+
             const iv = rawCipher.slice(0, 12);
             const data = rawCipher.slice(12);
             const key = await this.deriveKey(keyStr);
@@ -70,7 +74,8 @@ const WeddingCrypto = {
             );
             return new TextDecoder().decode(decrypted);
         } catch (e) {
-            // 복호화 실패 시(또는 일반 영문 평문일 때) 에러 대신 원본 텍스트 반환
+            // 복호화 검증 실패(키 불일치 또는 일반 문자열) 시 원본 유지
+            console.warn("복호화 스킵 또는 실패 (원본 반환):", cipherTextBase64);
             return cipherTextBase64;
         }
     }
