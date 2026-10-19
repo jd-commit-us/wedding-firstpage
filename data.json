@@ -23,43 +23,43 @@
     "secrets": {
       "kakaoApiKey": "9b4c537d082fc090a13d6081148c7d83",
       "githubToken": "",
-      "encryptedGithubToken": "ndvvfK51CpRZeebKT0pm0vrW5aw192uDE7xEiYBvlYROTRm0qZOopE+5Eh4Ju5A+LDOJLk688eexdmrivvhXUdTaDrDqkWGK96BR0KEA5YPcW0V1xBEIZRJmnl2nruhOe+WIMT/zLHM+WTYo2g7dqLIQFjO2HY/Cyw=="
+      "encryptedGithubToken": "hg239tvCBI3vWzkpRuaIxYit0TsHU6APCbThgvmo/ejjWCoO4IaIitLHFVd3Ti4wuLHTrnJakdy+91ksdjwcMPO7qapbPcIeVnRTk8/YtuBV9rRW78GSD2RhY3Zb2pIXDFh0vqLbzz01JIy9gTool+Caqf7h0sSgQA=="
     }
   },
   "groom": {
-    "name": "l8MbcoYSoGgkHW82H+Eete56/8Ox2iO8asNlJqF98jASUrTqMA==",
-    "name2": "YfEG1y5tkyKWevbs7W4kp0CabkhNmzUryLufLSBr3nyelw==",
+    "name": "J9F73BtUrutUDUjkO4qVEOWETCSMMwHIbnxUkcJhl3JKzNjvGg==",
+    "name2": "nJBKUe0go+PHZvQJE7ZZR9/2BYLeFLAhW9MMsUOWrHriL+g=",
     "rank": "차남",
-    "phone": "oPFSpNM194tn7zx2fynUCMr+zgKmSErbiUvaTkMavjLKYHpAviKyR9o=",
+    "phone": "VK//fNcmbOFOnJd1wmU3fM5lmNkpFKc1CUc+g5WgpqYJ6Osttbr9d5A=",
     "bank": "국민",
-    "account": "WJ0JYtQ2U7p2igEf3DnleElbYBO/PxW8wvLdmNpJ6zXVomiNUHIl",
+    "account": "4dwpkU2OsKRa8hTr3wUAnX3BVIZaXrMf8GRDJ51USJgkWgOYEvG4",
     "parents": {
-      "father": "KOMMNUr/4Xr4o5YI4KZW7QwwWJElJo0vcP9Rj6n5aX6sXssJ2g==",
-      "mother": "MFqnfqoRgnHvIXGcpGXE+SR+GluZ6PNyqvMKXJRQmflkSrvwYQ==",
-      "fPhone": "5zwFRQ8VdRt0v153htyyycgjoMLA7jc9qUhC5lRGC1Af736aty9o+aA=",
-      "mPhone": "zpz9ldLI009dLBpzPumImwcizxsZzdF9SxoDcX62+pvSN6xEZq7UeCY=",
+      "father": "428bgIsm+Tv5yyFyAnbP4fdIXpvip3f9MhQ4yRmpnLbLuc3G3w==",
+      "mother": "lKqKoJbs1YqhNPtvSULB+LTQQ2ZoH3S5eTu4sUoDKB+Wd/5ucw==",
+      "fPhone": "PGZjLSd+wiEYOoUmGixW81wtwvMHTNoxfBaWL0svBnlfORtSFYhjk6Q=",
+      "mPhone": "igqDg0COWXF8mLAZc7BRW+WqSzV91JRI1txl9Q/EKZUczznimqrB310=",
       "fBank": "농협",
-      "fAccount": "3kvMSuIl83qqQ3ChSGcEarOV2RzpzlkwOB43ezfjtViDK+ujCbFGi1s=",
+      "fAccount": "8YMEaDcigjpUOwW7b2yJjE9WMUXXbLclb8kC3Q/tUBZwzAvjhUa/4L0=",
       "mBank": "농협",
-      "mAccount": "uXR+5RZh6HR8vqVJgIocxAXYYI8dpiNIRyhTWGjWLW2n0WuVP6sXX2qL"
+      "mAccount": "ThefM6Rljt1JusPDaOHEVRHtrkKPFM0AEnvs4u/u+cuyHShcYnBFSBpD"
     }
   },
   "bride": {
-    "name": "TRIMWwHBoyfh3qRvqN5MKOwmV7QSmoRdjTMmlI8fPL52oPVb/A==",
-    "name2": "kToAM2cv3+6/2gS680OGvAum1G5tfST9H6gIoJQ7J16GYA==",
+    "name": "rQOkPrPMTBt34Ki99EIjmsmKHHXvEfeUjeOipftjJxFAqqj4oQ==",
+    "name2": "gpEOakdBqfiGuz9kUDZhUkLxfP/1H7qyEBWh6EG7PEU2+w==",
     "rank": "장녀",
-    "phone": "aR/jfP2Gi6a6n164Xbv8bFkaSlqsz0AS1aDDln9uzD+mmgVdGcJBhTc=",
+    "phone": "CrpcWO8n+B914pSka2oHynfQ6/Fbe0/C+Esbhs05cdo6/csYZJfMwMM=",
     "bank": "국민",
-    "account": "DkvJnDA48kNSwcsqqW7Euo4TlIGX8wqvQCf/IunfaTjrnKYZiE7x",
+    "account": "CIrw28bCgmyrUvmoMXXyThGigSqCaSE1ozl5LMj6GUM8wD/j8oYU",
     "parents": {
-      "father": "jWkqkyolxiLiJpJLUQOwsdo6Np3Bj81Bg6u1FN8x7VuIwzVXcA==",
-      "mother": "d3UnPY22eqLQnYyKNVtXGq2EQtLwETXtPKcCkgovPC1INE7U9w==",
-      "fPhone": "zbMaRKlP1eFfy5a48atKgizNILZuUE+HdbtCSq0XOFpEjoanT3gdvT4=",
-      "mPhone": "bq41YyvfobYkysffkzWbiSzi1QsIz150zcJl2GmQMFiBGFz34EmQMDU=",
+      "father": "ZqGQEZCHDJ7rAxLsdyuZb8ZD7RYHDdmHF0LilkxPkHSuuU3reA==",
+      "mother": "qNe1WJaNrjFwNclS2ZGKCDs1ZiO3lP94OgAh6OWAl95Uyr1wJA==",
+      "fPhone": "N6hFKMMQdWQk0TLCnJF3cndQFJcRa+3v9isKRzIYhFixBL8kvT92a18=",
+      "mPhone": "J3cv4CzKcKNIQ0wz3wLAG7+Lq2e5fOsSIp9DGWvl74gzecg1HSY/n/k=",
       "fBank": "새마을금고",
-      "fAccount": "vV8X7L3yJlrru3mny7syog4GWSzm7JnTNO+J4D0enkheMBYr6oP8tZs=",
+      "fAccount": "YMrJGog/tAbHbe6YZTiUdhmzkkpg2NmPAr2pDiaQrHQGmY9MLa97VuA=",
       "mBank": "새마을금고",
-      "mAccount": "vRozQLuv+Pba9OKy8EUckQi8dOLX0ydQTsXFkl8/R9ApCKoPfIfu6RA="
+      "mAccount": "YRGt6RATKF83X9mr9i+mAd1xHI27Ht1Za0NKonZualEXsKPU05OT9XE="
     }
   },
   "images": {
