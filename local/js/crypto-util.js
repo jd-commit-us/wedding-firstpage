@@ -1,8 +1,5 @@
 // local/js/crypto-util.js
-const WeddingCrypto = {
-    // ⚠️ 두 값이 admin.html과 index.html에서 완전히 동일해야 합니다.
-    //DEFAULT_KEY: "wedding-secret-fixed-key", 
-    //SALT: new TextEncoder().encode("wedding-salt-fixed-unique-bytes"),  
+const WeddingCrypto = {    
     DEFAULT_KEY: "__ENCRYPTION_KEY__",
     SALT: new TextEncoder().encode("__SALT__"),
 
